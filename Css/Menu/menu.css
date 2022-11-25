@@ -1,0 +1,106 @@
+.menu
+{
+  background-color: var(--leading-color);
+  width: 100%;
+  height: 80px;
+  box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
+}
+.enlace 
+{
+  position: absolute;
+  padding: 10px 50px;
+}
+.logo
+{
+  height: 60px;
+  width: 200px;
+}
+.menu ul
+{
+  float: right;
+  list-style: none;
+  margin: 0;
+}
+.menu ul li 
+{
+  display: inline-block;
+  line-height: 20px;
+  margin: 0 5px;
+  padding:16px;
+}
+.menu ul a
+{
+  color: var(--text-color-leading);
+  display: block;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: var(--text-small);
+  padding: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.menu ul a:hover
+{
+  color: var(--text-color-menu-hover);
+  font-size: 15px;
+  transition: .5s;
+}
+.checkbtn
+{
+  font-size: 30px;
+  color: #fff;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+
+#check
+{
+  display: none;
+}
+@media screen and (max-width: 952px)
+{
+  .enlace 
+  {
+    padding-left: 2px;
+  }
+  .logo
+  {
+    height: 40px;
+    width: 160px;
+    position:relative;
+    top: 10px;
+
+  }
+}
+@media (max-width: 858px){
+    .checkbtn{
+        display: block;
+    }
+    #ul_menu{
+        position: fixed;
+        width: 60%;
+        height: 100%;
+        background: var(--text-color-footer);
+        top: 0px;
+        left: -105%;
+        text-align: center;
+        transition: all .5s;
+    }
+    .menu ul li 
+    {
+      display: block;
+      margin:50px 0 ;
+      line-height: 30px;
+    }
+    .menu ul li a 
+    {
+      font-size: var(--text-small);
+    }
+    #check:checked ~ #ul_menu
+    {
+      left:0;
+    }
+}

@@ -1,0 +1,116 @@
+footer
+{
+  width: 100%;
+  height:250px;
+  position:absolute;
+  bottom: 0px;
+  background-color: var(--color-footer);
+  box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
+
+}
+.footer--conteiner
+{
+  display: flex;
+  justify-content:space-around;
+  padding-top: 40px;
+}
+.footer--conteiner p
+{
+  color: var(--text-color-footer);
+  font-size: var(--text-medium);
+  font-weight: 400;
+}
+.footer--conteiner__correo img
+{
+  width: 50px;
+  position: relative;
+  right: 10px;
+}
+.footer--conteiner__correo a
+{
+  text-decoration: none;
+  color: var(--text-color-secon-footer);
+  font-size: var(--text-small);
+  font-weight: 200;
+  position: relative;
+  bottom: 20px;
+  right: 15px;
+}
+.footer--conteiner__enlaces ul
+{
+  list-style: none;
+}
+.footer--conteiner__enlaces ul a 
+{
+  font-size: var(--text-small);
+  font-weight: 200;
+  text-decoration: none;
+  color: var(--text-color-secon-footer);
+  position: relative;
+  right: 40px;
+  
+}
+.footer--conteiner__redes-sociales img
+{
+  width: 30px;
+  padding: 3px;
+}
+.footer--creditos
+{
+  font-size: var(--text-small);
+  font-weight: 100;
+  color: var(--text-color-credit-footer);
+  position: relative;
+  padding-left: 120px;
+  top: 22px;
+}
+.footer--conteiner__enlaces ul a:hover ,.footer--conteiner__correo a:hover
+{
+  color: aqua;
+}
+@media (max-width: 858px){
+
+    .footer--conteiner p
+    {
+      font-size: var(--text-responsive-leading);
+    }
+    .footer--conteiner__correo img
+    {
+      width: 40px;
+      top: 5px;
+    }
+    .footer--conteiner__redes-sociales img
+    {
+      width: 20px;
+      padding: 1px;
+    }
+    .footer--conteiner__correo a
+    {
+      bottom: 11px;
+    }
+    .footer--conteiner__enlaces ul a, .footer--conteiner__correo a, .footer--creditos
+    {
+      font-size: var(--text-responsive-secon);
+    } 
+  }
+  @media (max-width: 453px)
+  {
+    .footer--conteiner__correo img
+    {
+      width: 30px;
+      top: 1px;
+    }
+    .footer--conteiner__redes-sociales img
+    {
+      width: 10px;
+      padding: 1px;
+    }
+    .footer--conteiner p
+    {
+      font-size: 10px;
+    }
+    .footer--conteiner__enlaces ul a, .footer--conteiner__correo a, .footer--creditos
+    {
+      font-size: 9px;
+    } 
+  }
