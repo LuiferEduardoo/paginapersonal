@@ -88,10 +88,22 @@ textarea {
     cursor:pointer;
     background: #91B6DC;
 }
-@media (max-width: 858px){
+@media (max-width: 858px)
+{
 
 }
-@media (max-width: 453px)
+@media (max-width: 450px)
 {
-  
+    input, textarea
+    {
+        width:230px;
+        height:27px;
+    }
+
+    form 
+    {
+        width:250px;
+        background-color: #fff;
+    }
+
 }
