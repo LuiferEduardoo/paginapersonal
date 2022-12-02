@@ -64,6 +64,12 @@ body
     word-spacing: 5px;
     line-height: 30px;
 }
+#edad_p
+{
+  padding: 0px;
+  margin: 0px;
+  font-weight: 400;
+}
 .principal-container--encabezado ul a
 {
     text-decoration: none;
