@@ -76,9 +76,18 @@ body
     color: var(--text-color-leading);
 }
 @media (max-width: 858px){
-  
+  .principal-container--encabezado
+  {
+    width: 80%;
+  }
+    
+
 }
-@media (max-width: 453px)
+@media (max-width: 415px)
 {
+  .principal-container
+  {
+    height: 1500px;
+  }
   
 }
