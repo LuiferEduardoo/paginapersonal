@@ -1,0 +1,17 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/luifered/public_html/
+    - /bin/cp index.html $DEPLOYPATH
+    - /bin/cp .htaccess $DEPLOYPATH
+    - /bin/cp blog.html $DEPLOYPATH
+    - /bin/cp contacto.html $DEPLOYPATH
+    - /bin/cp sobre-mi.html $DEPLOYPATH
+    - /bin/cp blog.html $DEPLOYPATH
+    - /bin/cp portaforio.html $DEPLOYPATH
+    - /bin/cp 404.shtml $DEPLOYPATH
+    - /bin/cp 500.shtml $DEPLOYPATH
+    - /bin/cp -R Css $DEPLOYPATH
+    - /bin/cp -R Imagenes $DEPLOYPATH
+    - /bin/cp -R Php $DEPLOYPATH
+    - /bin/cp -R Scripts $DEPLOYPATH
