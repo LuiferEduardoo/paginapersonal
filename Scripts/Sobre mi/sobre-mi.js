@@ -16,19 +16,20 @@ let month = today.getMonth() + 1;
 // con el `getFullYear()` se devuelve el año en el que se esta
 let year = today.getFullYear();
 
-if (month >= month_birthday) 
+function CalculAge(month_birthday, year_i_was_born, month, year) {
+    if (month >= month_birthday) 
 {
     //Se calcula la edad dependiendo del año actual y el año de nacimiento
     let years_old = year - year_i_was_born;
-
-    //se imprime el valor en HTML
-    text.innerHTML = years_old;      
+    return years_old;
 }
 else
 {
     //Se calcula la edad dependiendo del año actual y el año de nacimiento, pero se le resta 1
     let years_old_else = (year - year_i_was_born) -1;
-
-    //se imprime el valor en HTML
-    text.innerHTML = years_old_else; 
+    return years_old_else;
 }
+    
+}
+text.innerHTML = CalculAge(month_birthday, year_i_was_born, month, year);
+
