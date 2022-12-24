@@ -12,6 +12,8 @@
   --text-responsive-leading: 13px;
   --text-responsive-secon: 12px;
   --text-extra-big: 6.5vw;
+  --background-form: #D8DBDE;
+  --text-input-field: #F7F7F7;
 }
 html
 {
@@ -26,4 +28,61 @@ body
   margin: 0px;
   font-family: 'Quicksand', sans-serif;
   box-sizing: border-box;
+  background: rgb(51,49,54);
+  background: linear-gradient(0deg, rgba(51,49,54,1) 0%, rgba(51,159,214,1) 100%);
+}
+
+.container_principal
+{
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.form
+{
+    margin:0 auto;
+    border-radius: 20px;
+    padding: 20px;
+    width:400px;
+    background:rgba(0,0,0,0.3);
+}
+#input_usuario, #input_password {
+    width:380px;
+    height:27px;
+    border-radius: 10px;
+    background: var(--background-form);
+    border:2px solid #f6f6f6;
+    padding:10px;
+    margin-top:5px;
+    font-size:10px;
+    border: none;
+}
+
+#input_sbumit {
+    
+    width:100%;
+    border-radius: 15px;
+    height:50px;
+    border:none;
+    margin-top:20px;
+    font-family:'Quicksand', sans-serif;
+    cursor:pointer;
+    background: #91B6DC;
+}
+
+::placeholder
+{
+    font-family:'Quicksand', sans-serif;
+}
+
+
+label {
+    display:block;
+    margin-top:20px;
+    letter-spacing:1px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 4px;
 }
