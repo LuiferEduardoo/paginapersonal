@@ -1,0 +1,29 @@
+:root
+{
+  --leading-color: white; 
+  --text-color-leading: black;
+  --text-color-footer: white;
+  --text-color-secon-footer: #C7C7C7;
+  --text-color-menu-hover: #C7C7C7;
+  --text-color-credit-footer: #989899;
+  --color-footer: #1a1c20;
+  --text-small: 14px;
+  --text-medium: 16px;
+  --text-responsive-leading: 13px;
+  --text-responsive-secon: 12px;
+  --text-extra-big: 6.5vw;
+}
+html
+{
+  min-height: 100%;
+  position: relative;
+}
+
+body
+{
+  background-color: var(--leading-color);
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Quicksand', sans-serif;
+  box-sizing: border-box;
+}
