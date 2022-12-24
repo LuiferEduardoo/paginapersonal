@@ -12,6 +12,5 @@ deployment:
     - /bin/cp 404.shtml $DEPLOYPATH
     - /bin/cp 500.shtml $DEPLOYPATH
     - /bin/cp -R Css $DEPLOYPATH
-    - /bin/cp -R Imagenes $DEPLOYPATH
     - /bin/cp -R Php $DEPLOYPATH
     - /bin/cp -R Scripts $DEPLOYPATH
