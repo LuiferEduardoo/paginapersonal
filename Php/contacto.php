@@ -11,12 +11,12 @@ if ($_POST['submit'])
 {
     if (mail ($para, $titulo, $msjCorreo)) {
     echo '<script> alert ("El mensaje se ha enviado"); 
-    window.location.replace("http://luifereduardoo.com/contacto.html");
+    window.location.replace("http://luifereduardoo.com/contacto");
     </script>';
 } 
 else {
     echo '<script> alert ("Se ha producido un error, por favor intente de nuevo");
-    window.location.replace("http://luifereduardoo.com/contacto.html");
+    window.location.replace("http://luifereduardoo.com/contacto");
     </script>';
 }
 }
