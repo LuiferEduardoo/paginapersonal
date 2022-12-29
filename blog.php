@@ -33,18 +33,47 @@
           <a href="portaforio">PORTAFORIO</a>
         </li>
         <li>
-          <a href="blog">BLOG</a>
+          <a href="blog.php">BLOG</a>
         </li>
         <li>
           <a href="contacto">CONTACTO</a>
         </li>
       </ul>
-      </nav>
-      <section class="principal-container">
-        <p>SECCIÓN BAJO CONSTRUCCIÓN
-        </p>
-        <img src ="https://i.ibb.co/VW8fknp/60028-Converted.png" alt="Construcción">
-      </section>
+    </nav>
+    <section class="principal-container">
+      <?php
+      include("blog/config/database.php");
+
+      if(!$conex)
+      {
+          echo "La conexión ha fallado";
+      }
+
+      $consulta="SELECT * FROM publications ORDER BY FECHA DESC";
+
+      if($resultado=mysqli_query($conex, $consulta))
+      {
+          while($registro=mysqli_fetch_assoc($resultado))
+          {
+              $name_page = $registro['nombre_pagina'];
+              $image = $registro['imagen'];
+              $title = $registro['titulo'];
+              $content = $registro['contenido'];
+              $date = $registro['fecha'];
+              ?>
+              <div>
+                  <a href="blog/content/<?php echo $name_page?>">
+                      <img src="blog/content/img/<?php echo $image?>" alt="" srcset="">
+                      <h2><?php echo $title?></h2>
+                      <p><?php echo $content?></p>
+                      <p><?php echo $date ?></p>
+                  </a>
+              </div>
+              <?php
+          }
+      }
+      ?>
+    </section>
       <footer>
         <div class="footer--conteiner">
           <section class="footer--conteiner__correo">
@@ -62,7 +91,7 @@
                 <a href="portaforio">PORTAFORIO</a>
               </li>
               <li>
-                <a href="blog">BLOG</a>
+                <a href="blog.php">BLOG</a>
               </li>
               <li>
                 <a href="contacto">CONTACTO</a>
