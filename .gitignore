@@ -45,6 +45,9 @@ Imagenes
 #Se ignora la carpeta de configuración
 blog/config
 
+# Se ignora los archivos creados para las entradas del blog
+blog/content/*.html
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json

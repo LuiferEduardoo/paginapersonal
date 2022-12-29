@@ -27,8 +27,24 @@ session_start();
     <title>New post</title>
 </head>
 <body>
-    <h1>Bienvenido</h1>
+    <div class="container">
+        <section class="container__header">
+        <h1>Crea un nuevo post en el blog</h1>
+        <a href="singoff">Cerrar sesion</a>
+        </section>
+        <form action="insertar" method="post" enctype="multipart/form-data">
+            <label for="input_titulo">Titulo</label>
+            <input type="text" name="title" id="input_titulo" placeholder="Ingrese un titulo"><br>
+            <label for="input_nombre_pagina">Nombre de pagina</label>
+            <input type="text" name="nombre_pagina" id="input_nombre_pagina" placeholder="Para escribir una frase, se debe utilizar el guion (-)"><br>
+            <label for="textare_contenido">Ingrese el contenido del blog</label><br>
+            <textarea name="content" id="textare_contenido" cols="100" rows="30"></textarea><br>
+            <input type="hidden" name ="MAX_TAM" value="2097152">
+            <label for="input_file">Seleccione una imagen con tamaño inferior a 2 MB</label>
+            <input type="file" name="imagen" id="input_file"><b><br>
+            <button>Postear</button>
+        </form>
 
-    <a href="singoff">Cerrar sesion</a>
+    </div>
 </body>
 </html>
