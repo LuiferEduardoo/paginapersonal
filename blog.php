@@ -30,12 +30,6 @@
           <a href="sobre-mi">SOBRE MÍ</a>
         </li>
         <li>
-          <a href="portaforio">PORTAFORIO</a>
-        </li>
-        <li>
-          <a href="blog.php">BLOG</a>
-        </li>
-        <li>
           <a href="contacto">CONTACTO</a>
         </li>
       </ul>
@@ -49,31 +43,51 @@
           echo "La conexión ha fallado";
       }
 
-      $consulta="SELECT * FROM publications ORDER BY FECHA DESC";
+      $consulta="SELECT * FROM publications ORDER BY ID DESC";
 
       if($resultado=mysqli_query($conex, $consulta))
       {
+        $i = 0;
           while($registro=mysqli_fetch_assoc($resultado))
           {
+              $i++;
               $name_page = $registro['nombre_pagina'];
               $image = $registro['imagen'];
               $title = $registro['titulo'];
               $content = $registro['contenido'];
-              $date = $registro['fecha'];
-              ?>
-              <div>
+              $date = $registro['fecha_legible'];
+              if($i == 1)
+              {
+                ?>
+                <a href="blog/content/<?php echo $name_page?>">
+                <div class="principal-container-full">
+                        <img src="blog/content/img/<?php echo $image?>" alt="" srcset="">
+                        <div>
+                        <h1><?php echo $title?></h1>
+                        <p class="p1-full"><?php echo $content?></p>
+                        <div class="date"><?php echo $date ?></div>
+                        </div>
+                </div>
+                </a>
+                <?php
+              }
+              else
+              {
+                ?>
+              <div class="principal-container-content">
                   <a href="blog/content/<?php echo $name_page?>">
                       <img src="blog/content/img/<?php echo $image?>" alt="" srcset="">
-                      <h2><?php echo $title?></h2>
-                      <p><?php echo $content?></p>
-                      <p><?php echo $date ?></p>
+                      <h1><?php echo $title?></h1>
+                      <p class="date"><?php echo $date ?></p>
+                      <p class = "p1"><?php echo $content?></p>
                   </a>
               </div>
               <?php
+              }
           }
       }
       ?>
-    </section>
+      </section>
       <footer>
         <div class="footer--conteiner">
           <section class="footer--conteiner__correo">

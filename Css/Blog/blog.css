@@ -29,32 +29,124 @@ body
 }
 .principal-container
 {
-  padding-top: 80px;
-  width: 100%;
-  height: 750px;
+  margin: 0 auto; 
+  width: 70%;
   display: flex;
-  justify-content:space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 300px;
 }
-.principal-container p 
+.principal-container-full
 {
-  padding-left: 20px;
-  font-weight: 800;
-  font-size: var(--text-extra-big);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: row;
+  width: 800px;
+  margin-top: 50px;
+  margin-bottom: 30px;
 }
-.principal-container img
+.principal-container-full img
 {
-  width: 265px;
-  height: 250px;
+  width: 800px;
+  height: 400px;
+}
+.principal-container-full div
+{
+  display: flex;
+  flex-direction: column;
+  justify-content:space-between;
+  margin: 20px;
+  width:300px
+}
+.p1-full
+{
+  width: 100%;
+  height: 100px;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #000;
+}
+.principal-container-content
+{
+  display: flex;
+  justify-content: space-around;
+  flex: 0 0 42%;
+  padding-bottom: 50px;
   padding-top: 50px;
 }
-@media (max-width: 858px){
-  .principal-container img
-  {
-    width: 230px;
-    height: 180px;
-  }
-}
-@media (max-width: 453px)
+a
 {
-  
+  text-decoration: none;
+}
+.principal-container-content img  
+{
+  width: 100%;
+  height: 250px;
+}
+h1
+{
+  color: #000;
+
+}
+.p1
+{ 
+  width: 100%;
+  height: 200px;
+  white-space: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: #000;
+}
+.date
+{
+  height: 20px;
+  color: #000; 
+  font-weight: bold;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+@media screen and (max-width: 1200px)
+{
+  .principal-container
+{
+  justify-content: space-around;
+  justify-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+.principal-container-full
+{
+  padding-bottom: 50px;
+  padding-top: 50px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: column;
+  width: 80%;
+}
+.principal-container-full img
+{
+  width: 100%;
+  height: 250px;
+}
+.principal-container-full div
+{
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content:space-between;
+  margin: 0px;
+  width:100%;
+}
+.principal-container-content
+{
+  width: 80%;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
 }
