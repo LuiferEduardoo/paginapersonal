@@ -90,7 +90,7 @@ class BlogEntryFactory
             $row['titulo'],
             $row['contenido'],
             $row['imagen'],
-            $row['fecha'],
+            $row['fecha_legible'],
             $row['nombre_pagina']
         );
     }

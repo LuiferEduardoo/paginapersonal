@@ -50,14 +50,18 @@ if($_SESSION['rol'] == 1)
     {
         if((isset($_FILES['imagen']['name']) && ($_FILES['imagen']['error'] == UPLOAD_ERR_OK)))
         {
+            $date = new DateTime();
+            $timezone = new DateTimeZone('America/Bogota');
+            $date->setTimezone($timezone);
             $destiny_file = "content/img/";
             move_uploaded_file($_FILES['imagen']['tmp_name'], $destiny_file . $_FILES['imagen']['name']);
             $content =$_POST['content']; 
             $title =$_POST['title'];
-            $date =date("Y-m-d");
+            $date_ =$date->format('Y-m-d H:i:s');
+            $date_legible = $date->format("l, d F Y H:i:s");
             $name_page =$_POST['nombre_pagina'];
             $file =$_FILES['imagen']['name'];
-            $consulta = "INSERT INTO publications (titulo, fecha, contenido, imagen, nombre_pagina) VALUES ('${title}', '${date}', '${content}', '${file}', '${name_page}')";
+            $consulta = "INSERT INTO publications (titulo, fecha, fecha_legible, contenido, imagen, nombre_pagina) VALUES ('${title}', '${date_}', '${date_legible}', '${content}', '${file}', '${name_page}')";
             $resultado =mysqli_query($conex, $consulta);
             mysqli_close(($conex));
             include("post.php");
