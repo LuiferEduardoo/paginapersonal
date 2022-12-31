@@ -64,7 +64,7 @@
                         <img src="blog/content/img/<?php echo $image?>" alt="" srcset="">
                         <div>
                         <h1><?php echo $title?></h1>
-                        <p class="p1-full"><?php echo $content?></p>
+                        <div class="p1-full"><?php echo $content?></div>
                         <div class="date"><?php echo $date ?></div>
                         </div>
                 </div>
@@ -79,7 +79,7 @@
                       <img src="blog/content/img/<?php echo $image?>" alt="" srcset="">
                       <h1><?php echo $title?></h1>
                       <p class="date"><?php echo $date ?></p>
-                      <p class = "p1"><?php echo $content?></p>
+                      <div class = "p1"><?php echo $content?></div>
                   </a>
               </div>
               <?php
