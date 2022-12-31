@@ -27,25 +27,80 @@ ini_set('display_errors', 0);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title_post; ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Css/Blog/content.css">
-    <link rel="stylesheet" href="Css/Menu/menu.css">
-    <link rel="stylesheet" href="Css/Footer/footer.css">
+    <link rel="stylesheet" href="../../Css/Blog/content.css">
+    <link rel="stylesheet" href="../../Css/Menu/menu.css">
+    <link rel="stylesheet" href="../../Css/Footer/footer.css">
     <link rel="icon" type="image/png" href="https://i.ibb.co/pnb03Fv/Likepng.png"/>
 </head>
 <body>
-    <div class="container_principal">
+    <nav class="menu">
+      <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <img src="https://i.ibb.co/B2HNMRx/icons8-men-redondeado-32.png" alt="">
+        </label>
+        <a href="index" class="enlace">
+          <img src="https://i.ibb.co/mJQxt3j/Logotipo-white.png"class="logo" alt="Logo" srcset="">
+        </a>
+      <ul id="ul_menu">
+        <li>
+          <a href="../../index">HOME</a>
+        </li>
+        <li>
+          <a href="../../sobre-mi">SOBRE MÍ</a>
+        </li>
+        <li>
+          <a href="../../contacto">CONTACTO</a>
+        </li>
+      </ul>
+    </nav>
+    <header class="header-blog">
         <h1><?php echo $title_post ?></h1>
-        <img src="https://pbs.twimg.com/profile_images/1546224621728538625/MZKuzpVn_400x400.jpg" alt="" srcset="">
-        <section class="container_principal-author--name">
-            <p class="container_principal-author">LUIFER EDUARDO ORTEGA</p>
-            <p class="container_principal-author--date"><?php echo $date_post ?></p>
-        </section>
-        <figure class="container_principal--img">
+        <div class="header-blog-author">
+            <img class ="header-blog-author--img"src="https://pbs.twimg.com/profile_images/1546224621728538625/MZKuzpVn_400x400.jpg" alt="" srcset="">
+                <section class="header-blog-author-date">
+                    <a href="../../sobre-mi.html"><p class="header-blog-author-date--name">LUIFER EDUARDO ORTEGA</p></a>
+                    <p class="header-blog-author-date--date"><?php echo $date_post ?></p>
+                </section>
+        </div>
+    </header>
+    <div class="container_principal">
             <img src="img/<?php echo $img_post?>" alt="" srcset="">
-        </figure>
-        <section class="container_principal--content">
-        <p><?php echo $content_post?></p>
-        </section>
+            <div class="container_principal-content"><?php echo $content_post?></div>
     </div>
+    <footer>
+        <div class="footer--conteiner">
+          <section class="footer--conteiner__correo">
+            <p>CORREO</p>
+            <img src="https://i.ibb.co/8609h4Y/correo.png" alt="Correo">
+            <a href="mailto:contacto@luifereduardoo.com">contacto@luifereduardoo.com</a>
+          </section>
+          <section class="footer--conteiner__enlaces">
+            <p>ENLACES</p>
+            <ul>
+              <li>
+                <a href="../../sobre-mi"> SOBRE MÍ</a>
+              </li>
+              <li>
+                <a href="../../portaforio">PORTAFORIO</a>
+              </li>
+              <li>
+                <a href="../../blog.php">BLOG</a>
+              </li>
+              <li>
+                <a href="../../contacto">CONTACTO</a>
+              </li>
+            </ul>
+          </section>
+          <section class="footer--conteiner__redes-sociales">
+            <p>REDES SOCIALES</p>
+            <a href="https://www.twitter.com/luifereduardoo"><img src="https://i.ibb.co/kXbdQmC/twitter.png" alt="Twitter"></a>
+            <a href="https://www.instagram.com/luifereduardoo"><img src="https://i.ibb.co/F812NGB/instagram.png" alt="Instagram"></a>
+            <a href="https://www.facebook.com/luifereduardoo"><img src="https://i.ibb.co/fn6TjWL/facebook.png" alt="Facebook"></a>
+            <a href="https://www.linkedin.com/in/luifereduardoo/"><img src="https://i.ibb.co/kxtgH68/linkedin.png" alt="Linkedin"></a>
+            <a href="https://github.com/LuiferEduardoo"><img src="https://i.ibb.co/M9dYPNB/github.png" alt="Github"></a>
+          </section>
+        </div>
+        <p class="footer--creditos">Luifer Eduardo Ortega © 2022</p>
+      </footer>
 </body>
 </html>
