@@ -7,7 +7,6 @@ deployment:
     - /bin/cp blog.php $DEPLOYPATH
     - /bin/cp contacto.html $DEPLOYPATH
     - /bin/cp sobre-mi.html $DEPLOYPATH
-    - /bin/cp blog.html $DEPLOYPATH
     - /bin/cp portaforio.html $DEPLOYPATH
     - /bin/cp 404.shtml $DEPLOYPATH
     - /bin/cp 500.shtml $DEPLOYPATH
