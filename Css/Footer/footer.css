@@ -2,7 +2,7 @@ footer
 {
   width: 100%;
   height:250px;
-  position:absolute;
+
   bottom: 0px;
   background-color: var(--color-footer);
   box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
