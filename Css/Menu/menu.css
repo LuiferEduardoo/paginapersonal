@@ -1,106 +1,121 @@
 .menu
 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   background-color: var(--leading-color);
   width: 100%;
   height: 80px;
   box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
 }
-.enlace 
+.menu_MobileIcon
 {
-  position: absolute;
-  padding: 10px 50px;
+  margin: 40px;
+  display: none;
+  cursor: pointer;
 }
-.logo
+.menu_logo img
 {
   height: 60px;
   width: 200px;
+  margin-left: 20px;
 }
-.menu ul
+.menu_Desktop ul
 {
   float: right;
   list-style: none;
   margin: 0;
 }
-.menu ul li 
+.menu_Desktop li 
 {
   display: inline-block;
   line-height: 20px;
-  margin: 0 5px;
-  padding:16px;
+  margin-right: 20px;
 }
-.menu ul a
+.menu_Desktop a
 {
   color: var(--text-color-leading);
   display: block;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 510;
   font-size: var(--text-small);
   padding: 15px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.menu ul a:hover
+.menu_Desktop a:hover
 {
   color: var(--text-color-menu-hover);
-  font-size: 15px;
   transition: .5s;
 }
-.checkbtn
+.menu_Mobile
 {
-  font-size: 30px;
-  color: #fff;
-  float: right;
-  line-height: 80px;
-  margin-right: 40px;
-  cursor: pointer;
-  display: none;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  position: absolute;
+  background-color:white;
+  width: 65%;
+  top: 80px;
+  left: -105%;
+  transition: all .5s;
+  height: auto;
+  padding-bottom: 100px;
+}
+.show
+{
+  left: 0;
+}
+.menu_Mobile ul 
+{
+  
+  float: left;
+  list-style: none;
+  margin: 0;
 }
 
-#check
+.menu_Mobile ul a
 {
-  display: none;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.menu_Mobile img
+{
+  width: 50px;
+  padding-right: 10px;
 }
 @media screen and (max-width: 952px)
 {
-  .enlace 
-  {
-    padding-left: 2px;
-  }
-  .logo
+
+  .menu_logo img
   {
     height: 40px;
     width: 160px;
     position:relative;
-    top: 10px;
-
+    top: 0px;
   }
 }
+@media (min-width: 857px){
+  .menu_Mobile
+  {
+    display: none;
+  }
+}
+
 @media (max-width: 858px){
-    .checkbtn{
-        display: block;
-    }
-    #ul_menu{
-        position: fixed;
-        width: 60%;
-        height: 100%;
-        background: var(--text-color-footer);
-        top: 0px;
-        left: -105%;
-        text-align: center;
-        transition: all .5s;
-    }
-    .menu ul li 
-    {
-      display: block;
-      margin:50px 0 ;
-      line-height: 30px;
-    }
-    .menu ul li a 
-    {
-      font-size: var(--text-small);
-    }
-    #check:checked ~ #ul_menu
-    {
-      left:0;
-    }
+  .menu_Desktop
+  {
+    display: none;
+  }
+  .menu_MobileIcon
+  {
+    display: block;
+  }
+  .menu_logo img
+  {
+    margin: auto;
+  }
 }
