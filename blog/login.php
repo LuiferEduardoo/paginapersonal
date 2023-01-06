@@ -1,20 +1,12 @@
 <?php
 // Iniciamos la sesión
 session_start();
-
-    // Verificamos si existe una variable de sesión 'rol'
-    if(!isset($_SESSION['rol'])){
-    // Si no existe, redirigimos al usuario a la página de login
-    header('location: login');
-
-    }
-
     // Si existe una variable de sesión 'rol'
-    if($_SESSION['rol'] != 1)
+    if($_SESSION['rol'] == 1)
     {
-        // Verificamos si el valor de la variable de sesión 'rol' es distinto de 1 (admin)
+        // Verificamos si el valor de la variable de sesión 'rol' es 1 (admin)
         // Si es así, redirigimos al usuario a la página de login
-        header('location: login');    
+        header('location: post');    
     }
 
 ?>
