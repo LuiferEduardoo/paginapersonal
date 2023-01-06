@@ -54,7 +54,7 @@ ini_set('display_errors', 0);
       <div class="menu_Mobile" >
         <ul>
           <li>
-            <a href="index"><img src="https://img.icons8.com/wired/64/null/home-page.png" alt="" srcset="">HOME </a>
+            <a href="../../index"><img src="https://img.icons8.com/wired/64/null/home-page.png" alt="" srcset="">HOME </a>
           </li>
           <li>
             <a href="sobre-mi"><img src="https://cdn-icons-png.flaticon.com/512/1443/1443781.png" alt="" srcset="">SOBRE MÍ</a>
