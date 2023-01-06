@@ -30,7 +30,6 @@ body
   font-family: 'Quicksand', sans-serif;
   box-sizing: border-box;
 }
-
 label {
     display:block;
     margin-top:20px;
@@ -66,8 +65,6 @@ input, textarea {
     padding:10px;
     margin-top:5px;
     font-size:10px;
-    border: none;
-    outline: none;
 }
 ::placeholder
 {
@@ -87,18 +84,107 @@ textarea {
     margin-top:20px;
     font-family:'Quicksand', sans-serif;
     cursor:pointer;
+    font-weight:bold;
+    font-size: 13px;
     background: #91B6DC;
 }
-@media (max-width: 858px)
-{
-
+.message{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 45%;
+    height: 300px;
+    position: absolute;
+    top: 250px;
+    left: 28%;
+    border: 2px solid green;
+    border-radius: 20px;
+    background-color: #91DCA9;
 }
+.message_error
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 45%;
+    height: 300px;
+    position: absolute;
+    top: 250px;
+    left: 28%;
+    border: 2px solid red;
+    border-radius: 20px;
+    background-color: #F5CACA;
+}
+.message img, .message_error img
+{
+    width: 25px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+.message p, .message_error p
+{
+    font-size: 23px;
+    font-weight: bold;
+
+    margin: 50px;
+}
+.message_error a
+{
+    text-decoration: none;
+    color: blue;
+    font-size: 20px;
+    
+}
+.close
+{
+    display: none;
+}
+@media (max-width: 700px)
+{
+    
+    .message, 
+    .message_error
+    {
+        width: 80%;
+        height: 280px;
+        top: 250px;
+        left: 10%;
+    }
+    .message p, 
+    .message_error p
+    {
+        font-size: 20px;
+    }
+}
+
 @media (max-width: 450px)
 {
-    input, textarea
+    .message, 
+    .message_error
+    {
+        width: 90%;
+        height: 200px;
+        top: 300px;
+        left: 5%;
+    }
+    .message p, 
+    .message_error p
+    {
+        font-size: 15px;
+    }
+    input
     {
         width:230px;
         height:27px;
+    }
+    textarea
+    {
+        width:230px;
+        height:200px;
     }
 
     form 
@@ -106,5 +192,4 @@ textarea {
         width:250px;
         background-color: #fff;
     }
-
 }

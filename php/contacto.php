@@ -10,15 +10,23 @@ $msjCorreo = "Nombre: $nombre\n E-Mail: $email\n Mensaje:\n $mensaje";
 if ($_POST['submit'])
 {
     if (mail ($para, $titulo, $msjCorreo)) {
-    echo '<script> alert ("El mensaje se ha enviado"); 
-    window.location.replace("http://luifereduardoo.com/contacto");
-    </script>';
-} 
-else {
-    echo '<script> alert ("Se ha producido un error, por favor intente de nuevo");
-    window.location.replace("http://luifereduardoo.com/contacto");
-    </script>';
-}
+        include('contacto.html');
+        ?>
+        <div class="message">
+            <p>¡El mensaje se ha enviado con exito! Muy pronto respondere su mensaje.</p>
+            <img class = "message_img" src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="cerrar" srcset="">
+        </div>
+        <?php
+    } 
+    else {
+        include('contacto.html');
+        ?>
+        <div class="message_error">
+            <p>Se ha producido un error a la hora de enviar el mensaje. Intente de nuevo, o comuniquese directamente a el siguiente correo: <br><a href="mailto:contacto@luifereduardoo.com">contacto@luifereduardoo.com</a></p>
+            <img class = "message_error_img" src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="cerrar" srcset="">
+        </div>
+        <?php
+    }
 }
 
 ?>
