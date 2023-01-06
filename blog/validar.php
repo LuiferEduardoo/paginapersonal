@@ -38,7 +38,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     // Mostramos el formulario de login y un mensaje de error
     ?>
     <?php
-    include("login.html");
+    include("login.php");
   
   ?>
   <h1 class="bad">Nombre de usuario o contraseña incorrecto</h1>
