@@ -37,18 +37,18 @@ ini_set('display_errors', 0);
       <div class="menu_MobileIcon">
         <img src="https://i.ibb.co/B2HNMRx/icons8-men-redondeado-32.png" alt="">
       </div>
-        <a href="index" class="menu_logo">
+        <a href="../../index" class="menu_logo">
           <img src="https://i.ibb.co/mJQxt3j/Logotipo-white.png"class="logo" alt="Logo" srcset="">
         </a>
       <ul class="menu_Desktop">
         <li>
-          <a href="index">HOME</a>
+          <a href="../../index">HOME</a>
         </li>
         <li>
-          <a href="sobre-mi">SOBRE MÍ</a>
+          <a href="../../sobre-mi">SOBRE MÍ</a>
         </li>
         <li>
-          <a href="contacto">CONTACTO</a>
+          <a href="../../contacto">CONTACTO</a>
         </li>
       </ul>
       <div class="menu_Mobile" >
@@ -57,16 +57,16 @@ ini_set('display_errors', 0);
             <a href="../../index"><img src="https://img.icons8.com/wired/64/null/home-page.png" alt="" srcset="">HOME </a>
           </li>
           <li>
-            <a href="sobre-mi"><img src="https://cdn-icons-png.flaticon.com/512/1443/1443781.png" alt="" srcset="">SOBRE MÍ</a>
+            <a href="../../sobre-mi"><img src="https://cdn-icons-png.flaticon.com/512/1443/1443781.png" alt="" srcset="">SOBRE MÍ</a>
           </li>
           <li>
-            <a href="portaforio"><img src="https://cdn-icons-png.flaticon.com/512/943/943329.png" alt="" srcset="">PORTAFORIO</a>
+            <a href="../../portaforio"><img src="https://cdn-icons-png.flaticon.com/512/943/943329.png" alt="" srcset="">PORTAFORIO</a>
           </li>
           <li>
-            <a href="blog.php"><img src="https://cdn-icons-png.flaticon.com/512/4922/4922073.png" alt="">BLOG</a>
+            <a href="../../blog.php"><img src="https://cdn-icons-png.flaticon.com/512/4922/4922073.png" alt="">BLOG</a>
           </li>
           <li>
-            <a href="contacto"><img src="https://cdn-icons-png.flaticon.com/512/2590/2590818.png" alt="" srcset="">CONTACTO</a>
+            <a href="../../contacto"><img src="https://cdn-icons-png.flaticon.com/512/2590/2590818.png" alt="" srcset="">CONTACTO</a>
           </li>
         </ul>
       </div>
