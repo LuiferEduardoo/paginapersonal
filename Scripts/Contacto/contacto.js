@@ -1,3 +1,9 @@
+if (window.history.replaceState)
+{
+    // verificamos disponibilidad
+    window.history.replaceState(null, null, window.location.href);
+}
+
 /* Esta declaración try...catch intenta seleccionar un elemento con la clase '.message_img'
  y agregarle un controlador de eventos 'click' que ejecutará la función 'closeMessage()' */
 try {
