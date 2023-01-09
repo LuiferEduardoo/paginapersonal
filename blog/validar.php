@@ -9,24 +9,27 @@ session_start();
 if(isset($_POST['username']) && isset($_POST['password'])){
   // Almacenamos el nombre de usuario y la contraseña en variables
   $username = $_POST['username'];
-  $password = sha1($_POST['password']); // Encriptamos la contraseña con sha1
+  $password = $_POST['password'];
 
   // Creamos una nueva instancia de la clase Database
   $conex = new Database();
 
-  // Realizamos una consulta a la tabla usuarios para verificar si existe un registro con ese nombre de usuario y contraseña
-  $query = $conex->connect()->prepare("SELECT * FROM usuarios WHERE username = :username AND password = :password");
-  $query->execute(['username' => $username, 'password' => $password]);
+  $verify = $conex->connect()->prepare("SELECT * FROM usuarios WHERE username = ?");
+  $verify->bindParam(1, $username);
 
-  // Almacenamos el resultado de la consulta en una variable
-  $row = $query->fetch(PDO::FETCH_NUM);
+  $verify->execute();
+  $row = $verify->fetch(PDO::FETCH_NUM);
+  $hashed_password = $row[2];
 
-  // Si la consulta devolvió un resultado
-  if($row == true){
+  if (password_verify($password, $hashed_password))
+  {
+    echo "Contraseña correcta";
     // Almacenamos el valor del campo 'rol' en una variable
     $rol = $row[3];
+    $id = $row [0];
     // Guardamos el valor del rol en la sesión
     $_SESSION['rol'] = $rol;
+    $_SESSION['id'] = $id;
     if($rol == 1)
     {
       header('location:post');
@@ -44,4 +47,4 @@ if(isset($_POST['username']) && isset($_POST['password'])){
   <h1 class="bad">Nombre de usuario o contraseña incorrecto</h1>
   <?php
   }
-}
+  }
