@@ -32,7 +32,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     $_SESSION['id'] = $id;
     if($rol == 1)
     {
-      header('location:post');
+      header('location:home');
       // Redirigimos al usuario a la página 'post'
     }
   }
@@ -44,7 +44,9 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     include("login.php");
   
   ?>
-  <h1 class="bad">Nombre de usuario o contraseña incorrecto</h1>
+  <div class="error">
+    <p class="error_p">Nombre de usuario o contraseña incorrecto</p>
+  </div>
   <?php
   }
   }

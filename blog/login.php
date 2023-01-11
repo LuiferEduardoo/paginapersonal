@@ -1,5 +1,6 @@
 <?php
 // Iniciamos la sesión
+ini_set('display_errors', 0);
 session_start();
     // Si existe una variable de sesión 'rol'
     if($_SESSION['rol'] == 1)
@@ -26,16 +27,11 @@ session_start();
 <body>
     <div class="container_principal">
         <form class ="form" action="validar" method="post" id="formulario">
-            <h1>Login</h1>
-            <label for="input_usuario">
-                <p>Usuario</p>
-            </label>
-            <input type="text" placeholder="Ingrese su nombre de usuario" name="username" id="input_usuario" required>
-            <label for="input_password">
-                <p>Contraseña</p>
-            </label>
-            <input type="password" placeholder="ingrese su contraseña" name="password" id="input_password" required>
+            <h1 class="titulo">Bienvenido</h1>
+            <input type="text" placeholder="Usuario" name="username" id="input_usuario" required>
+            <input type="password" placeholder="Contraseña" name="password" id="input_password" required>
             <input type="submit" value="Ingresar" id="input_sbumit">
+            <a href="/">¿Perdiste tu contraseña?</a>
             </form> 
     </div>
     <script src="../Scripts/blog/login.js"></script>
