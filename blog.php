@@ -60,7 +60,7 @@
     </nav>
     <section class="principal-container">
       <?php
-      include("blog/config/database.php");
+      include("blog/config/baseblog.php");
 
       if(!$conex)
       {
