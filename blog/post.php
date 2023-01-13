@@ -43,14 +43,14 @@ session_start();
             </div>
         </section>
         <div class="principal_container">
-            <form class = "principal_container-form"action="insertar" method="post" enctype="multipart/form-data">
+            <form class = "principal_container-form" id = "form" action="insertar" method="post" enctype="multipart/form-data">
                 <h1>Crea un nuevo post en el blog</h1>
-                <input type="text" name="title" id="input_titulo" placeholder="Ingrese un titulo">
-                <input type="text" name="nombre_pagina" id="input_nombre_pagina" placeholder="Ingrese el nombre de la pagina, recuerde separar las palabras con (-)">
-                <textarea name="content" id="textare_contenido" placeholder="Ingrese el contenido del blog aquí"></textarea>
+                <input type="text" name="title" id="input_titulo" placeholder="Ingrese un titulo" required>
+                <input type="text" name="nombre_pagina" id="input_nombre_pagina" placeholder="Ingrese el nombre de la pagina, recuerde separar las palabras con (-)" required>
+                <textarea name="content" id="textare_contenido" placeholder="Ingrese el contenido del blog aquí" required></textarea>
                 <input type="hidden" name ="MAX_TAM" value="2097152">
                 <label for="input_file">Seleccione una imagen con tamaño inferior a 2 MB</label>
-                <input type="file" name="imagen" id="input_file" accept="image/*">
+                <input type="file" name="imagen" id="input_file" required>
                 <button>Postear</button>
             </form>
         </div>

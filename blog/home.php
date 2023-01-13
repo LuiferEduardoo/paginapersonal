@@ -48,7 +48,7 @@ session_start();
                 </div>
             </div>
         <?php
-      include("config/database.php");
+      include("config/baseblog.php");
 
       if(!$conex)
       {
