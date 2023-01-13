@@ -7,7 +7,7 @@ session_start();
     {
         // Verificamos si el valor de la variable de sesión 'rol' es 1 (admin)
         // Si es así, redirigimos al usuario a la página de login
-        header('location: post');    
+        header('location: home');    
     }
 
 ?>

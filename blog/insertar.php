@@ -19,30 +19,43 @@ if($_SESSION['rol'] == 1)
         {
             case 1: //error exceso de tamaño de archivo
                 include ("post.php");
-                ?>
-                <h1>El tamaño del archivo excede lo permitido por el servidor</h1>
-                <?php
+                echo '<div class="error" id="message">
+                    <img id = "cerrar" src="https://cdn-icons-png.flaticon.com/512/54/54972.png" alt="cerrar" srcset="">
+                    <p>El tamaño del archivo excede lo permitido por el servidor</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/5799/5799337.png" alt="Limite" srcset="">
+                </div>
+                <script src="../Scripts/blog/message.js"></script>';
             break; 
 
             case 2: //Error tamaño archivo que se marca en el formulario
                 include ("post.php");
-                ?>
-                <h1>El tamaño del archivo excede 2 MB</h1>
-                <?php
+                echo '<div class="error" id="message">
+                    <img id = "cerrar" src="https://cdn-icons-png.flaticon.com/512/54/54972.png" alt="cerrar" srcset="">
+                    <p>El tamaño del archivo excede 2 MB</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/6227/6227649.png" alt="Limite" srcset="">
+                </div>
+                <script src="../Scripts/blog/message.js"></script>';
             break;
             
             case 3: //Error cuando el archivo no fue enviado bien a el servidor 
                 include ("post.php");
-                ?>
-                <h1>El envio del archivo ha producido un error</h1>
-                <?php
+                echo '<div class="error" id="message">
+                    <img id = "cerrar" src="https://cdn-icons-png.flaticon.com/512/54/54972.png" alt="cerrar" srcset="">
+                    <p>El envio del archivo ha producido un error</p>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2581/2581972.png" alt="Error" srcset="">
+                    <script src="../Scripts/blog/message.js"></script>;
+                </div>';
             break;
 
             case 4: //No hay archivo en el campo de archivo 
                 include ("post.php");
-                ?>
-                <h1>Ha dejado el campo de archivo vacio</h1>
-                <?php
+                echo '<div class="error" id="message">;
+                <img id = "cerrar" src="https://cdn-icons-png.flaticon.com/512/54/54972.png" alt="cerrar" srcset="">
+                <p>Ha dejado el campo de archivo vacio</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/1380/1380641.png" alt="vacio" srcset="">
+            </div>
+            <script src="../Scripts/blog/message.js"></script>';
+                
             break; 
         }
     }
@@ -66,7 +79,12 @@ if($_SESSION['rol'] == 1)
             mysqli_close(($conex));
             include("post.php");
             ?>
-            <p>Se ha enviado la nueva entrada del blog correctamente</p>
+            <div class="insertado" id="message">
+                <img id = "cerrar" src="https://cdn-icons-png.flaticon.com/512/54/54972.png" alt="cerrar" srcset="">
+                <p>Se ha enviado la nueva entrada del blog correctamente miralo <a href="content/<?php echo $name_page ?>">Aquí</a></p>
+                <img src="https://cdn-icons-png.flaticon.com/512/3125/3125856.png" alt="Correctamente">
+            </div>
+            <script src="../Scripts/blog/message.js"></script>;
             <?php
             if($resultado)
             {
@@ -75,9 +93,13 @@ if($_SESSION['rol'] == 1)
         }
         else
         {
-            ?>
-            <h1>Se ha producido un error a la hora de enviar la nueva entrada del blog</h1>
-            <?php
+            include("post.php");
+            echo '<div class = "error" id="message">
+                <img id = "cerrar" src="https://cdn-icons-png.flaticon.com/512/54/54972.png" alt="cerrar" srcset="">
+                <p>Se ha producido un error a la hora de enviar la nueva entrada del blog</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/2581/2581972.png" alt="Error" srcset="">
+            </div>
+            <script src="../Scripts/blog/message.js"></script>';
         }
     }
 }
