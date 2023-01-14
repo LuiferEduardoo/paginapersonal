@@ -1,8 +1,3 @@
-const profileLogo = document.querySelector('.profile_logo').addEventListener('click', function(){
-    let profileMenu = document.querySelector('.profile_menu');
-    profileMenu.classList.toggle('inactive');
-});
-
 document.addEventListener("DOMContentLoaded", function() {
     // Esta función se ejecutará cuando el documento HTML haya sido completamente cargado y parseado
     

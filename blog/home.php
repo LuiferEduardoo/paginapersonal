@@ -27,6 +27,7 @@ session_start();
     <title>Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Css/Blog/home.css">
+    <link rel="stylesheet" href="../Css/Blog/profile-menu.css">
 </head>
 <body>
     <nav class="menu">
@@ -86,11 +87,12 @@ session_start();
             <img class = "profile_logo"src="https://pbs.twimg.com/profile_images/1546224621728538625/MZKuzpVn_400x400.jpg" alt="profile" srcset="">
             <div class="profile_menu inactive">
                 <ul>
-                    <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/860/860784.png" alt="" srcset="">Mi cuenta</a></li>
+                    <li><a href="my-account"><img src="https://cdn-icons-png.flaticon.com/512/860/860784.png" alt="" srcset="">Mi cuenta</a></li>
                     <li><a href="singoff"><img src="https://cdn-icons-png.flaticon.com/512/992/992680.png" alt="" srcset="">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <script src="../Scripts/blog/home.js"></script>
+    <script src="../Scripts/blog/profile-menu.js"></script>
 </body>

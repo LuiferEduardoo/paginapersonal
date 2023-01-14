@@ -38,47 +38,13 @@ body
 }
 .volver_home
 {
-    position:absolute;
+    position:fixed;
     left: 15px;
     top: 15px;
 }
 .volver_home img
 {
     width: 30px;
-}
-.profile_logo
-{   
-    position:absolute;
-    right: 30px;
-    top: 15px;
-    margin-right: 12px;
-    width: 60px;
-    border-radius: 100%;
-    cursor: pointer;
-}
-.profile_menu
-{
-    position:absolute;
-    top: 80px;
-    right: 5px;
-}
-.profile_menu ul
-{
-    list-style: none;
-}
-.profile_menu li a
-{
-  margin-bottom: 30px;
-  color: black;
-  display: flex;
-  align-items: center;
-  margin-bottom: 40px;
-  text-decoration: none;
-}
-.profile_menu li img
-{
-    width: 30px;
-    margin-right: 5px;
 }
 .principal_container
 {

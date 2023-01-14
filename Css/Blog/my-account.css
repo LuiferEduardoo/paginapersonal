@@ -1,0 +1,143 @@
+:root
+{
+  --leading-color: white; 
+  --text-color-leading: black;
+  --text-color-footer: white;
+  --text-color-secon-footer: #C7C7C7;
+  --text-color-menu-hover: #C7C7C7;
+  --text-color-credit-footer: #989899;
+  --color-footer: #1a1c20;
+  --color-insertado:#91DCA9;
+  --color-error: #F5CACA;
+  --text-small: 14px;
+  --text-medium: 16px;
+  --text-responsive-leading: 13px;
+  --text-responsive-secon: 12px;
+  --text-extra-big: 6.5vw;
+  --background-form: #D8DBDE;
+  --text-input-field: #F7F7F7;
+}
+html
+{
+  min-height: 100%;
+  position: relative;
+  height: 100%;
+}
+body
+{
+  background-color: var(--leading-color);
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Quicksand', sans-serif;
+  box-sizing: border-box;
+  height: 100%;
+}
+.darkened {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.inactive
+{
+    display: none;
+}
+.volver_home
+{
+    position:fixed;
+    left: 15px;
+    top: 15px;
+}
+.volver_home img
+{
+    width: 30px;
+}
+.container-principal
+{
+  margin-top: 20px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 50px;
+
+}
+.container-principal:nth-child(2) img
+{
+  width: 350px;
+  border-radius: 50%;
+}
+#username,
+#nombre, 
+#email
+{
+  width: 20px;
+  cursor: pointer;
+  border-radius: 0;
+  margin-left: 5px;
+  margin-bottom: -4px;
+}
+#contraseña, #photo
+{
+  color: blue;
+  cursor: pointer;
+  font-weight: bold;
+  margin:auto;
+}
+.photo
+{
+  display: flex;
+  margin-top: 20px;
+}
+form
+{
+  padding: 20px;
+  width: 40%;
+  height: auto;
+  background:var(--leading-color);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  position:absolute;
+  top: 180px;
+  left: 30%;
+}
+#cerrarIcon
+{
+  width: 30px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+form input
+{
+  width: 50%;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--background-form);
+  border:2px solid #f6f6f6;
+  padding:10px;
+  margin-bottom: 20px;
+  margin-top:5px;
+  border: none;
+}
+form button
+{
+    width:50%;
+    border-radius: 15px;
+    height:50px;
+    border:none;
+    margin-top:20px;
+    font-family:'Quicksand', sans-serif;
+    cursor:pointer;
+    background: #91B6DC;
+    font-weight: bold;
+
+}
+form p
+{
+  color:var(--text-color-credit-footer);
+  font-weight: bold;
+}

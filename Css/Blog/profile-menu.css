@@ -1,0 +1,35 @@
+.profile_logo
+{   
+    position:fixed;
+    right: 30px;
+    top: 15px;
+    margin-right: 12px;
+    width: 60px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.profile_menu
+{
+    position:fixed;
+    top: 80px;
+    right: 5px;
+}
+.profile_menu ul, .profile_menu li
+{
+    list-style: none;
+    text-decoration: none;
+}
+.profile_menu li a
+{
+  margin-bottom: 30px;
+  color: black;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  text-decoration: none;
+}
+.profile_menu li img
+{
+    width: 30px;
+    margin-right: 5px;
+}

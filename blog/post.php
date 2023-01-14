@@ -26,6 +26,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Css/Blog/post.css">
+    <link rel="stylesheet" href="../css/Blog/profile-menu.css">
     <title>New post</title>
 </head>
 <body>
@@ -34,7 +35,7 @@ session_start();
             <img class = "profile_logo"src="https://pbs.twimg.com/profile_images/1546224621728538625/MZKuzpVn_400x400.jpg" alt="profile" srcset="">
             <div class="profile_menu inactive">
                 <ul>
-                    <li><a href="#"><img src="https://cdn-icons-png.flaticon.com/512/860/860784.png" alt="" srcset="">Mi cuenta</a></li>
+                    <li><a href="my-account"><img src="https://cdn-icons-png.flaticon.com/512/860/860784.png" alt="" srcset="">Mi cuenta</a></li>
                     <li><a href="singoff"><img src="https://cdn-icons-png.flaticon.com/512/992/992680.png" alt="" srcset="">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -55,5 +56,6 @@ session_start();
             </form>
         </div>
         <script src="../Scripts/blog/post.js"></script>
+        <script src="../Scripts/blog/profile-menu.js"></script>
     </body>
 </html>
