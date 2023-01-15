@@ -27,9 +27,11 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     // Almacenamos el valor del campo 'rol' en una variable
     $rol = $row[3];
     $id = $row [0];
+    $photo = $row[6];
     // Guardamos el valor del rol en la sesión
     $_SESSION['rol'] = $rol;
     $_SESSION['id'] = $id;
+    $_SESSION['profile'] = $photo;
     if($rol == 1)
     {
       header('location:home');
