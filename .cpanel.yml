@@ -5,12 +5,11 @@ deployment:
     - /bin/cp index.html $DEPLOYPATH
     - /bin/cp .htaccess $DEPLOYPATH
     - /bin/cp blog.php $DEPLOYPATH
-    - /bin/cp contacto.html $DEPLOYPATH
+    - /bin/cp contacto.php $DEPLOYPATH
     - /bin/cp sobre-mi.html $DEPLOYPATH
     - /bin/cp portaforio.html $DEPLOYPATH
     - /bin/cp 404.shtml $DEPLOYPATH
     - /bin/cp 500.shtml $DEPLOYPATH
     - /bin/cp -R blog $DEPLOYPATH
     - /bin/cp -R Css $DEPLOYPATH
-    - /bin/cp -R php $DEPLOYPATH
     - /bin/cp -R Scripts $DEPLOYPATH
