@@ -5,9 +5,8 @@ ini_set('display_errors', 0);
 
     // Verificamos si existe una variable de sesión 'rol'
     if(!isset($_SESSION['rol'])){
-    // Si no existe, redirigimos al usuario a la página de login
-    header('location: ../login');
-
+      // Si no existe, redirigimos al usuario a la página de login
+      header('location: ../login');
     }
 
     // Si existe una variable de sesión 'rol'
@@ -15,9 +14,8 @@ ini_set('display_errors', 0);
     {
         // Verificamos si el valor de la variable de sesión 'rol' es distinto de 1 (admin)
         // Si es así, redirigimos al usuario a la página de login
-        header('location: ../login');    
+        header('location: ../login'); 
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

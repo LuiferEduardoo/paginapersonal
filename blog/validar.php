@@ -1,6 +1,7 @@
 <?php
 // Incluimos el archivo con la clase Database
 include("config/database.php");
+ini_set('display_errors', 0);
 
 // Iniciamos la sesión
 session_start();
