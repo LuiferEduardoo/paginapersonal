@@ -178,7 +178,7 @@ session_start();
     <div class="container-principal">
         <h1>Editar perfil</h1>
         <section class="container-principal-informacion">
-            <img src="../img/profile/<?php echo $_SESSION['profile']?>" alt="Foto" srcset="">
+            <img id = "profile_photo"src="../img/profile/<?php echo $_SESSION['profile']?>" alt="Foto" srcset="">
             <div class="photo">
                 <p id="photo">Editar foto</p>
             </div>

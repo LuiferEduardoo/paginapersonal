@@ -61,9 +61,10 @@ body
   padding-bottom: 50px;
 
 }
-.container-principal:nth-child(2) img
+#profile_photo
 {
   width: 350px;
+  height: 350px;
   border-radius: 50%;
 }
 #username,
