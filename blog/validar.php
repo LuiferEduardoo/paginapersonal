@@ -24,7 +24,6 @@ if(isset($_POST['username']) && isset($_POST['password'])){
 
   if (password_verify($password, $hashed_password))
   {
-    echo "Contraseña correcta";
     // Almacenamos el valor del campo 'rol' en una variable
     $rol = $row[3];
     $id = $row [0];
@@ -36,7 +35,7 @@ if(isset($_POST['username']) && isset($_POST['password'])){
     if($rol == 1)
     {
       header('location:home');
-      // Redirigimos al usuario a la página 'post'
+      // Redirigimos al usuario a la página 'home'
     }
   }
   // Si la consulta no devolvió un resultado
