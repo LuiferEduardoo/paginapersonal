@@ -1,7 +1,10 @@
-:root
-{
+:root{
   --leading-color: white; 
-  --text-color-leading: black;
+  --secon-color: #FAFAFA;
+  --third-color: #ECECEC;
+  --fourth-color: #D1D1D1;
+  --text-color-leading: #212121;
+  --text-color-secon: #6b7280;
   --text-color-footer: white;
   --text-color-secon-footer: #C7C7C7;
   --text-color-menu-hover: #C7C7C7;
@@ -11,50 +14,244 @@
   --text-medium: 16px;
   --text-responsive-leading: 13px;
   --text-responsive-secon: 12px;
-  --text-extra-big: 6.5vw;
 }
-html
-{
+html{
   min-height: 100%;
   position: relative;
 }
 
-body
-{
+body{
   background-color: var(--leading-color);
   padding: 0px;
   margin: 0px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
   box-sizing: border-box;
 }
-.principal-container
-{
-  padding-top: 80px;
-  width: 100%;
-  height: 750px;
+
+/* Esto es el encabezado con la imagen, el nombre el username y la descrición */
+header{
+  position: relative;
   display: flex;
-  justify-content:space-around;
+  width: 100%;
+  height: auto;
+  padding-top: 5px;
 }
-.principal-container p 
+.header-container-img{
+  position: relative;
+  width: 50%;
+}
+.header-container-img img{
+  position:absolute;
+  top: 0;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.header-container-information
 {
-  padding-left: 20px;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.header-information-person{
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+  padding-left: 50px;
+}
+.header-container-person section{
+  position: relative;
+  z-index: 10;
+  padding-bottom: 2rem;
+  max-width: 50rem;
+  width: 100%;
+}
+.name{
+  color: var(--text-color-leading);
+  padding: 0px;
+  letter-spacing: 0px;
+}
+.username{
+  color: #3429EA;
+  margin: 0;
+}
+.header-information-person p{
+  color: var(--text-color-secon);
+  font-size: 20px;
+}
+
+main {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 784px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.header-information-person span{
+  font-size: 4rem;
+  letter-spacing: -0.05em;
   font-weight: 800;
-  font-size: var(--text-extra-big);
+  margin-right: 20px;
 }
-.principal-container img
+
+/* Container principal */
+.main-container{
+  background-color: var(--secon-color);
+  width: 100%;
+}
+
+/* Información sobre mí */
+.main-container-about{
+  display: flex;
+  justify-content: space-around;
+  padding: 50px;
+}
+.main-container-about-img img{
+  width: 100%;
+  border-radius: 8px;
+}
+.main-container-about-text a{
+  text-decoration: none;
+  color: var(--text-color-leading);
+  font-weight: bold;
+}
+
+/* Skill */
+.main-container-skills
 {
-  width: 265px;
-  height: 250px;
-  padding-top: 50px;
+  display: grid;
+  grid-row: auto;
+  grid-column:repeat(6,1fr);
+  background-color: var(--third-color);
+  padding:10px 50px 30px 50px;
 }
-@media (max-width: 858px){
-  .principal-container img
-  {
-    width: 230px;
-    height: 180px;
+.main-container-skills h1{
+  text-align: center;
+  grid-column: 1/6;
+  font-size: 25px;
+}
+.main-container-skills-information{
+  grid-column: auto;
+  border-radius: 20px;
+  text-align: center;
+  background-color: var(--leading-color);
+  width: 200px;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.main-container-skills-information img{
+  width: 100px;
+}
+
+/* Redes sociales */
+.main-container-social{
+  background-color: var(--fourth-color);
+  display: flex;
+  flex-direction: column;
+  padding: 5px 50px 50px 50px;
+  align-content: space-around;
+}
+.main-container-social h1{
+  text-align: center;
+}
+
+/* Instagram */
+.main-container-social-instagram, 
+.main-container-social-twitter{
+  width: 100%;
+  display: grid;
+  grid-row: auto;
+  grid-column:repeat(4,1fr);
+}
+.main-container-social-instagram h3,
+.main-container-social-twitter h3{
+  grid-column: 1/4;
+}
+.main-container-social-instagram-conten,
+.main-container-social-twitter-conten{
+  width:88%;
+  background-color: var(--secon-color);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.main-container-social-instagram-conten a,
+.main-container-social-twitter-conten a{
+  text-decoration: none;
+}
+.items-porfile{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.items-porfile-photo img,
+.items-twitter-porfile-photo img{
+  width: 50px;
+  border-radius: 50%;
+}
+.items-porfile-information p{
+  padding-left: 10px;
+  margin: 0;
+  color: var(--text-color-leading);
+}
+.img img{
+  border-radius: 8px;
+  width: 100%;
+  object-fit: cover;
+}
+.items-porfile-information p:first-child{
+  font-weight: bold;
+}
+.description{
+  color: var(--text-color-leading);
+}
+
+/* Twiteer */
+.main-container-social-twitter-conten{
+  background-color: var(--third-color);
+}
+.items-twitter{
+  display: flex;
+}
+.information-porfile, 
+.information-porfile p{
+  color: var(--text-color-leading);
+  font-weight: bold;
+  display: flex;
+  margin: 0px;
+}
+.information-porfile p:first-child{
+  font-weight:400;
+}
+.items-twitter-porfile-photo img{
+  padding-right:10px;
+}
+.twitt p{
+  padding: 0 0 20px 0;
+  margin: 0;
+  color: var(--text-color-leading);
+}
+@media (max-width: 1020px){
+  header{
+    flex-direction: column;
   }
-}
-@media (max-width: 453px)
-{
-  
+  svg{
+    display:none;
+  }
+  .header-container-img{
+    width: 100%;
+  }
+  .header-container-img img{
+    position: relative;
+  }
+  .header-information-person{
+    padding: 0;
+    padding-bottom: 80px;
+    padding-top: 20px;
+  }
 }
