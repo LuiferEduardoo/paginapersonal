@@ -1,34 +1,30 @@
-:root
-{
+:root{
   --leading-color: white; 
-  --text-color-leading: black;
-  --text-color-footer: white;
-  --text-color-secon-footer: #C7C7C7;
-  --text-color-menu-hover: #C7C7C7;
-  --text-color-credit-footer: #989899;
-  --color-footer: #1a1c20;
+  --secon-color: #FAFAFA;
+  --third-color: #ECECEC;
+  --fourth-color: #D1D1D1;
+  --text-color-leading: #212121;
+  --text-color-secon: #6b7280;
   --text-small: 14px;
   --text-medium: 16px;
   --text-responsive-leading: 13px;
   --text-responsive-secon: 12px;
   --text-extra-big: 6.5vw;
+
 }
-html
-{
+html{
   min-height: 100%;
   position: relative;
 }
 
-body
-{
+body{
   background-color: var(--leading-color);
   padding: 0px;
   margin: 0px;
-  font-family: 'Quicksand', sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
   box-sizing: border-box;
 }
-.principal-container
-{
+.principal-container{
   margin: 0 auto; 
   width: 70%;
   display: flex;
@@ -37,8 +33,7 @@ body
   justify-content: space-around;
   margin-bottom: 100px;
 }
-.principal-container-full
-{
+.principal-container-full{
   flex: 1;
   display: flex;
   justify-content: center;
@@ -48,21 +43,18 @@ body
   margin-top: 50px;
   margin-bottom: 30px;
 }
-.principal-container-full img
-{
+.principal-container-full img{
   width: 800px;
   height: 400px;
 }
-.principal-container-full div
-{
+.principal-container-full div{
   display: flex;
   flex-direction: column;
   justify-content:space-between;
   margin: 20px;
   width:300px
 }
-.p1-full
-{
+.p1-full{
   width: 100%;
   height: 100px;
   white-space: normal;
@@ -70,30 +62,24 @@ body
   overflow: hidden;
   color: #000;
 }
-.principal-container-content
-{
+.principal-container-content{
   display: flex;
   justify-content: space-around;
   flex: 0 0 42%;
   padding-bottom: 50px;
   padding-top: 50px;
 }
-a
-{
+a{
   text-decoration: none;
 }
-.principal-container-content img  
-{
+.principal-container-content img  {
   width: 100%;
   height: 250px;
 }
-h1
-{
+h1{
   color: #000;
-
 }
-.p1
-{ 
+.p1{ 
   width: 100%;
   height: 200px;
   white-space: normal;
@@ -101,52 +87,45 @@ h1
   overflow: hidden;
   color: #000;
 }
-.date
-{
+.date{
   height: 20px;
   color: #000; 
   font-weight: bold;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-@media screen and (max-width: 1200px)
-{
-  .principal-container
-{
-  justify-content: space-around;
-  justify-items: center;
-  flex-direction: column;
-  width: 100%;
+@media screen and (max-width: 1200px){
+  .principal-container{
+    justify-content: space-around;
+    justify-items: center;
+    flex-direction: column;
+    width: 100%;
 }
-.principal-container-full
-{
-  padding-bottom: 50px;
-  padding-top: 50px;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-  flex-direction: column;
-  width: 80%;
-}
-.principal-container-full img
-{
-  width: 100%;
-  height: 250px;
-}
-.principal-container-full div
-{
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  justify-content:space-between;
-  margin: 0px;
-  width:100%;
-}
-.principal-container-content
-{
-  width: 80%;
-  padding-bottom: 50px;
-  padding-top: 50px;
-}
+  .principal-container-full{
+    padding-bottom: 50px;
+    padding-top: 50px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    flex-direction: column;
+    width: 80%;
+  }
+  .principal-container-full img{
+    width: 100%;
+    height: 250px;
+  }
+  .principal-container-full div{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content:space-between;
+    margin: 0px;
+    width:100%;
+  }
+  .principal-container-content{
+    width: 80%;
+    padding-bottom: 50px;
+    padding-top: 50px;
+  }
 }

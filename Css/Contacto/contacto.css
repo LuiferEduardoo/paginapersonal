@@ -1,34 +1,29 @@
-:root
-{
-  --leading-color: white; 
-  --text-color-leading: black;
-  --text-color-footer: white;
-  --text-color-secon-footer: #C7C7C7;
-  --text-color-menu-hover: #C7C7C7;
-  --text-color-credit-footer: #989899;
-  --color-footer: #1a1c20;
-  --text-small: 14px;
-  --text-medium: 16px;
-  --text-responsive-leading: 13px;
-  --text-responsive-secon: 12px;
-  --text-extra-big: 6.5vw;
-  --background-form: #D8DBDE;
-  --text-input-field: #F7F7F7;
+:root{
+    --leading-color: white; 
+    --secon-color: #FAFAFA;
+    --third-color: #ECECEC;
+    --fourth-color: #D1D1D1;
+    --text-color-leading: #212121;
+    --text-color-secon: #6b7280;
+    --text-small: 14px;
+    --text-medium: 16px;
+    --text-responsive-leading: 13px;
+    --text-responsive-secon: 12px;
+    --background-form: #D8DBDE;
+    --text-input-field: #F7F7F7;
 
 }
-html
-{
-  min-height: 100%;
-  position: relative;
+html{
+    min-height: 100%;
+    position: relative;
 }
 
-body
-{
-  background-color: var(--leading-color);
-  padding: 0px;
-  margin: 0px;
-  font-family: 'Quicksand', sans-serif;
-  box-sizing: border-box;
+body{
+    background-color: var(--leading-color);
+    padding: 0px;
+    margin: 0px;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
+    box-sizing: border-box;
 }
 label {
     display:block;
@@ -38,8 +33,7 @@ label {
     font-weight: bold;
     margin-bottom: 4px;
 }
-.principal
-{
+.principal{
     padding-top: 50px;
     display: flex;
     flex-direction: column;
@@ -55,7 +49,7 @@ form {
     width:400px;
     background-color: #f6f6f6;
 }
- 
+
 input, textarea {
     width:380px;
     height:27px;
@@ -64,19 +58,15 @@ input, textarea {
     border:2px solid #f6f6f6;
     padding:10px;
     margin-top:5px;
-    font-size:10px;
 }
-::placeholder
-{
-    font-family:'Quicksand', sans-serif;
-    font-size: 13px;
+::placeholder{
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
 }
 textarea {
     height:200px;
 }
- 
+
 #submit {
-    
     width:100%;
     border-radius: 15px;
     height:50px;
@@ -102,8 +92,7 @@ textarea {
     border-radius: 20px;
     background-color: #91DCA9;
 }
-.message_error
-{
+.message_error{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -117,78 +106,63 @@ textarea {
     border-radius: 20px;
     background-color: #F5CACA;
 }
-.message img, .message_error img
-{
+.message img, .message_error img{
     width: 25px;
     position: absolute;
     top: 10px;
     right: 20px;
     cursor: pointer;
 }
-.message p, .message_error p
-{
+.message p, .message_error p{
     font-size: 23px;
     font-weight: bold;
-
     margin: 50px;
 }
-.message_error a
-{
+.message_error a{
     text-decoration: none;
     color: blue;
     font-size: 20px;
     
 }
-.close
-{
+.close{
     display: none;
 }
-@media (max-width: 700px)
-{
+@media (max-width: 700px){
     
     .message, 
-    .message_error
-    {
+    .message_error{
         width: 80%;
         height: 280px;
         top: 250px;
         left: 10%;
     }
     .message p, 
-    .message_error p
-    {
+    .message_error p{
         font-size: 20px;
     }
 }
 
-@media (max-width: 450px)
-{
+@media (max-width: 450px){
     .message, 
-    .message_error
-    {
+    .message_error{
         width: 90%;
         height: 200px;
         top: 300px;
         left: 5%;
     }
     .message p, 
-    .message_error p
-    {
+    .message_error p{
         font-size: 15px;
     }
-    input
-    {
+    input{
         width:230px;
         height:27px;
     }
-    textarea
-    {
+    textarea{
         width:230px;
         height:200px;
     }
-
-    form 
-    {
+    form {
         width:250px;
         background-color: #fff;
     }

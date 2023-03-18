@@ -5,11 +5,6 @@
   --fourth-color: #D1D1D1;
   --text-color-leading: #212121;
   --text-color-secon: #6b7280;
-  --text-color-footer: white;
-  --text-color-secon-footer: #C7C7C7;
-  --text-color-menu-hover: #C7C7C7;
-  --text-color-credit-footer: #989899;
-  --color-footer: #1a1c20;
   --text-small: 14px;
   --text-medium: 16px;
   --text-responsive-leading: 13px;
@@ -31,51 +26,67 @@ body{
 header{
   display: flex;
 	max-width: 100%;
-	height: 92vh;
-	background-image: url(../../img/img-hero.jpg);
+	height: 597px;
+	background-image: url(../../img/png_20230213_185406_0000.jpg);
 	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: left;
+	background-size:cover;
 }
 header .header-container{
   max-width: 1000px;
-  margin: 0 auto;
 	height: 100%;
 	display: flex;
-	flex-flow: row wrap;
-  justify-content: left;
+  justify-content: center;
 }
 header .header-container .header-container-information{
   flex-basis: 50%;
 	text-align: left;
 	align-self: center;
-}
-
-/* Estilos nombre */
-.name{
-  color: var(--text-color-leading);
-  padding: 0px;
-  letter-spacing: 0px;
-}
-
-/* Estilos username */
-.username{
-  color: #3429EA;
-  margin: 0;
+  position: relative;
+  left: 50px;
 }
 
 /* Estilos información personal */
 header .header-container .header-container-information span{
-  font-size: 4rem;
   letter-spacing: -0.05em;
   font-weight: 800;
+  line-height: 1;
+  display: block;
 }
 
-/* Estillos detalles */
-header .header-container .header-container-information p {
-  color: var(--text-color-secon);
-  font-size: 15px;
-	line-height: 1.2;
+/* Estilos presentation */
+.presentation{
+  color: var(--text-color-leading);
+  font-size: 2.5rem;
+}
+
+/* Estilos username */
+.name{
+  color: #3429EA;
+  margin: 0;
+  font-size: 5rem;
+  white-space: nowrap;
+}
+.profession{
+  color: var(--text-color-leading);
+  font-size: 2.5rem;
+}
+#aboutMe{
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color:#3429EA;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-top: 50px;
+}
+#aboutMe:hover {
+  background-color: #1E1BCC;
+  transform: translateY(-3px);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Container principal */
@@ -147,26 +158,25 @@ header .header-container .header-container-information p {
 
 /* Instagram */
 .main-container-social-instagram, 
-.main-container-social-twitter{
+.main-container-social-linkedin{
   width: 100%;
   display: grid;
   grid-row: auto;
   grid-column:repeat(4,1fr);
 }
 .main-container-social-instagram h3,
-.main-container-social-twitter h3{
+.main-container-social-linkedin h3{
   grid-column: 1/4;
 }
-.main-container-social-instagram-conten,
-.main-container-social-twitter-conten{
+.main-container-social-instagram-conten{
   width:88%;
+  height:auto;
   background-color: var(--secon-color);
-  border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 20px;
 }
 .main-container-social-instagram-conten a,
-.main-container-social-twitter-conten a{
+.main-container-social-linkedin-conten a{
   text-decoration: none;
 }
 .items-porfile{
@@ -175,19 +185,20 @@ header .header-container .header-container-information p {
   align-items: center;
   padding-bottom: 10px;
 }
-.items-porfile-photo img,
-.items-twitter-porfile-photo img{
-  width: 50px;
+.items-porfile-photo img{
+  width: 45px;
   border-radius: 50%;
 }
 .items-porfile-information p{
   padding-left: 10px;
   margin: 0;
+  line-height: 1;
   color: var(--text-color-leading);
 }
 .img img{
   border-radius: 8px;
   width: 100%;
+  height: 300px;
   object-fit: cover;
 }
 .items-porfile-information p:first-child{
@@ -197,31 +208,42 @@ header .header-container .header-container-information p {
   color: var(--text-color-leading);
 }
 
-/* Twiteer */
-.main-container-social-twitter-conten{
-  background-color: var(--third-color);
+/* LinkedIn */
+
+.main-container-social-linkedin-conten{
+  width:95%;
+  height:auto;
+  background-color: var(--secon-color);
+  border-radius: 10px;
 }
-.items-twitter{
+.information-profile{
   display: flex;
+  height: auto;
+  padding: 20px;
 }
-.information-porfile, 
-.information-porfile p{
-  color: var(--text-color-leading);
-  font-weight: bold;
-  display: flex;
-  margin: 0px;
+.information-profile img{
+  width: 45px;
+  object-fit: cover;
 }
-.information-porfile p:first-child{
-  font-weight:400;
-}
-.items-twitter-porfile-photo img{
-  padding-right:10px;
-}
-.twitt p{
-  padding: 0 0 20px 0;
+.information-profile div p{
+  font-size: 12px;
+  line-height: 1;
   margin: 0;
-  color: var(--text-color-leading);
+  color: black;
+  padding-left: 10px;
 }
+.linkedin-name{
+  font-size: 15px !important; 
+  color: var(--text-color-leading) !important;
+}
+.content-post{
+  color: black;
+  padding: 0px 20px 10px 20px;
+}
+.content img{
+  width: 100%;
+}
+
 @media (max-width: 1200px) {
 
   /* Estilos información personal header*/
@@ -253,8 +275,25 @@ header .header-container .header-container-information p {
     grid-column: 1/2;
   }
 }
-
+@media (max-width: 880px){
+  header{
+    height: 350px;
+  }
+}
 @media (max-width: 767px) {
+  .name {
+    font-size: 3rem;
+  }
+  .profession, .presentation{
+    font-size: 1.5rem;
+    white-space: nowrap;
+  }
+  header .header-container .header-container-information span {
+    font-size: 2rem;
+  }
+  #aboutMe {
+    font-size: 14px;
+  }
   /* skill */
   .main-container-skills {
     grid-column: repeat(3, 1fr);
@@ -270,11 +309,21 @@ header .header-container .header-container-information p {
 }
 
 @media (max-width: 575px) {
-  /* Estilos información personal header*/
-  header .header-container .header-container-information span{
-    font-size: 2.8rem;
+
+  header .header-container .header-container-information{
+    left: 20px;
   }
 
+  header{
+    height: 250px;
+  }
+  .name {
+    font-size: 1rem;
+  }
+  .profession, .presentation{
+    font-size: 0.5rem;
+    white-space:normal;
+  }
   /* skill */
   .main-container-skills {
     grid-column: repeat(1, 1fr);
