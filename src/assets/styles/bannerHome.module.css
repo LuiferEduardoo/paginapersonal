@@ -1,0 +1,90 @@
+@import url('banner.module.css');
+
+.headerContainerInformation{
+    flex-basis: 50%;
+    text-align: left;
+    align-self: center;
+    position: absolute;
+    top: 30%;
+    left: 50px;
+}
+/* Estilos información personal */
+.headerContainerInformation span{
+    letter-spacing: -0.05em;
+    font-weight: 800;
+    line-height: 1;
+    display: block;
+}
+/* Estilos presentation */
+.presentation{
+    color: var(--text-color-leading);
+    font-size: 2.5rem;
+}
+
+/* Estilos username */
+.name{
+    color: #3429EA;
+    margin: 0;
+    font-size: 5rem;
+    white-space: nowrap;
+}
+.profession{
+    color: var(--text-color-leading);
+    font-size: 2.5rem;
+}
+/* Container principal */
+.main-container{
+    background-color: var(--secon-color);
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+    /* Estilos información personal header*/
+    header .headerContainer .headerContainerInformation span{
+        font-size: 3rem;
+    }
+}
+@media (max-width: 880px){
+    header{
+        height: 350px;
+    }
+}
+@media (max-width: 767px) {
+    .name {
+        font-size: 3rem;
+    }
+    .profession, .presentation{
+        font-size: 1.5rem;
+        white-space: nowrap;
+    }
+    header .headerContainer .headerContainerInformation span {
+        font-size: 2rem;
+    }
+    #aboutMe {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 575px) {
+
+    header .headerContainer .headerContainerInformation{
+        left: 20px;
+    }
+    header{
+        height: 250px;
+    }
+    .name {
+        font-size: 2rem;
+    }
+    .profession, .presentation{
+        font-size: 1.5rem;
+        white-space:normal;
+    }
+}
+
+@media (max-width: 575px) {
+    /* skill */
+    .mainContainerSkillsInformation img {
+        width: 80px;
+    }
+}

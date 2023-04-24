@@ -1,0 +1,90 @@
+.main {
+    height: 100vh;
+    background-color: var(--secon-color);
+}
+
+.mainContainer {
+    width: 100%;
+    padding-top: 20px;
+}
+
+.mainContainerContactForm {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--leading-color);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.informationPersoninformationPerson{
+    min-width:400px;
+}
+.informationPersoninformationPerson h1{
+    color: var(--text-color-leading)
+}
+.informationPersonEmail{
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.informationPersonEmail a{
+    text-decoration: none;
+    color: var(--text-color-secon);
+}
+
+.informationPersonEmail i{
+    font-size: 25px;
+    color: var(--text-color-secon);
+}
+
+.informationSocialMedia a i{
+    color: var(--leading-color);
+    font-size: 25px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: var(--color-botton-banner);
+    padding: 10px;
+    margin-right: 8px;
+}
+
+
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    min-width:500px;
+}
+
+.input,
+.textarea {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 7px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.input {
+    height: 15px;
+}
+
+.textarea {
+    height: 200px;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+.button {
+    background-color:var(--color-botton-banner);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: var(--color-hover-botton-baner);
+}

@@ -1,0 +1,247 @@
+/* Información sobre mí */
+.mainContainerAbout{
+  display: flex;
+  justify-content: space-around;
+  padding: 50px;
+}
+.mainContainerAboutImg img{
+  width: 100%;
+  border-radius: 8px;
+  height: 100%;
+  object-fit: cover;
+}
+.mainContainerAboutText a{
+  text-decoration: none;
+  color: var(--text-color-leading);
+  font-weight: bold;
+}
+
+/* Skill */
+.mainContainerSkills{
+  display: grid;
+  grid-row: auto;
+  grid-column:repeat(6,1fr);
+  background-color: var(--secon-color);
+  padding:10px 50px 30px 50px;
+  box-shadow: 2px 2px 5px 2px rgba(34, 34, 34, 0.2);
+}
+.mainContainerSkills h1{
+  text-align: center;
+  grid-column: 1/6;
+  font-size: 25px;
+}
+.mainContainerSkillsInformation{
+  grid-column: auto;
+  border-radius: 20px;
+  text-align: center;
+  background-color: var(--leading-color);
+  width: 200px;
+  height: auto;
+  padding: 10px;
+  margin-top: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.mainContainerSkillsInformation img{
+  width: 100px;
+}
+
+/* Redes sociales */
+.mainContainerSocial{
+  width: 100%;
+  background-color: var(--third-color);
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  box-shadow: 2px 2px 5px 2px rgba(34, 34, 34, 0.2);
+}
+.mainContainerSocial section{
+  width: 90%;
+  margin: 0 auto;
+}
+.mainContainerSocial h1{
+  text-align: center;
+}
+.mainContainerSocial section h2{
+  margin-left: 80px;
+}
+
+/* Instagram */
+.mainContainerSocialInstagram, 
+.mainContainerSocialLinkedin{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  gap: 20px;
+}
+.mainContainerSocialInstagramConten{
+  width:90%;
+  height:auto;
+  background-color: var(--secon-color);
+  padding: 20px;
+  border-radius: 20px;
+}
+.mainContainerSocialInstagramConten a,
+.mainContainerSocialLinkedinConten a{
+  text-decoration: none;
+}
+.itemsPorfile{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.itemsPorfilePhoto img{
+  width: 45px;
+  border-radius: 50%;
+}
+.itemsPorfileInformation p{
+  padding-left: 10px;
+  margin: 0;
+  line-height: 1;
+  color: var(--text-color-leading);
+}
+.img img{
+  border-radius: 8px;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+.itemsPorfileInformation p:first-child{
+  font-weight: bold;
+}
+.description{
+  color: var(--text-color-leading);
+}
+.footerInstagram img{
+  width:30px;
+}
+
+/* LinkedIn */
+.mainContainerSocialLinkedinConten{
+  padding: 20px;
+  display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+  width:90%;
+  height:auto;
+  background-color: var(--secon-color);
+  border-radius: 10px;
+}
+.informationProfile{
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.informationProfile img{
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.informationProfile div h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  color:#000;
+}
+.informationProfile div p{
+  font-size: 12px;
+  line-height: 1;
+  margin: 0;
+  color: black;
+}
+.content{
+  margin-bottom: 30px;
+}
+.linkedinName{
+  font-size: 15px !important; 
+  color: var(--text-color-leading) !important;
+}
+.content img{
+  max-width: 100%;
+}
+.content p{
+  color: black;
+}
+
+.footerLinkedin,
+.footerInstagram {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #f2f2f2;
+  padding-top: 20px;
+}
+
+.iconLike{
+  font-size: 30px;
+}
+
+.footerLinkedin p,
+.footerInstagram p {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.footerLinkedin a, 
+.footerInstagram a {
+  margin-left: 10px;
+  color: #0077b5;
+  text-decoration: none;
+}
+
+@media (max-width: 1200px) {
+  /* skills */
+  .mainContainerSkills {
+    grid-column: repeat(4, 1fr);
+  }
+  .mainContainerSkills h1{
+    grid-column: 1/4;
+  }
+
+  /* Social media */
+  .mainContainerSocialInstagram, 
+  .mainContainerSocialLinkedin{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  /* skill */
+  .mainContainerSkills {
+    grid-column: repeat(3, 1fr);
+  }
+  .mainContainerSkills h1{
+    grid-column: 1/3;
+  }
+
+  /* Sobre mi */
+  .mainContainerAbout{
+    flex-direction: column;
+  }
+    /* Social media */
+    .mainContainerSocialInstagram, 
+    .mainContainerSocialLinkedin{
+      grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 575px) {
+  /* skill */
+  .mainContainerSkills {
+    grid-column: repeat(1, 1fr);
+  }
+  .mainContainerSkills h1{
+    grid-column: 1/1;
+  }
+}
+
+@media (max-width: 575px) {
+  /* skill */
+  .mainContainerSkillsInformation {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
