@@ -1,6 +1,3 @@
-#Se ignora la carpeta imagen
-Imagenes
-
 #Se ignora todos los archivos que sean imagenes
 # JPEG
 *.jpg
@@ -42,12 +39,8 @@ Imagenes
 # Multiple-image Network Graphics
 *.mng
 
-
-#Se ignora la carpeta de configuración
-blog/config
-
-# Se ignora los archivos creados para las entradas del blog
-blog/content/*.html
+#Se ignora el archivo .env
+*.env
 
 ### VisualStudioCode ###
 .vscode/*
