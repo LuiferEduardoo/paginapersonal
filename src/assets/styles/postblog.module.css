@@ -19,6 +19,10 @@
     margin-bottom: 7vh;
     padding: 0 5vw;;
 }
+.postHeaderContentShare a{
+    color: var(--color-botton-banner);
+    font-size: 25px;
+}
 .postHeaderContent, .postHeaderImage{
     max-width: 80%;
     margin-right: auto;
@@ -69,6 +73,7 @@
 /* Estilos del contenido */
 .mainContainer{
     width: 100%;
+    padding-bottom: 30px;
 }
 
 .mainContainerContent{
@@ -95,4 +100,87 @@
 
 .mainContainerAsidePost a {
     color: var(--primary-color);
+}
+
+/* Estilos de los post relacionados*/
+.mainContainerAside{
+    width: 100%;
+    background-color: var(--third-color);
+    padding: 20px 0px 20px 0px;
+}
+
+.mainContaineAideMain{
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.mainContainerAsidePost{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    gap: 20px;
+}
+.mainContainerAsidePost a{
+    text-decoration: none;
+}
+.mainContainerAsidePostContent{
+    width: 100%;
+}
+.mainContainerAsidePostContent img{
+    width: 100%;
+    border-radius: 5px;
+}
+@media (max-width: 858px){
+    .main{
+        padding-top: 50px;
+    }
+    .postHeaderContentShare{
+        display: none;
+    }
+    .postHeaderContent, .postHeaderImage{
+        max-width: 90%;
+    }
+    .postHeaderContent h1{
+        font-size: 3.8rem;
+    }
+
+    /* Estilos contenido */
+    .mainContainerContent{
+        max-width: 70%;
+    }
+
+    /* Aside */
+    .mainContainerAsidePost{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 760px){
+    .postHeaderContent h1{
+        font-size: 3.5rem;
+    }
+    .mainContainerAsidePost{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: auto;
+        gap: 20px;
+    }
+    .mainContainerAsidePost{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 620px){
+    .postHeaderContent h1{
+        font-size: 2.5rem;
+    }
+    .mainContainerAsidePost{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .postHeaderImage{
+        max-width: 100%;
+    }
+    /* Estilos contenido */
+    .mainContainerContent{
+        max-width: 80%;
+    }
 }

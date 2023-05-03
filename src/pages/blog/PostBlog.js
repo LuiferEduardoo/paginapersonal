@@ -10,6 +10,7 @@ import { useParams, Link} from 'react-router-dom';
 function PostBlog() {
     const { link } = useParams();
     const item = blogApi.find(item => item.link == link);
+    const filteredPosts = blogApi.filter(post => post.tags.every(tag => item.tags.includes(tag)) && post.link != item.link);
     useEffect(() => {
         window.scrollTo(0, 0);
     });
@@ -29,7 +30,7 @@ function PostBlog() {
                                 <div className={styles.postHeaderContentMeta}>
                                     <div className={styles.postHeaderContentAuthor}>
                                         <div className={styles.postHeaderContentAuthorImage}>
-                                            <img src="cdn.luifereduardoo.com/img/about/profile/mzkuzpvn-400x400.webp"/>
+                                            <img src="https://cdn.luifereduardoo.com/img/about/profile/mzkuzpvn-400x400.webp"/>
                                         </div>
                                         <div className={styles.postHeaderContentAuthorInformation}>
                                             <span className={styles.author}>Luifer Ortega</span>
@@ -37,17 +38,17 @@ function PostBlog() {
                                         </div>
                                     </div>
                                     <div className={styles.postHeaderContentShare}>
-                                    <a href="https://www.twitter.com/luifereduardoo" target="_blank"><i className="lab la-twitter"></i></a>
-                                    <a href="https://www.instagram.com/luifereduardoo" target="_blank"><i className="lab la-instagram"></i></a>
-                                    <a href="https://www.facebook.com/luifereduardoo" target="_blank"><i className="lab la-facebook"></i></a>
-                                    <a href="https://www.linkedin.com/in/luifereduardoo/" target="_blank"><i className="lab la-linkedin-in"></i></a>
+                                        <a href="https://www.twitter.com/luifereduardoo" target="_blank"><i className="lab la-twitter"></i></a>
+                                        <a href="https://www.instagram.com/luifereduardoo" target="_blank"><i className="lab la-instagram"></i></a>
+                                        <a href="https://www.facebook.com/luifereduardoo" target="_blank"><i className="lab la-facebook"></i></a>
+                                        <a href="https://www.linkedin.com/in/luifereduardoo/" target="_blank"><i className="lab la-linkedin-in"></i></a>
                                     </div>
                                 </div>
                             </section>
                             <section className={styles.postHeaderImage}>
                                 <figure>
                                     <div>
-                                        <img src={item.image}/>
+                                        <img src={item.image} alt={item.title}/>
                                     </div>
                                     {item.creditosImage === undefined? undefined : <figcaption>Photo by <a href={item.creditosImage[0]}>{item.creditosImage[1]}</a></figcaption>}
                                 </figure>
@@ -60,11 +61,23 @@ function PostBlog() {
                         </section>
                     </section>
                 </article>
-                <aside className={styles.mainContainerAside}>
-                    <span>Post relacionados</span>
-                    <div className={styles.mainContainerAsidePost}>
-                    </div>
-                </aside>
+                {filteredPosts.length == 0? undefined : 
+                    <aside className={styles.mainContainerAside}>
+                        <div className={styles.mainContaineAideMain}>
+                            <span>Post relacionados</span>
+                            <div className={styles.mainContainerAsidePost}>
+                                {filteredPosts.map(element => 
+                                    <div className ={styles.mainContainerAsidePostContent} key={element.id}>
+                                        <a href={`../blog/${element.link}`}>
+                                            <img src ={element.image}/>
+                                            <span>{element.title}</span>
+                                        </a>
+                                    </div>
+                                    )}
+                            </div>
+                        </div>
+                    </aside>
+                }
             </main>
             <Footer />
         </>

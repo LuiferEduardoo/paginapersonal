@@ -1,5 +1,5 @@
 .main {
-    height: 100vh;
+    height: 100%;
     background-color: var(--secon-color);
 }
 
@@ -87,4 +87,13 @@
 
 .button:hover {
     background-color: var(--color-hover-botton-baner);
+}
+@media (max-width: 890px){
+    .mainContainerContactForm{
+        width: 80%;
+        flex-direction: column;
+    }
+    .contactForm{
+        min-width: 100%;
+    }
 }

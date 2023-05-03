@@ -6,6 +6,7 @@
     padding-bottom: 20px;
 }
 .mainContainerBanner{
+    margin-top:60px;
     width:100%;
     display: flex;
     padding-bottom: 100px;
@@ -40,7 +41,7 @@
 .post h1{
     color: var(--text-color-leading)
 }
-  
+
 .post .content {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -59,7 +60,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px; /* opcional, agrega un espacio entre los elementos */
 }
-  
+
 @media (max-width: 900px){
     .mainContainerAfterFirstTwo{
         grid-template-columns: 1fr 1fr;

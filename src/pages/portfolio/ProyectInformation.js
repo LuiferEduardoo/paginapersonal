@@ -59,23 +59,25 @@ function ProyectInformation() {
                 <section className ={styles.mainContainerProyectsInformationTwo}>
                     <div className={styles.subcategories}>
                         <h2>Subcategorias</h2>
-                        {item.subcategories.map( elements => <span>{elements}</span>)}
+                        {item.subcategories.map( elements => <span key={elements}>{elements}</span>)}
                     </div>
                     <div className={styles.tecnology}>
                         <h2>Tecnologias</h2>
-                        {item.technologies.map( elements => <span>{elements}</span>)}
+                        <div className={styles.tecnologyItem}>
+                            {item.technologies.map( elements => <span key={elements}>{elements}</span>)}
+                        </div>
                     </div>
                 </section>
                 <section className={styles.mainContainerProyectsInformationThree}>
                     {item.contributors? 
                     <div className={styles.contributors}>
                         <p>Contribuidores:</p>
-                        {item.contributors.map(elements => <span>{elements}</span>)}
+                        {item.contributors.map(elements => <span key={elements}>{elements}</span>)}
                     </div> :null}
                     {item.documentation?
                         <div className={styles.documentation}>
                             <p>Documentación:</p>
-                            <a href={item.documentation}><i class="las la-file-download"></i></a>
+                            <a href={item.documentation}><i className="las la-file-download"></i></a>
                         </div>:null
                     }
                 </section>
