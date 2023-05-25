@@ -22,10 +22,10 @@ class ApiKeyAuthMiddleware
                 return response()->json(['Error'=> 'Invalid API key.'], 401);
             }
         }
-        $contentType = $request->header('Content-Type');
-        if (isset($contentType) && $contentType !== 'application/json') {
-            return response()->json(['error' => 'Unsupported content type.'], 400);
-        }
+        // $contentType = $request->header('Content-Type');
+        // if (isset($contentType) && $contentType !== 'application/json') {
+        //     return response()->json(['error' => 'Unsupported content type.'], 400);
+        // }
 
         return $next($request);
     }
