@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\RegistrationOfImages;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\ImageService;
-use Illuminate\Support\Facades\DB;
 
 class ImageAssociationService
 {
@@ -24,10 +23,7 @@ class ImageAssociationService
             $object->$association()->attach($uploadImage);  
         } catch(\Exception $e){
             // Manejo de la excepción
-            DB::rollBack();
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 404);
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -43,10 +39,7 @@ class ImageAssociationService
             }
         } catch(\Exception $e) {
             // Manejo de la excepción
-            DB::rollBack();
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 404);
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -56,10 +49,7 @@ class ImageAssociationService
             $object->save();
         } catch(\Exception $e) {
             // Manejo de la excepción
-            DB::rollBack();
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 404);
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -81,10 +71,7 @@ class ImageAssociationService
             }
         } catch(\Exception $e) {
             // Manejo de la excepción
-            DB::rollBack();
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 404);
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -107,10 +94,7 @@ class ImageAssociationService
             }
         } catch(\Exception $e) {
             // Manejo de la excepción
-            DB::rollBack();
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 404);
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -130,10 +114,7 @@ class ImageAssociationService
             }
         } catch(\Exception $e) {
             // Manejo de la excepción
-            DB::rollBack();
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 404);
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -147,10 +128,7 @@ class ImageAssociationService
             }
         } catch(\Exception $e) {
             // Manejo de la excepción
-            DB::rollBack();
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 404);
+            throw new \Exception($e->getMessage());
         }
     }
 }

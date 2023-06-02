@@ -15,4 +15,8 @@ class Tags extends Model
     {
         return $this->belongsToMany(Skills::class, 'tags_skills', 'id_tag', 'id_skills');
     }
+
+    public function projects(){
+        return $this->belongsToMany(Projects::class, 'tags_projects', 'id_tag', 'id_project');
+    }
 }

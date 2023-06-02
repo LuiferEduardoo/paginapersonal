@@ -4,36 +4,35 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Skills;
+use App\Models\Tags;
+use App\Models\Categories;
+use App\Models\Subcategories;
 use App\Services\ImageAssociationService;
-use App\Services\TagsService;
+use App\Services\ClassificationService;
 use App\Http\Requests\ValidateDate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\QueryException;
 
 class SkillController extends Controller
 {
-    protected $tagsService;
+    protected $classificationService;
     protected $imageAssociationService;
 
-    public function __construct(TagsService $tagsService, ImageAssociationService $imageAssociationService)
+    public function __construct(ClassificationService $classificationService, ImageAssociationService $imageAssociationService)
     {
-        $this->tagsService = $tagsService;
+        $this->classificationService = $classificationService;
         $this->imageAssociationService = $imageAssociationService;
     }
 
     public function GetSkills(Request $request){
-        if($request->input('id')){
-            $id = $request->input('id'); 
-            $skill = Skills::with('GetTags', 'image')
-                ->where('id', $id)
-                ->get();
-            return response()->json($skill);
+        $query = Skills::with('image', 'categories', 'subcategories', 'tags');
+        if ($request->input('id')) {
+            $id = $request->input('id');
+            $query->where('id', $id);
         }
-        $skills = Skills::with('GetTags', 'image')
-            ->where('visible', true)
-            ->get();
+        $query->where('visible', true);
+        $skills = $query->get();
         return response()->json($skills);
     }
 
@@ -44,28 +43,23 @@ class SkillController extends Controller
             $token = $request->header('Authorization');
             $token = str_replace('Bearer ', '', $token);
 
-            $name = $request->input('name'); 
-            $date = $request->input('date');
+            $categories = $request->input('categories');
+            $subcategories = $request->input('subcategories');
             $tags = $request->input('tags');
-            
-            // Se convierten los tags en array
-            $arrayTags = explode(",", $tags); 
-        
+
             // Crea la habilidad
-            $skill = new Skills([
-                'name' => $name,
-                'date' => $date,
+            $skill = Skills::create([
+                'name' => $request->input('name'),
+                'date' => $request->input('date'),
             ]);
-            // Guarda la habilidad en la base de datos
-            $skill->save();
 
             if($request->hasFile('image')){
                 $file = $request->file('image');
                 // Se guarda la imagen en la API y se hace la asociación
-                $this->imageAssociationService->saveImage($skill, $file, 'skill', 'RelationImage', $token);  
+                $this->imageAssociationService->saveImage($skill, $file, 'skill', 'image', $token);  
             }else if($request->input('id_image')){
                 $idImage =$request->input('id_image');
-                $this->imageAssociationService->saveImageForId($skill, $idImage, 'RelationImage');
+                $this->imageAssociationService->saveImageForId($skill, $idImage, 'image');
             }else if($request->input('url')){
                 $url = $request->input('url');
                 $this->imageAssociationService->saveImageForUrl($skill, $url);
@@ -75,18 +69,19 @@ class SkillController extends Controller
                         'message' => "Image not entered"
                     ], 400);
             }
-            // Se crean los tags y se asocian con la la habilidad
-            $this->tagsService->createTags($skill, $arrayTags,'RelationTags');
+            // Se crean las categorias y las subcategorias y los tags y se asocian con la habilidad
+            $this->classificationService->createItems($skill, explode(",", $categories), 'categories', Categories::class, 'name');
+            $this->classificationService->createItems($skill, explode(",", $subcategories), 'subcategories', Subcategories::class, 'name');
+            $this->classificationService->createItems($skill, explode(",", $tags), 'tags', Tags::class, 'name');
 
             DB::commit(); // Confirmar la transacción
             return response()->json([
                 'message' => 'Skills successfully created'
             ], 200);
-
-        } catch (QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack(); // Deshacer la transacción en caso de error
             return response()->json([
-                'message' => 'Failed to create skill'
+                'message' => $e->getMessage()
             ], 500);
         } catch(ModelNotFoundException $e){
             DB::rollBack(); // Deshacer la transacción en caso de error
@@ -106,14 +101,22 @@ class SkillController extends Controller
 
             if(Skills::findOrFail($id)){
                 $skill = Skills::findOrFail($id);
-                $this->tagsService->deleteTags($skill, 'RelationTags');
-                $this->imageAssociationService->deleteImage($skill, 'RelationImage', $eliminateImage, $token);
+                $items = array('tags', 'categories', 'subcategories');
+                foreach ($items as $item){
+                    $this->classificationService->deleteItems($skill, $item);
+                }
+                $this->imageAssociationService->deleteImage($skill, 'image', $eliminateImage, $token);
                 $skill->delete();
                 return response()->json(['message' => 'Skills successfully deleted'],200);
             }
             return response()->json([
                 'message' => "Skill not fount"
             ], 404);
+        } catch (\Exception $e) {
+            DB::rollBack(); // Deshacer la transacción en caso de error
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         } catch(ModelNotFoundException $e){
             return response()->json([
                 'message' => "Error removing skill"
@@ -129,31 +132,31 @@ class SkillController extends Controller
 
             $skill = Skills::findOrFail($id);
             // Recuperar los nuevos datos de la habilidad desde el request
-            $name = $request->input('name');
-            $date = $request->input('date');
+            $categories = $request->input('categories');
+            $subcategories = $request->input('subcategories');
             $tags = $request->input('tags');
             
             // Actualizar los campos de la habilidad
-            $skill->name = $name;
-            $skill->date = $date;
+            $skill->name = $request->input('name');
+            $skill->date = $request->input('date');
             // Guardar los cambios en la base de datos
             $skill->save();
-            // Se convierten los tags en array
-            $arrayTags = explode(",", $tags); 
-            // Se actualizan los tags
-            $this->tagsService->updateTags($skill, $arrayTags, 'RelationTags');
+            // Se actualizan las categorias, las subcategorias y los tags
+            $this->classificationService->updateItems($skill, explode(",", $categories), 'categories', Categories::class, 'name');
+            $this->classificationService->updateItems($skill, explode(",", $subcategories), 'subcategories', Subcategories::class, 'name');
+            $this->classificationService->updateItems($skill, explode(",", $tags), 'tags', Tags::class, 'name');
 
             $replaceImage = filter_var($request->input('replace_image'), FILTER_VALIDATE_BOOLEAN);
 
             if($request->hasFile('image')){
                 $file = $request->file('image');
-                $this->imageAssociationService->updateImage($skill, $file, $replaceImage, 'RelationImage', 'skill', $token);
+                $this->imageAssociationService->updateImage($skill, $file, $replaceImage, 'image', 'skill', $token);
             } else if($request->input('id_image')){
                 $idImage =$request->input('id_image');
-                $this->imageAssociationService->updateImageForId($skill, $idImage, $replaceImage, 'RelationImage', $token);
+                $this->imageAssociationService->updateImageForId($skill, $idImage, $replaceImage, 'image', $token);
             } else if($request->input('url')){
                 $url = $request->input('url');
-                $this->imageAssociationService->updateImageForUrl($skill, $url, $replaceImage, 'RelationImage', $token);
+                $this->imageAssociationService->updateImageForUrl($skill, $url, $replaceImage, 'image', $token);
             }else{
                 DB::rollBack();
                     return response()->json([
@@ -166,10 +169,10 @@ class SkillController extends Controller
             return response()->json([
                 'message' => 'Skill successfully updated'
             ], 200);
-        }  catch (QueryException $e) {
+        } catch (\Exception $e) {
             DB::rollBack(); // Deshacer la transacción en caso de error
             return response()->json([
-                'message' => 'Failed to updated skill'
+                'message' => $e->getMessage()
             ], 500);
         } catch(ModelNotFoundException $e){
             DB::rollBack(); // Deshacer la transacción en caso de error
@@ -204,15 +207,22 @@ class SkillController extends Controller
                 $visible = filter_var($request->input('visible'), FILTER_VALIDATE_BOOLEAN);
                 $skill->visible = $visible;
             }
+            if($request->input('categories')){
+                $categories = $request->input('categories');
+                $this->classificationService->updateItems($skill, explode(",", $categories), 'categories', Categories::class, 'name');
+            }
+            if($request->input('subcategories')){
+                $subcategories = $request->input('subcategories');
+                $this->classificationService->updateItems($skill, explode(",", $subcategories), 'subcategories', Subcategories::class, 'name');
+            }
             if($request->input('tags')){
                 $tags = $request->input('tags');
-                $arrayTags = explode(",", $tags); 
-                $this->tagsService->updateTags($skill, $arrayTags, 'RelationTags');
+                $this->classificationService->updateItems($skill, explode(",", $tags), 'tags', Tags::class, 'name');
             }
             if($request->file('image')){
                 $image = $request->file('image'); 
                 if(!$request->input('url') && !$request->input('id_image')){
-                    $this->imageAssociationService->updateImage($skill, $image, $replaceImage, 'RelationImage', 'skill', $token);
+                    $this->imageAssociationService->updateImage($skill, $image, $replaceImage, 'image', 'skill', $token);
                 } else{
                     DB::rollBack();
                     return $errorImage;
@@ -221,7 +231,7 @@ class SkillController extends Controller
             if($request->input('url')){
                 if(!$request->file('image') && !$request->input('id_image')){
                     $url = $request->input('url');
-                    $this->imageAssociationService->updateImageForUrl($skill, $url, $replaceImage, 'RelationImage', $token);
+                    $this->imageAssociationService->updateImageForUrl($skill, $url, $replaceImage, 'image', $token);
                 }
                 else{
                     DB::rollBack();
@@ -231,7 +241,7 @@ class SkillController extends Controller
             if($request->input('id_image')){
                 $idImage = $request->input('id_image');
                 if(!$request->file('image') && !$request->input('url')){
-                    $this->imageAssociationService->updateImageForId($skill, $idImage, $replaceImage, 'RelationImage', $token);
+                    $this->imageAssociationService->updateImageForId($skill, $idImage, $replaceImage, 'image', $token);
                 }
                 else{
                     DB::rollBack();
@@ -245,10 +255,10 @@ class SkillController extends Controller
             return response()->json([
                 'message' => 'Skill updated successfully',
             ], 200);
-        }   catch (QueryException $e) {
+        }catch (\Exception $e) {
             DB::rollBack(); // Deshacer la transacción en caso de error
             return response()->json([
-                'message' => 'Failed to updated skill'
+                'message' => $e->getMessage()
             ], 500);
         } catch(ModelNotFoundException $e){
             DB::rollBack(); // Deshacer la transacción en caso de error
