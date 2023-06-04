@@ -73,7 +73,7 @@ class ValidateDate extends FormRequest
                         'categories' => ['required', 'string'],
                         'subcategories' => ['required', 'string'],
                         'technologies' => ['required', 'string'],
-                        'tags' => ['nullable','string'],                        
+                        'tags' => ['required','string'],                        
                         ];
                 case 'putProyect':
                     return [
@@ -90,6 +90,64 @@ class ValidateDate extends FormRequest
                         'tags' => ['nullable','string'],
                         'replace_miniature' => ['nullable','string'],  
                         'replace_images' => ['nullable','string'],
+                        ];
+                case 'patchProyect':
+                    return [
+                        'name' => ['nullable','string','max:255'],
+                        'brief_description' => ['nullable', 'string', 'max:5000'],
+                        'url_repository' => ['nullable', 'url'],
+                        'miniature' => ['nullable', 'image'],
+                        'id_miniature' => ['nullable', 'string'],
+                        'images' => ['nullable','image'],
+                        'ids_images' => ['nullable','image'],
+                        'categories' => ['nullable', 'string'],
+                        'subcategories' => ['nullable', 'string'],
+                        'technologies' => ['nullable', 'string'],
+                        'tags' => ['nullable','string'],
+                        'replace_miniature' => ['nullable','string'],  
+                        'replace_images' => ['nullable','string'],
+                        ];
+            
+                case 'postBlogPost':
+                    return [
+                        'title' => ['required','string','max:255'],
+                        'content' => ['required', 'string'],
+                        'authors' => ['required', 'string'],
+                        'image_credits' => ['nullable', 'string'],
+                        'images' => ['nullable','image'],
+                        'id_image' => ['nullable','image'],
+                        'categories' => ['required', 'string'],
+                        'subcategories' => ['required', 'string'],
+                        'tags' => ['nullable','string'],                        
+                        ];
+
+                case 'putBlogPost':
+                    return [
+                        'title' => ['required','string','max:255'],
+                        'content' => ['required', 'string'],
+                        'authors' => ['required', 'string'],
+                        'image_credits' => ['nullable', 'string'],
+                        'images' => ['nullable','image'],
+                        'id_image' => ['nullable','image'],
+                        'categories' => ['required', 'string'],
+                        'subcategories' => ['required', 'string'],
+                        'tags' => ['nullable','string'],
+                        'replace_image' => ['required','string'],                        
+                        ];
+
+
+                case 'patchBlogPost':
+                    return [
+                        'title' => ['nullable','string','max:255'],
+                        'content' => ['nullable', 'string'],
+                        'authors' => ['nullable', 'string'],
+                        'image_credits' => ['nullable', 'string'],
+                        'images' => ['nullable','image'],
+                        'id_image' => ['nullable','image'],
+                        'categories' => ['nullable', 'string'],
+                        'subcategories' => ['nullable', 'string'],
+                        'tags' => ['nullable','string'],
+                        'replace_image' => ['nullable','string'],                        
                         ];
             default:
                 return [];

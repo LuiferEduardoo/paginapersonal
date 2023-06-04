@@ -10,22 +10,24 @@ class BlogPost extends Model
     use HasFactory;
 
     protected $table = 'blog_post';
-    protected $fillable = ['title', 'content', 'date', 'link', 'authors', 'reading_time','image_credits'];
+    protected $fillable = ['title', 'content', 'link', 'authors', 'reading_time','image_credits'];
 
-
+    protected $casts = [
+        'authors' => 'json'
+    ];
     public function image(){
-        return $this->belongsToMany(RegistrationOfImages::class, 'image_projects', 'image_id', 'project_id');
+        return $this->belongsToMany(RegistrationOfImages::class, 'image_blog', 'blog_post_id', 'image_id');
     }
 
     public function categories(){
-        return $this->belongsToMany(Categories::class, 'categories_project', 'category_id', 'project_id');
+        return $this->belongsToMany(Categories::class, 'categories_blog', 'blog_post_id', 'category_id');
     }
 
     public function subcategories(){
-        return $this->belongsToMany(Subcategories::class, 'subcategories_project', 'subcategory_id', 'project_id');
+        return $this->belongsToMany(Subcategories::class, 'subcategories_blog', 'blog_post_id', 'subcategory_id');
     }
 
     public function tags(){
-        return $this->belongsToMany(Tags::class, 'tags_projects', 'id_project', 'id_tag');
+        return $this->belongsToMany(Tags::class, 'tags_blog', 'blog_post_id', 'tag_id');
     }
 }

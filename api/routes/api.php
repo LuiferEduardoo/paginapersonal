@@ -7,6 +7,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\BlogController;
 use App\Services\ApiKeyGenerator;
 
 
@@ -15,6 +16,7 @@ Route::middleware(['api_key'])->group(function () {
     Route::post('/login', [LoginController::class, 'login']);
     Route::get('/skills', [SkillController::class, 'GetSkills']);
     Route::get('/projects', [ProjectController::class, 'getProject']);
+    Route::get('/blogposts', [BlogController::class, 'getBlogPost']);
     Route::middleware('auth:sanctum')->group(function(){
         Route::get('/user', function(Request $request) {
             return $request->user();
@@ -28,5 +30,10 @@ Route::middleware(['api_key'])->group(function () {
         Route::delete('/project', [ProjectController::class, 'deleteProject']);
         Route::put('/project/{id}', [ProjectController::class, 'putProject']);
         Route::patch('/project/{id}', [ProjectController::class, 'patchProject']);
+
+        Route::post('/blogpost/create', [BlogController::class, 'createBlogPost']);
+        Route::delete('/blogpost', [BlogController::class, 'deleteBlogPost']);
+        Route::put('/blogpost/{id}', [BlogController::class, 'putBlogPost']);
+        Route::patch('/blogpost/{id}', [BlogController::class, 'patchBlogPost']);
     });
 });
