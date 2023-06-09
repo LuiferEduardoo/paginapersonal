@@ -76,11 +76,12 @@ class GithubService{
                         array_push($contributors, $contributor['login']);
                     }
                 }
-                $link = strtolower(str_replace(' ', '-', $name));
+                // Eliminar caracteres especiales y conservar tildes
+                $link = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $name));
+                $link = preg_replace('/[^a-z0-9\-]/', '', str_replace(' ', '-', $link));
 
                 $baseLink = $link;
                 $suffix = 1;
-
                 while (Projects::where('link', $link)->exists()) {
                     $link = "$baseLink-$suffix";
                     $suffix++;

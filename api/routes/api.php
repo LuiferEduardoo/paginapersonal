@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EmailController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\BlogController;
@@ -13,14 +13,15 @@ use App\Services\ApiKeyGenerator;
 
 Route::middleware(['api_key'])->group(function () {
     Route::post('/email', [EmailController::class, 'SendEmail']);
-    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login']);
     Route::get('/skills', [SkillController::class, 'GetSkills']);
     Route::get('/projects', [ProjectController::class, 'getProject']);
     Route::get('/blogposts', [BlogController::class, 'getBlogPost']);
     Route::middleware('auth:sanctum')->group(function(){
-        Route::get('/user', function(Request $request) {
-            return $request->user();
-        });
+        Route::get('/user', [AuthController::class, 'getInformationUser']);
+        Route::delete('/logout', [AuthController::class, 'logout']);
+        Route::patch('/user', [AuthController::class, 'updateInformationUser']);
+
         Route::post('/skills/create', [SkillController::class, 'PostSkills']);
         Route::delete('/skills', [SkillController::class, 'DeleteSkills']);
         Route::put('/skills/{id}', [SkillController::class, 'PutSkills']);

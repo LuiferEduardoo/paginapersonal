@@ -40,6 +40,10 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException) {
+            return response()->json(['error' => 'Forbidden'], 403);
+        }
+
         if ($exception instanceof MethodNotAllowedHttpException) {
             return response()->json([
                 'error' => 'Method not allowed.',

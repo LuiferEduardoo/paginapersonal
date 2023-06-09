@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function profile()
+    {
+        return $this->belongsToMany(RegistrationOfImages::class, 'user_profiles', 'user_id', 'image_id');
+    }
+
 }

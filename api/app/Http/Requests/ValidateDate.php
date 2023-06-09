@@ -18,6 +18,15 @@ class ValidateDate extends FormRequest
                     'email' => ['required','string', 'email', 'max:255'],
                     'password' => ['required', 'string'],
                 ];
+            case 'updateInformationUser': 
+                return [
+                    'name' => ['nullable','string', 'max:255'],
+                    'email' => ['nullable','string', 'email', 'max:255'],
+                    'password' => ['nullable', 'string'],
+                    'replace_image' => ['nullable','string'],
+                    'image' => ['nullable', 'image'],
+                    'id_image' => ['nullable','string'],
+                ];
             case 'PostSkills':
                 return [
                     'name' => ['required','string','max:255'],

@@ -46,8 +46,18 @@ class BlogController extends Controller
         $readingTimeMinutes = $readingTimeNoForm % 60;
         return gmdate('H:i:s', mktime($readingTimeHours, $readingTimeMinutes, 0, 0, 0, 0));
     }
+
+    public function authors (Request $request){
+        $authors = explode(",", $request->user()->name);
+        $authorsInsert = $request->input('authors');
+        if($authorsInsert){
+            $authorsInsertArray = explode(",", $authorsInsert);
+            $authors = array_merge($authors, $authorsInsertArray);
+        }
+        return $authors;
+    }
     public function getBlogPost(Request $request){
-        $query = BlogPost::with('image', 'categories', 'subcategories' ,'tags');
+        $query = BlogPost::with('user.profile', 'image', 'categories', 'subcategories' ,'tags');
         if ($request->input('id')) {
             $id = $request->input('id');
             $query->where('id', $id);
@@ -64,14 +74,16 @@ class BlogController extends Controller
             $parsedown = new Parsedown();
             $title = $request->input('title');
             $content = $parsedown->text($request->input('content'));
-            $blogPost = BlogPost::create([
+            $blogPost = new BlogPost([
                 'title' => $title,
                 'content' => $content,
                 'link' => $this->link($title),
-                'authors' => explode(",", $request->input('authors')),
+                'authors' => $this->authors($request),
                 'reading_time' => $this->readingTime($content),
                 'image_credits' => $request->input('image_credits'),
             ]);
+            $blogPost->user_id = $request->user()->id;
+            $blogPost->save();
 
             if($request->input('id_image')){
                 $this->imageAssociationService->saveImageForId($blogPost, $request->input('id_image'), 'image');
@@ -150,7 +162,7 @@ class BlogController extends Controller
             $blogPost->title = $title;
             $blogPost->content = $content;
             $blogPost->link = $this->link($title);
-            $blogPost->authors = explode(",", $request->input('authors'));
+            $blogPost->authors = $this->authors($request);
             $blogPost->reading_time = $this->readingTime($content);
             $blogPost->image_credits = $request->input('image_credits');
             $blogPost->save();
@@ -213,7 +225,7 @@ class BlogController extends Controller
                 $blogPost->reading_time = $this->readingTime($content);
             }
             if($request->input('authors')){
-                $blogPost->authors = explode(",", $request->input('authors'));
+                $blogPost->authors = $this->authors($request);
             }
             if($request->input('image_credits')){
                 $blogPost->image_credits = $request->input('image_credits');

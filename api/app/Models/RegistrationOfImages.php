@@ -26,4 +26,10 @@ class RegistrationOfImages extends Model
     {
         return $this->belongsToMany(Projects::class, 'miniature_projects', 'image_id', 'project_id');
     }
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class, 'user_profiles', 'user_id', 'image_id');
+    }
+
 }

@@ -15,6 +15,12 @@ class BlogPost extends Model
     protected $casts = [
         'authors' => 'json'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function image(){
         return $this->belongsToMany(RegistrationOfImages::class, 'image_blog', 'blog_post_id', 'image_id');
     }
