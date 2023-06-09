@@ -1,0 +1,52 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.mainContainer {
+    width: 400px;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.mainContainerLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainContainerForm {
+    text-align: center;
+}
+
+.mainContainerForm h2 {
+    margin-bottom: 20px;
+}
+
+.mainContainerForm form div {
+    margin-bottom: 10px;
+}
+
+.mainContainerForm form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.mainContainerForm form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-botton-banner);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mainContainerForm form button:hover {
+    background-color: var(--color-hover-botton-baner);
+}
