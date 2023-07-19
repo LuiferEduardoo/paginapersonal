@@ -17,7 +17,7 @@ class CorsMiddleware
     {
         $headers = [
             'Access-Control-Allow-Origin' => '*',
-            'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Methods' => 'GET, POST, PATCH, PUT, DELETE',
             'Access-Control-Allow-Headers' => 'Content-Type, Authorization, x-api-key',
         ];
 
@@ -30,4 +30,3 @@ class CorsMiddleware
         return $next($request)->withHeaders($headers);
     }
 }
-

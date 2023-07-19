@@ -142,10 +142,10 @@ class ProjectController extends Controller
                 $this->imageAssociationService->deleteImage($project, 'image', $eliminateImages, $token);
                 $this->imageAssociationService->deleteImage($project, 'miniature', $eliminateMiniature, $token);
                 $project->delete();
-                return response()->json(['message' => 'Skills successfully deleted'],200);
+                return response()->json(['message' => 'Project successfully deleted'],200);
             }
             return response()->json([
-                'message' => "Skill not fount"
+                'message' => "Project not fount"
             ], 404);
         } catch (\Exception $e) {
             DB::rollBack(); // Deshacer la transacción en caso de error
@@ -154,7 +154,7 @@ class ProjectController extends Controller
             ], 500);
         } catch(ModelNotFoundException $e){
             return response()->json([
-                'message' => "Error removing skill"
+                'message' => "Error removing project"
             ], 500);
         }
     }
@@ -243,7 +243,7 @@ class ProjectController extends Controller
         } catch(ModelNotFoundException $e){
             DB::rollBack(); // Deshacer la transacción en caso de error
             return response()->json([
-                'message' => "Skill not fount"
+                'message' => "Project not fount"
             ], 404);
         }
     }
@@ -282,8 +282,8 @@ class ProjectController extends Controller
                 $this->githubService->getInformationRepository($project, $userName, $repositoryName, $request->input('name'));
             }
             if ($request->input('brief_description')) {
-                $date = $request->input('brief_description');
-                $project->date = $date;
+                $briefDescription = $request->input('brief_description');
+                $project->brief_description = $briefDescription;
             }
             if ($request->input('visible') !== null) {
                 $visible = filter_var($request->input('visible'), FILTER_VALIDATE_BOOLEAN);
@@ -300,6 +300,9 @@ class ProjectController extends Controller
             if($request->input('tags')){
                 $tags = $request->input('tags');
                 $this->classificationService->updateItems($project, explode(",", $tags), 'tags', Tags::class, 'name');
+            }
+            if($request->input('technologies')){
+                $this->technologyService->updateTechnology($project, explode(",", $request->input('technologies')));
             }
 
             $replaceMiniature = filter_var($request->input('replace_miniature'), FILTER_VALIDATE_BOOLEAN);
@@ -354,7 +357,7 @@ class ProjectController extends Controller
             DB::commit(); // Confirmar la transacción
         
             return response()->json([
-                'message' => 'Skill updated successfully',
+                'message' => 'Project updated successfully',
             ], 200);
         }catch (\Exception $e) {
             DB::rollBack(); // Deshacer la transacción en caso de error
@@ -364,7 +367,7 @@ class ProjectController extends Controller
         } catch(ModelNotFoundException $e){
             DB::rollBack(); // Deshacer la transacción en caso de error
             return response()->json([
-                'message' => "Skill not fount"
+                'message' => "Project not fount"
             ], 404);
         }
     }

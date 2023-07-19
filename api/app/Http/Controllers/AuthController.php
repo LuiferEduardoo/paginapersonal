@@ -79,8 +79,15 @@ class AuthController extends Controller
             if($request->input('email')){
                 $user->email = $request->input('email');
             }
-            if($request->input('password')){
-                $user->password = bcrypt($request->input('password'));
+            if($request->input('new_password')){
+                if(Hash::check($request->input('password'), $user->password)){
+                    $user->password = bcrypt($request->input('new_password'));
+                } else{
+                    DB::rollBack();
+                    return response()->json([
+                        'message' => 'Invalid password'
+                    ], 401);
+                }
             }
             $replaceImage = filter_var($request->input('replace_image'), FILTER_VALIDATE_BOOLEAN);
             if($request->hasFile('image')){

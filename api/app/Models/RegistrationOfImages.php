@@ -29,7 +29,7 @@ class RegistrationOfImages extends Model
 
     public function user()
     {
-        return $this->belongsToMany(User::class, 'user_profiles', 'user_id', 'image_id');
+        return $this->belongsToMany(User::class, 'user_profiles', 'image_id', 'user_id');
     }
 
 }
