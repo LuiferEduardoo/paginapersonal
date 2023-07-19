@@ -1,43 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import {dataDescrypt} from './data-descrypt';
+import { dataDescrypt } from './data-descrypt';
 import AuthService from '../services/AuthService';
 import Cookies from 'js-cookie';
 
-function ProtectedRoute({isToken, children}) {
-    const checkToken = async () => {
-        return new Promise(async (resolve, reject) => {
+function ProtectedRoute({ isToken, children }) {
+    const [userInfo, setUserInfo] = useState(null);
+    const [isLoading, setIsLoading] = useState(true); // Nuevo estado para controlar la carga
+
+    useEffect(() => {
+        const checkToken = async () => {
+        try {
             const encryptedToken = Cookies.get('token');
             const decryptedToken = dataDescrypt(encryptedToken);
             if (decryptedToken) {
-                try {
-                const userInfo = await AuthService.userInfo(decryptedToken);
-                resolve(userInfo);
-                } catch (error) {
-                Cookies.remove('token');
-                reject(error);
-                }
+            const userInfo = await AuthService.userInfo(decryptedToken);
+            setUserInfo(userInfo);
             } else {
-                reject(new Error('Invalid token'));
+            throw new Error('Invalid token');
             }
-        });
-    };
-    
-    useEffect(() => {
-        checkToken()
-            .then(() => {
-                // Token is valid, do nothing
-            })
-            .catch(() => {
-                // Token is invalid, redirect to login
-                window.location.href = '/login';
-        });
+        } catch (error) {
+            Cookies.remove('token');
+            console.error('Error al obtener la información del usuario:', error);
+        } finally {
+            setIsLoading(false); // Marcar la carga como completa, independientemente del resultado
+        }
+        };
+
+        checkToken();
     }, []);
 
-    if(!isToken){
-        return <Navigate to='/login' />
+    if (isLoading) {
+        // Mostrar un componente de carga mientras se obtiene la información del usuario
+        return <div>Loading...</div>;
     }
 
-    return children;
+    if (!isToken) {
+        return <Navigate to="/login" />;
+    }
+
+    return React.Children.map(children, (child) => {
+        return React.cloneElement(child, { token: dataDescrypt(Cookies.get('token')), userInfo });
+    });
 }
-export {ProtectedRoute};
+
+export { ProtectedRoute };
+

@@ -33,7 +33,7 @@ export const AppRouter = () =>{
                 <Route path='/blog/:link' element ={<PostBlog/>}/>
                 <Route path='/contact' element ={<Contact/>}/>
                 <Route path='/login' element ={isToken ? <Navigate to="/administration-panel" /> :<Login/>}/>
-                <Route path= '/administration-panel' element={
+                <Route path= '/administration-panel/*' element={
                     <ProtectedRoute isToken={isToken}>
                         <AdministrationPanel/>
                     </ProtectedRoute>

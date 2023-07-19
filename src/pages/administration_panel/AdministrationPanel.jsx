@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Toaster, toast } from 'sonner';
-import AuthService from '../../services/AuthService';
+import Sideber from './Sideber';
+import Nav from './Nav';
+import AdministrationPanelContent from './AdministrationPanelContent';
 
-function AdministrationPanel(){
+function AdministrationPanel({ token, userInfo }){
     return(
         <>
-        <h1>Welcome</h1>
+            <Nav userInfo={userInfo} token={token}/>
+            <AdministrationPanelContent userInfo={userInfo} token={token}/>
         </>
     );
 }
