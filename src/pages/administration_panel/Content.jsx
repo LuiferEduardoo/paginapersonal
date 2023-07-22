@@ -87,7 +87,7 @@ const ViewElements = ({ elementObtain }) => {
         <>
             {isOpenEdit && <Modal setIsOpen={setIsOpenEdit} title='Editar' component={ElementsEdit} element={valueElement} technology={technology} updateOrDelete={setShouldResetEffect}/>}
             {isOpenDelete && <Modal setIsOpen={setIsOpenDelete} title='Borrar' component={ElementsDelete} element={valueElement} updateOrDelete={setShouldResetEffect} />}
-            <section className={`${styles.viewElements} ${elements[0].title ? 'grid grid-cols-3 gap-20' : 'grid grid-cols-5 gap-20'}`}>
+            <section className={`${styles.viewElements} ${elementObtain === 'blogposts' ? 'grid grid-cols-3 gap-20' : 'grid grid-cols-5 gap-20'}`}>
                 {elements.map((element, index) => (
                     <div
                     key={element.id}
@@ -95,11 +95,11 @@ const ViewElements = ({ elementObtain }) => {
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
                     >
-                        <h1 className="text-xl font-bold">{element.name ? element.name : element.title}</h1>
+                        <h1 className="text-xl font-bold">{element.name ? element.name : element.title ? element.title : null}</h1>
                         <img
                             className="mt-2 rounded-lg h-40 w-40 object-cover mx-auto"
-                            src={element.image[0].url}
-                            alt={element.name}
+                            src={element.image[0].url ? element.image[0].url : null}
+                            alt={element.name ? element.name : null}
                         />
                         {element.brief_description && (
                             <p className="mt-2">{element.brief_description}</p>
