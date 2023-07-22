@@ -13,7 +13,7 @@ import { InputComponent } from './InputComponent';
 import { Classification } from './Classification';
 import { ImagesComponent } from './ImagesComponent';
 
-function Modal({ setIsOpen, title, component: Component, element, technology=null, setSelectedFile=null, elementsPreview=null}) {
+function Modal({ setIsOpen, title, component: Component, element, technology=null, setSelectedFile=null, elementsPreview=null, updateOrDelete=null}) {
     return (
         <>
         <div className={styles.modalBackground}>
@@ -30,7 +30,7 @@ function Modal({ setIsOpen, title, component: Component, element, technology=nul
                 <div className={styles.title}>
                 <h2>{title}</h2>
                 </div>
-                    <Component setIsOpen={setIsOpen} element={element} technology={technology} setSelectedFile={setSelectedFile} elementsPreview={elementsPreview}/>
+                    <Component setIsOpen={setIsOpen} element={element} technology={technology} setSelectedFile={setSelectedFile} elementsPreview={elementsPreview} updateOrDelete={updateOrDelete}/>
             </div>
         </div>
         </>
@@ -57,7 +57,7 @@ const Buttons = ({setIsOpen, callToAPI, nameButtonAPI}) => {
     )
 }
 
-const ElementsEdit = ({setIsOpen, element, technology }) =>{
+const ElementsEdit = ({setIsOpen, element, technology, updateOrDelete }) =>{
     const location = useLocation();
 
     const nameCategories = element.categories.map(category => category.name);
@@ -192,6 +192,7 @@ const ElementsEdit = ({setIsOpen, element, technology }) =>{
             try{
                 const update = await Elements.update(decryptedToken, elementToUpdate, element.id, dataToUpdate);
                 toast.success(update.message);
+                updateOrDelete(true)
             } catch (error) {
                 toast.error(error.message);
             }
@@ -237,7 +238,7 @@ const ElementsEdit = ({setIsOpen, element, technology }) =>{
     )
 }
 
-const ElementsDelete = ({setIsOpen, element }) => {
+const ElementsDelete = ({setIsOpen, element, updateOrDelete }) => {
 
     const [deleteFile, setDeleteFile] = useState(false);
 
@@ -273,6 +274,7 @@ const ElementsDelete = ({setIsOpen, element }) => {
             }
             toast.success('successfully removed');
             setIsOpen(false);
+            updateOrDelete(true)
         } catch (error) {
             toast.error(error.message);
             setIsOpen(false);

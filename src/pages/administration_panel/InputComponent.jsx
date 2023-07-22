@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { htmlToText } from 'html-to-text';
 
-const InputComponent = ({ title, TypeInput='input', id, type='text', setElement, required=false, defaulValue=null, placeholder=''}) =>{
+const InputComponent = ({ title, TypeInput='input', id, type='text', element=null, setElement, required=false, defaulValue=null, placeholder=''}) =>{
     const currentDate = new Date().toISOString().split("T")[0];
     return(
         <div className="flex flex-col">
@@ -10,6 +10,7 @@ const InputComponent = ({ title, TypeInput='input', id, type='text', setElement,
                 <input
                     type={type}
                     id={id}
+                    value={element}
                     onChange={event => setElement(event.target.value)}
                     defaultValue={defaulValue}
                     placeholder={placeholder}

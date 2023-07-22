@@ -28,6 +28,8 @@ const TruncatedHTML = ({ content, maxLength }) => {
   }
 
 const ViewElements = ({ elementObtain }) => {
+    const [shouldResetEffect, setShouldResetEffect] = useState(false);
+
     const [elements, setElements] = useState([]);
     const [technology, setTechnology] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +41,10 @@ const ViewElements = ({ elementObtain }) => {
 
 
     useEffect(() => {
+
+        if (shouldResetEffect) {
+            setShouldResetEffect(false); // Reseteamos la variable para que no se vuelva a ejecutar hasta que cambie de nuevo.
+        }
         const fetchData = async () => {
             try {
                 const callToAPI = await Elements.obtain(elementObtain);
@@ -55,7 +61,7 @@ const ViewElements = ({ elementObtain }) => {
         };
 
         fetchData();
-        }, [elementObtain]);
+        }, [elementObtain, shouldResetEffect]);
 
         const handleEditClick = (element) => {
             setIsOpenEdit(true);
@@ -76,11 +82,11 @@ const ViewElements = ({ elementObtain }) => {
     if (error) {
         return <div>Error al obtener el/la {elementObtain}</div>;
     }
-    console.log(elements);
+
     return (
         <>
-            {isOpenEdit && <Modal setIsOpen={setIsOpenEdit} title='Editar' component={ElementsEdit} element={valueElement} technology={technology} />}
-            {isOpenDelete && <Modal setIsOpen={setIsOpenDelete} title='Borrar' component={ElementsDelete} element={valueElement} />}
+            {isOpenEdit && <Modal setIsOpen={setIsOpenEdit} title='Editar' component={ElementsEdit} element={valueElement} technology={technology} updateOrDelete={setShouldResetEffect}/>}
+            {isOpenDelete && <Modal setIsOpen={setIsOpenDelete} title='Borrar' component={ElementsDelete} element={valueElement} updateOrDelete={setShouldResetEffect} />}
             <section className={`${styles.viewElements} ${elements[0].title ? 'grid grid-cols-3 gap-20' : 'grid grid-cols-5 gap-20'}`}>
                 {elements.map((element, index) => (
                     <div
@@ -203,6 +209,21 @@ const CreateElements = ({ element }) => {
         if(Object.keys(data).length != 0){
             try{
                 const create = await Elements.createElement(decryptedToken, element, data);
+                setName('');
+                setDate('');
+                setBriefDescription('');
+                setUrlRepository('');
+                setTitle('');
+                setContent('');
+                setAuthors('');
+                setImageCredits('');
+                setSelectedImages([]);
+                setSelectedMiniature([]);
+                setCategories([]);
+                setSubcategories([]);
+                setTags([]);
+                setTechnologies([]);
+                setElementsPreview([]);
                 toast.success(create.message);
             } catch (error) {
                 toast.error(error.message);
@@ -223,7 +244,8 @@ const CreateElements = ({ element }) => {
                 {element === 'skills' ? (
                     <>
                         <InputComponent 
-                            title={'Nombre'} 
+                            title={'Nombre'}
+                            element={name} 
                             id={'name'} 
                             setElement={setName} 
                             placeholder={'HTML5'}
@@ -231,6 +253,7 @@ const CreateElements = ({ element }) => {
                         />
                         <InputComponent 
                             type={'date'} 
+                            element={date}
                             title={'Fecha de obtención de la Skill'} 
                             id={'date'} 
                             setElement={setDate}
@@ -243,12 +266,14 @@ const CreateElements = ({ element }) => {
                         <InputComponent 
                             title={'Nombre'} 
                             id={'name'} 
-                            setElement={setName} 
+                            setElement={setName}
+                            element={name} 
                             placeholder={'Proyecto veterinaria'}
                             required={true}
                         />
                         <InputComponent 
                             title={'Breve descripción'} 
+                            element={briefDescription}
                             TypeInput={'textarea'} 
                             id={'brief_description'} 
                             setElement={setBriefDescription} 
@@ -256,7 +281,8 @@ const CreateElements = ({ element }) => {
                             required={true}
                         />
                         <InputComponent 
-                            title={'Url repositorio GitHub'} 
+                            title={'Url repositorio GitHub'}
+                            element={urlRepository} 
                             id={'url_repository'} 
                             setElement={setUrlRepository} 
                             defaulValue={element.url_repository} 
@@ -274,6 +300,7 @@ const CreateElements = ({ element }) => {
                         <InputComponent 
                             title={'Titulo'} 
                             id={'title'} 
+                            element={title}
                             setElement={setTitle} 
                             placeholder={'Mi primer "¡Hola mundo!"'}
                             required={true}
@@ -281,13 +308,15 @@ const CreateElements = ({ element }) => {
                         <InputComponent 
                             title={'Contenido'} 
                             id={'content'} 
+                            element={content}
                             TypeInput={'textarea'} 
                             setElement={setContent} 
                             placeholder={'Aquí va el contenido del blog'}
                             required={true}
                         />
-                        <InputComponent 
+                        <InputComponent
                             title={'Autores'} 
+                            element={authors}
                             id={'authors'} 
                             setElement={setAuthors} 
                             placeholder={'David,Miguel'}
@@ -295,6 +324,7 @@ const CreateElements = ({ element }) => {
                         <InputComponent 
                             title={'Creditos de la imagen'} 
                             id={'image_credits'} 
+                            element={imageCredits}
                             setElement={setImageCredits} 
                             placeholder={'Linux en Español'}
                         />

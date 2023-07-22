@@ -10,6 +10,8 @@ import { Modal, ElementsDelete } from "./Modal";
 import {dataDescrypt} from '../../utils/data-descrypt';
 
 const ContentImagesView = () => {
+    const [shouldResetEffect, setShouldResetEffect] = useState(false);
+
     const [images, setImages] = useState([]);
     const [technology, setTechnology] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +22,11 @@ const ContentImagesView = () => {
     const [valueImage, setValueImage] = useState(null);
 
     useEffect(() => {
+
+        if (shouldResetEffect) {
+            setShouldResetEffect(false); // Reseteamos la variable para que no se vuelva a ejecutar hasta que cambie de nuevo.
+        }
+
         const fetchData = async () => {
             try {
                 const encryptedToken = Cookies.get('token');
@@ -35,7 +42,7 @@ const ContentImagesView = () => {
         };
 
         fetchData();
-    }, [])
+    }, [shouldResetEffect])
     const handleDeleteClick = (image) => {
         setIsOpenDelete(true);
         setValueImage(image);
@@ -56,7 +63,7 @@ const ContentImagesView = () => {
 
     return(
         <>
-            {isOpenDelete && <Modal setIsOpen={setIsOpenDelete} title='Borrar' component={ElementsDelete} element={valueImage} />}
+            {isOpenDelete && <Modal setIsOpen={setIsOpenDelete} title='Borrar' component={ElementsDelete} element={valueImage} updateOrDelete={setShouldResetEffect}/>}
             <section className={`${styles.viewElements} grid grid-cols-4 gap-20`}>
                 {images.map((image, index) => (
                     <div
