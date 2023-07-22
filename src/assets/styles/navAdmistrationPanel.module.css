@@ -15,7 +15,7 @@
 }
 .profileIcon {
     display: flex;
-    padding: 10px;
+    padding: 20px;
     cursor:pointer;
 }
 .profileIcon img{
@@ -27,7 +27,8 @@
 }
 
 .dropdownMenu {
-    margin-top:60px;
+    position: absolute;
+    top: 80px;
     min-width: 12rem;
     padding: 0.5rem;
     background-color: white;

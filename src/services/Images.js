@@ -20,9 +20,10 @@ const obtain = async (token) => {
     }
 };
 
-const upload = async (token, image) => {
+const upload = async (token, image, folder) => {
     const formData = new FormData();
     formData.append('image', image); // Agregar la imagen al FormData
+    formData.append('folder', folder); // Agregar la imagen al FormData
     try {
         const response = await axios.post(`https://cdn.luifereduardoo.com/api/images/create`, formData, {
         headers: {

@@ -13,6 +13,20 @@ import { InputComponent } from './InputComponent';
 import { Classification } from './Classification';
 import { ImagesComponent } from './ImagesComponent';
 
+
+
+const TruncatedHTML = ({ content, maxLength }) => {
+    const truncatedContent = content.slice(0, maxLength);
+    const shouldShowEllipsis = content.length > maxLength;
+    
+    return (
+      <div className="text-sm text-gray-600">
+        <div dangerouslySetInnerHTML={{ __html: truncatedContent }} />
+        {shouldShowEllipsis && '...'}
+      </div>
+    );
+  }
+
 const ViewElements = ({ elementObtain }) => {
     const [elements, setElements] = useState([]);
     const [technology, setTechnology] = useState(null);
@@ -67,32 +81,34 @@ const ViewElements = ({ elementObtain }) => {
         <>
             {isOpenEdit && <Modal setIsOpen={setIsOpenEdit} title='Editar' component={ElementsEdit} element={valueElement} technology={technology} />}
             {isOpenDelete && <Modal setIsOpen={setIsOpenDelete} title='Borrar' component={ElementsDelete} element={valueElement} />}
-            <Toaster richColors position="top-center" />
-            <section className={`${styles.viewElements} grid grid-cols-4 gap-20`}>
+            <section className={`${styles.viewElements} ${elements[0].title ? 'grid grid-cols-3 gap-20' : 'grid grid-cols-5 gap-20'}`}>
                 {elements.map((element, index) => (
                     <div
                     key={element.id}
-                    className="bg-white p-4 rounded-lg shadow relative"
+                    className="bg-white p-4 rounded-lg shadow relative text-center"
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
                     >
-                        <h1 className="text-xl font-bold">{element.name}</h1>
+                        <h1 className="text-xl font-bold">{element.name ? element.name : element.title}</h1>
                         <img
-                            className="mt-2 rounded-lg h-auto w-full"
+                            className="mt-2 rounded-lg h-40 w-40 object-cover mx-auto"
                             src={element.image[0].url}
                             alt={element.name}
                         />
-                        {element.brief_description ? (
+                        {element.brief_description && (
                             <p className="mt-2">{element.brief_description}</p>
-                        ) : null}
+                        )}
+                        {element.content && (
+                            <TruncatedHTML content={element.content} maxLength={150} />
+                        )}
                         {hoveredIndex === index && (
-                            <div className="absolute top-2 right-2 z-10">
+                            <div className="absolute top-2 right-2 z-0">
                                 <PencilSquareIcon
-                                    className="h-6 w-6 text-gray-500"
+                                    className="h-6 w-6 text-gray-500 cursor-pointer"
                                     onClick={() => handleEditClick(element)}
                                 />
                                 <TrashIcon
-                                    className="h-6 w-6 text-gray-500"
+                                    className="h-6 w-6 text-gray-500 cursor-pointer"
                                     onClick={() => handleDeleteClick(element)}
                                 />
                             </div>
@@ -202,7 +218,6 @@ const CreateElements = ({ element }) => {
     return(
         <>
             {isOpenPreview && <Modal setIsOpen={setIsOpenPreview} title='Previsualización' component={ElementPreview} element={element} elementsPreview={elementsPreview} />}
-            <Toaster richColors position="top-center" />
             <h1>Crear {element}</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 {element === 'skills' ? (
@@ -309,21 +324,25 @@ const CreateElements = ({ element }) => {
                     tags={tags}
                     setTags={setTags}
                     />
-                <div>
-                    <button  
-                        onClick={() => {
+                    <div className="space-x-4">
+                        <button
+                            onClick={() => {
                             handleCreate();
-                        }}>
-                        Crear
-                    </button>
+                            }}
+                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none border-none"
+                        >
+                            Crear
+                        </button>
 
-                    <button  
-                        onClick={() => {
+                        <button
+                            onClick={() => {
                             handlePreview();
-                        }}>
-                        Previsualizar
-                    </button>
-                </div>
+                            }}
+                            className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md focus:outline-none border-none"
+                        >
+                            Previsualizar
+                        </button>
+                    </div>
             </form>
         </>
     )

@@ -32,28 +32,28 @@ const Classification =  ({ element, haveTechnology=false, activeSection, setActi
 
     return (
         <div>
-            <div>
+            <div className="space-x-2">
                 <button
-                    className={`${activeSection === "category" ? "bg-blue-500" : "bg-gray-300"} px-4 py-2 rounded`}
+                    className={`${activeSection === "category" ? "bg-blue-500" : "bg-gray-300"} px-4 py-2 rounded border-none`}
                     onClick={() => handleSectionChange("category")}
                 >
                 Categoría
                 </button>
                 <button
-                    className={`${activeSection === "subcategory" ? "bg-blue-500" : "bg-gray-300"} px-4 py-2 rounded`}
+                    className={`${activeSection === "subcategory" ? "bg-blue-500" : "bg-gray-300"} px-4 py-2 rounded border-none`}
                     onClick={() => handleSectionChange("subcategory")}
                 >
                 Subcategoría
                 </button>
                 <button
-                    className={`${activeSection === "tag" ? "bg-blue-500" : "bg-gray-300"} px-4 py-2 rounded`}
+                    className={`${activeSection === "tag" ? "bg-blue-500" : "bg-gray-300"} px-4 py-2 rounded border-none`}
                     onClick={() => handleSectionChange("tag")}
                 >
                 Tag
                 </button>
                 {haveTechnology &&(
                     <button
-                        className={`${activeSection === "technology" ? "bg-blue-500" : "bg-gray-300"} px-4 py-2 rounded`}
+                        className={`${activeSection === "technology" ? "bg-blue-500" : "bg-gray-300"} px-4 py-2 rounded border-none`}
                         onClick={() => handleSectionChange("technology")}
                     >
                     Tecnologias
@@ -72,24 +72,28 @@ const Classification =  ({ element, haveTechnology=false, activeSection, setActi
                         />
                         <button 
                             onClick={() => handleAddClassification(newCategory, setCategories, setNewCategory)}
-                            className="bg-indigo-500 text-white px-4 py-2 rounded-r-md hover:bg-indigo-600"
+                            className="bg-indigo-500 text-white px-4 py-2 rounded-r-md hover:bg-indigo-600 border-none"
                         >
                             Agregar
                         </button>
                     </div>
-                    <ul className="mt-4">
+                    <ul className="mt-4 space-y-2">
                         {categories.map((value) => (
-                        <li key={value} className="flex items-center justify-between border border-gray-300 rounded-md px-3 py-2 mb-2">
-                            <span>{value}</span>
-                            <button
-                                onClick={() => handleRemoveClassification(value, setCategories)}
-                                className="text-red-500 hover:text-red-700 focus:outline-none"
+                            <li
+                            key={value}
+                            className="flex items-center justify-between border border-gray-300 rounded-md px-3 py-2 bg-white shadow-md"
                             >
-                            X
-                            </button>
-                        </li>
+                            <span className="text-gray-700">{value}</span>
+                            <span
+                                onClick={() => handleRemoveClassification(value, setCategories)}
+                                className="text-red-500 hover:text-red-700 focus:outline-none bg-transparent"
+                            >
+                                X
+                            </span>
+                            </li>
                         ))}
                     </ul>
+
                 </div>
             )}
             {activeSection === "subcategory" && (

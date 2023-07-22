@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route } from 'react-router-dom';
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { ClipboardDocumentIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Toaster, toast } from 'sonner';
 import Cookies from 'js-cookie';
 import Images from '../../services/Images';
@@ -36,11 +36,16 @@ const ContentImagesView = () => {
 
         fetchData();
     }, [])
-        const handleDeleteClick = (image) => {
-            setIsOpenDelete(true);
-            setValueImage(image);
-        };
+    const handleDeleteClick = (image) => {
+        setIsOpenDelete(true);
+        setValueImage(image);
+    };
 
+    const handleCopyUrl = (image) => {
+        navigator.clipboard.writeText(image.url).then(() => {
+            toast.success('URL de imagen copiada al portapapeles');
+        });
+    }
     if (isLoading) {
         return <div>Loading...</div>;
     }
@@ -52,7 +57,6 @@ const ContentImagesView = () => {
     return(
         <>
             {isOpenDelete && <Modal setIsOpen={setIsOpenDelete} title='Borrar' component={ElementsDelete} element={valueImage} />}
-            <Toaster richColors position="top-center" />
             <section className={`${styles.viewElements} grid grid-cols-4 gap-20`}>
                 {images.map((image, index) => (
                     <div
@@ -67,10 +71,14 @@ const ContentImagesView = () => {
                             alt={image.name}
                         />
                         {hoveredIndex === index && (
-                            <div className="absolute top-2 right-2 z-10">
+                            <div className="absolute top-2 right-2 z-0">
                                 <TrashIcon
-                                    className="h-6 w-6 text-gray-500"
+                                    className="h-6 w-6 text-gray-500 cursor-pointer"
                                     onClick={() => handleDeleteClick(image)}
+                                />
+                                <ClipboardDocumentIcon 
+                                    className="h-6 w-6 text-gray-500 cursor-pointer"
+                                    onClick={() => handleCopyUrl(image)}
                                 />
                             </div>
                         )}
@@ -82,9 +90,12 @@ const ContentImagesView = () => {
 }
 
 const ContentImagesUpload = () => {
+    const fileInputRef = useRef(null);
     const [selectedImage, setSelectedImage] = useState(null);
+    const [urlImage, setUrlImage] = useState(null);
     const [loading, setLoading] = useState(false);
     const [uploadSuccess, setUploadSuccess] = useState(false);
+    const [selectFolder, setSelecdFolder] = useState('about');
 
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
@@ -111,8 +122,11 @@ const ContentImagesUpload = () => {
         try {
             const encryptedToken = Cookies.get('token');
             const decryptedToken = dataDescrypt(encryptedToken);
-            const response = await Images.upload(decryptedToken, file);
+            const response = await Images.upload(decryptedToken, file, selectFolder);
+            setUrlImage(response.database.url);
             setUploadSuccess(true);
+            toast.success(response.message);
+
         } catch (error) {
             toast.error('Error al cargar la imagen:', error);
             // Manejar el error, mostrar notificaciones, etc.
@@ -121,15 +135,21 @@ const ContentImagesUpload = () => {
     };
 
     const handleCopyUrl = () => {
-        const imageUrl = selectedImage;
-        navigator.clipboard.writeText(imageUrl).then(() => {
+        navigator.clipboard.writeText(urlImage).then(() => {
             toast.success('URL de imagen copiada al portapapeles');
         });
     };
 
+    const handleClick = () => {
+        fileInputRef.current.click();
+    };
+
+    const handleSelectChange = (event) => {
+        setSelecdFolder(event.target.value);
+      };
+
     return (
         <>
-            <Toaster richColors position="top-center" />
             <div>
                 <div
                 className="drop-area"
@@ -137,24 +157,59 @@ const ContentImagesUpload = () => {
                 onDrop={handleDrop}
                 >
                 {loading ? (
-                    <p>Cargando...</p>
+                    <div>
+                        Subiendo...
+                    </div>
                 ) : uploadSuccess ? (
                     <div>
-                    <p>Carga exitosa!</p>
-                    <img src={selectedImage} alt="Selected" />
-                    <button onClick={handleCopyUrl}>Copiar URL de imagen</button>
+                        <button onClick={handleCopyUrl} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Copiar URL de imagen</button>
+                        <img src={selectedImage} alt="Selected" className="h-50 w-50"/>
                     </div>
                 ) : selectedImage ? (
                     <img src={selectedImage} alt="Selected" />
                 ) : (
-                    <p>Arrastra y suelta una imagen aquí o haz clic para seleccionarla</p>
+                    <>
+                        <div className="flex flex-col space-y-4">
+                        <label htmlFor="image-folder" className="text-sm font-medium text-gray-700">
+                            Folder donde se guarda la imagen:
+                        </label>
+                        <select
+                            id="image-folder"
+                            value={selectFolder}
+                            onChange={handleSelectChange}
+                            className="block w-full px-4 py-2 bg-white border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:outline-none"
+                        >
+                            <option value="about">About</option>
+                            <option value="banner">Banner</option>
+                            <option value="blog">Blog</option>
+                            <option value="email">Email</option>
+                            <option value="error-page">Error paginas</option>
+                            <option value="icon">Icon</option>
+                            <option value="logo">Logo</option>
+                            <option value="project">Project</option>
+                            <option value="skill">Skill</option>
+                        </select>
+                        </div>
+                        <h1>Arrastra y suelta una imagen aquí o haz click para seleccionarla</h1>
+                        <div className="flex items-center justify-center">
+                            <button
+                                type="button"
+                                onClick={handleClick}
+                                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border-none"
+                            >
+                                Subir imagen
+                            </button>
+                            <input
+                                ref={fileInputRef}
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                className="hidden"
+                            />
+                        </div>
+                    </>
                 )}
                 </div>
-                <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                />
             </div>
         </>
     );

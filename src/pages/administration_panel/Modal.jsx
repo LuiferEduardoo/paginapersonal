@@ -16,7 +16,6 @@ import { ImagesComponent } from './ImagesComponent';
 function Modal({ setIsOpen, title, component: Component, element, technology=null, setSelectedFile=null, elementsPreview=null}) {
     return (
         <>
-        <Toaster richColors position="top-center" />
         <div className={styles.modalBackground}>
             <div className={styles.modalContainer}>
                 <div className={styles.titleCloseBtn}>
@@ -29,7 +28,7 @@ function Modal({ setIsOpen, title, component: Component, element, technology=nul
                 </button>
                 </div>
                 <div className={styles.title}>
-                <h1>{title}</h1>
+                <h2>{title}</h2>
                 </div>
                     <Component setIsOpen={setIsOpen} element={element} technology={technology} setSelectedFile={setSelectedFile} elementsPreview={elementsPreview}/>
             </div>
@@ -272,7 +271,7 @@ const ElementsDelete = ({setIsOpen, element }) => {
             } else{
                 let deleteElement = await Elements.deleteElement(decryptedToken, element.id, elementToDelete, eliminateImage);
             }
-            toast.success(deleteElement.message);
+            toast.success('successfully removed');
             setIsOpen(false);
         } catch (error) {
             toast.error(error.message);
@@ -310,38 +309,38 @@ const ElementPreview = ({ setIsOpen, element, elementsPreview }) => {
             {element === 'skills' ? (
                 <div 
                 className="bg-white p-4 rounded-lg shadow relative">
+                    <img
+                        className="mt-2 rounded-lg h-40 w-40"
+                        src={elementsPreview.images[0].url ? elementsPreview.images[0].url : elementsPreview.images[0] ? URL.createObjectURL(elementsPreview.images[0]) : null}
+                        alt={elementsPreview.images[0].name ? elementsPreview.images[0].name : null}
+                    />
                     <h1 className="text-xl font-bold">{elementsPreview.name}</h1>
-                        <img
-                            className="mt-2 rounded-lg h-auto w-full"
-                            src={elementsPreview.images[0].url ? elementsPreview.images[0].url : elementsPreview.images[0] ? URL.createObjectURL(elementsPreview.images[0]) : null}
-                            alt={elementsPreview.images[0].name ? elementsPreview.images[0].name : null}
-                        />
                 </div>
             ) : element === 'project' ? (
                 <div 
                 className="bg-white p-4 rounded-lg shadow relative">
                     <h1 className="text-xl font-bold">{elementsPreview.name}</h1>
-                        <img
-                            className="mt-2 rounded-lg h-auto w-full"
-                            src={elementsPreview.miniature[0].url ? elementsPreview.miniature[0].url : elementsPreview.miniature[0] ? URL.createObjectURL(elementsPreview.miniature[0]) : null }
-                            alt={elementsPreview.images[0].name ? elementsPreview.images[0].name : null}
-                        />
+                    <img
+                        className="mt-2 rounded-lg h-auto w-full"
+                        src={elementsPreview.miniature[0].url ? elementsPreview.miniature[0].url : elementsPreview.miniature[0] ? URL.createObjectURL(elementsPreview.miniature[0]) : null }
+                        alt={elementsPreview.miniature[0].name ? elementsPreview.miniature[0].name : null}
+                    />
                     <p className="mt-2">{elementsPreview.briefDescription}</p>
                 </div>
             ) : (
                 <div 
                 className="bg-white p-4 rounded-lg shadow relative">
                     <h1 className="text-xl font-bold">{elementsPreview.title}</h1>
-                    <select>
+                    <section>
                         <img
                             className="mt-2 rounded-lg h-auto w-full"
                             src={elementsPreview.images[0].url ? elementsPreview.images[0].url : elementsPreview.images[0] ? URL.createObjectURL(elementsPreview.images[0]) : null}
                             alt={elementsPreview.images[0].name ? elementsPreview.images[0].name : null}
                         />
                         <p>{elementsPreview.imageCredits}</p>
-                    </select>
+                    </section>
                     <p>Autor: {elementsPreview.authors}</p>
-                    <div>
+                    <div className="text-justify">
                         <ReactMarkdown>{elementsPreview.content}</ReactMarkdown>
                     </div>
                 </div>

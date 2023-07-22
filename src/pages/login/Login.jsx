@@ -24,7 +24,7 @@ function Login() {
             const token = await AuthService.login(email, password);
             const encryptedToken = dataEncrypt(token); 
             Cookies.set('token', encryptedToken);
-            window.location.href = '/administration-panel';
+            window.location.href = '/administration-panel/content/skills';
         } catch (error) {
             toast.error(error.message);
         }

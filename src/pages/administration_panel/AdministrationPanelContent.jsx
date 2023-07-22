@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate, Routes, Route } from 'react-router-dom';
 import Sideber from './Sideber';
-import AuthService from '../../services/AuthService';
-import Dashboard from './Dashboard';
+import { Toaster, toast } from 'sonner';
 import Content from './Content';
 import ImagesContentComponet from './ImagesContentComponet';
 import Settings from './Settings';
@@ -14,9 +13,9 @@ function AdministrationPanelContent({ userInfo, token }){
         <>
             <main className={styles.flex}>
                 <Sideber />
+                <Toaster richColors position="top-center" />
                 <div className={styles.content}>
                     <Routes>
-                        <Route path="/*" exact={true} element={<Dashboard />}/>
                         <Route path="/content/*" exact={true} element={<Content />}/>
                         <Route path="/images/*" exact={true} element={<ImagesContentComponet />}/>
                         <Route path="/settings" exact={true} element={<Settings userInfo={userInfo}/>}/>

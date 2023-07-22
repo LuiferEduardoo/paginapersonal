@@ -22,7 +22,6 @@ const Nav = ({userInfo, token}) => {
     };
 
     const location = useLocation();
-    const isRootPath = location.pathname === '/administration-panel';
     const isContentPath =
         location.pathname === '/administration-panel/content/skills' ||
         location.pathname === '/administration-panel/content/projects' ||
@@ -31,9 +30,7 @@ const Nav = ({userInfo, token}) => {
     const isSettingsPath = location.pathname === '/administration-panel/settings';
 
     let pageTitle = '';
-    if (isRootPath) {
-        pageTitle = 'Dashboard';
-    } else if (isContentPath) {
+    if (isContentPath) {
         pageTitle = 'Gestión de Contenido';
     } else if (isImagesPath) {
         pageTitle = 'Imágenes';
@@ -45,22 +42,6 @@ const Nav = ({userInfo, token}) => {
         <nav className={styles.menu}>
             <h2 className={`${styles.pageTitle} text-2xl font-bold`}>{pageTitle}</h2>
             <div className={styles.container}>
-                {isRootPath && (
-                <ul className={styles.menuSections}>
-                    <li>
-                        <Link to="/">Hoy</Link>
-                    </li>
-                    <li>
-                        <Link to="/mes">Mes</Link>
-                    </li>
-                    <li>
-                        <Link to="/semana">Semana</Link>
-                    </li>
-                    <li>
-                        <Link to="/año">Año</Link>
-                    </li>
-                </ul>
-            )}
             {isContentPath && (
                 <ul className={styles.menuSections}>
                     <li>
@@ -85,7 +66,7 @@ const Nav = ({userInfo, token}) => {
                                 <Link to="/administration-panel/settings" className="block px-4 py-2 text-gray-800 hover:bg-gray-200">Configuración</Link>
                             </li>
                             <li>
-                                <button onClick={handleLogout} className="block w-full px-4 py-2 text-left text-gray-800 hover:bg-gray-200">Cerrar sesión</button>
+                                <span onClick={handleLogout} className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer">Cerrar sesión</span>
                             </li>
                         </ul>
                     </div>

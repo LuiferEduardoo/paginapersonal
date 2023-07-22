@@ -26,15 +26,17 @@ const ModalImagen = ({setIsOpen, element, setSelectedFile}) =>{
     return (
         <>
             <div className={styles.body}>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-3 gap-4">
                     {element.map((image) => (
-                        <img
-                            key={image.id}
-                            src={image.url}
-                            alt={image.name}
-                            onClick={() => handleImagesSelect(image)}
-                            className={`cursor-pointer ${imagesPreSelected.some((imagePreSelected) => imagePreSelected.id === image.id) ? "opacity-100 border-4 border-blue-500" : "opacity-50"}`}
-                        />
+                        <div>
+                            <img
+                                key={image.id}
+                                src={image.url}
+                                alt={image.name}
+                                onClick={() => handleImagesSelect(image)}
+                                className={` mt-2 rounded-lg h-40 w-40 object-cover mx-auto cursor-pointer ${imagesPreSelected.some((imagePreSelected) => imagePreSelected.id === image.id) ? "opacity-100 border-4 border-blue-500" : "opacity-50"}`}
+                            />
+                        </div>
                     ))}
                 </div>
             </div>
@@ -100,7 +102,7 @@ const ImagesComponent = ({setSelectedFile, selectedFile, tipeFile, setReplaceFil
                     )}
                     {selectedOption === "app" && (
                         <button
-                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md border-none text-sm"
                             onClick={openImage}
                         >
                             Cargar desde la aplicación

@@ -5,6 +5,7 @@ import {dataDescrypt} from '../../utils/data-descrypt';
 import AuthService from '../../services/AuthService';
 import { InputComponent } from './InputComponent';
 import { ImagesComponent } from './ImagesComponent';
+import styles from '../../assets/styles/administrationPanel.module.css';
 
 const Settings = ({ userInfo }) =>{
     const [name, setName] = useState("");
@@ -58,10 +59,10 @@ const Settings = ({ userInfo }) =>{
         }
     };
     return(
-        <div>
+        <div className={styles.contentSetting}>
             <Toaster richColors position="top-center" />
             <h2>Editar Perfil</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <ImagesComponent 
                     setSelectedFile={setProfilePicture} 
                     selectedFile={profilePicture} 
@@ -105,7 +106,7 @@ const Settings = ({ userInfo }) =>{
                     setElement={setRepeatNewPassword}
                     placeholder={'********'}
                 />
-                <button type="submit">
+                <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border-none">
                     Actualizar
                 </button>
             </form>
