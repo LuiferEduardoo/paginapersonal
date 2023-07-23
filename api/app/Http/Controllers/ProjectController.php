@@ -129,8 +129,8 @@ class ProjectController extends Controller
 
             $token = $request->header('Authorization');
             $token = str_replace('Bearer ', '', $token);
-            $eliminateImages = filter_var($request->input('eliminate_images'), FILTER_VALIDATE_BOOLEAN);
-            $eliminateMiniature = filter_var($request->input('eliminate_miniature'), FILTER_VALIDATE_BOOLEAN);
+            $eliminateImages = $request->input('eliminate_images');
+            $eliminateMiniature = $request->input('eliminate_miniature');
 
             if(Projects::findOrFail($id)){
                 $project = Projects::findOrFail($id);

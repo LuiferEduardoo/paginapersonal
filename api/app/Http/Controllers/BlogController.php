@@ -123,7 +123,7 @@ class BlogController extends Controller
 
             $token = $request->header('Authorization');
             $token = str_replace('Bearer ', '', $token);
-            $eliminateImage = filter_var($request->input('eliminate_image'), FILTER_VALIDATE_BOOLEAN);
+            $eliminateImage = $request->input('eliminate_image');
 
             if(BlogPost::findOrFail($id)){
                 $blogPost = BlogPost::findOrFail($id);

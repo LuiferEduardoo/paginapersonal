@@ -40,7 +40,7 @@ class ValidateDate extends FormRequest
                 ];
             case 'DeleteSkills':
                 return [
-                    'eliminate_image' => ['nullable','string']
+                    'eliminate_image' => ['nullable','boolean']
                     ];
             case 'PutSkills':
                 return [
