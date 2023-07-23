@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import Images from '../../services/Images';
 import { Modal, Buttons } from "./Modal";
 import {dataDescrypt} from '../../utils/data-descrypt';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const ModalImagen = ({setIsOpen, element, setSelectedFile}) =>{
 
@@ -29,7 +30,7 @@ const ModalImagen = ({setIsOpen, element, setSelectedFile}) =>{
                 <div className="grid grid-cols-3 gap-4">
                     {element.map((image) => (
                         <div>
-                            <img
+                            <LazyLoadImage
                                 key={image.id}
                                 src={image.url}
                                 alt={image.name}

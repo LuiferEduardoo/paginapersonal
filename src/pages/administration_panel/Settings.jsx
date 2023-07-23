@@ -6,8 +6,11 @@ import AuthService from '../../services/AuthService';
 import { InputComponent } from './InputComponent';
 import { ImagesComponent } from './ImagesComponent';
 import styles from '../../assets/styles/administrationPanel.module.css';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const Settings = ({ userInfo }) =>{
+    const [isLoading, setIsLoading] = useState(false);
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,6 +22,7 @@ const Settings = ({ userInfo }) =>{
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         const encryptedToken = Cookies.get('token');
         const decryptedToken = dataDescrypt(encryptedToken);
         const dataToUpdate = { }
@@ -50,13 +54,14 @@ const Settings = ({ userInfo }) =>{
         if(Object.keys(dataToUpdate).length != 0){
             try{
                 const update = await AuthService.update(decryptedToken, dataToUpdate);
-                toast.success(update.message);
+                toast.success(`${update.message}. Refresh the page to see the changes`);
             } catch (error) {
                 toast.error(error.message);
             }
         } else{
             toast.error('Ningún elemento ha sido actualizado');
         }
+        setIsLoading(false);
     };
     return(
         <div className={styles.contentSetting}>
@@ -106,8 +111,22 @@ const Settings = ({ userInfo }) =>{
                     setElement={setRepeatNewPassword}
                     placeholder={'********'}
                 />
-                <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border-none">
-                    Actualizar
+                <button 
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-4 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border-none"
+                    disabled={isLoading}>
+                {isLoading ? (
+                    <>
+                        <span className="flex items-center">
+                            <LoadingSpinner size={20} color="#fff" className="mr-2" />
+                            <span className="ml-2">Processing...</span>
+                        </span>
+                    </>
+                    ) : (
+                    <>
+                        Actualizar
+                    </>
+                    )}
                 </button>
             </form>
         </div>

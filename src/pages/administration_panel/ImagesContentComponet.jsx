@@ -7,7 +7,10 @@ import Images from '../../services/Images';
 import SubMenu from './SubMenu';
 import styles from '../../assets/styles/administrationPanel.module.css';
 import { Modal, ElementsDelete } from "./Modal";
+import LinearWithValueLabel from "./LinearWithValueLabel";
 import {dataDescrypt} from '../../utils/data-descrypt';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Skeleton } from "@mui/material";
 
 const ContentImagesView = () => {
     const [shouldResetEffect, setShouldResetEffect] = useState(false);
@@ -53,9 +56,6 @@ const ContentImagesView = () => {
             toast.success('URL de imagen copiada al portapapeles');
         });
     }
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
 
     if (error) {
         return <div>Error al obtener las imagenes</div>;
@@ -65,17 +65,26 @@ const ContentImagesView = () => {
         <>
             {isOpenDelete && <Modal setIsOpen={setIsOpenDelete} title='Borrar' component={ElementsDelete} element={valueImage} updateOrDelete={setShouldResetEffect}/>}
             <section className={`${styles.viewElements} grid grid-cols-4 gap-20`}>
-                {images.map((image, index) => (
+                {isLoading ? (
+                    [1,2,3,4,5,6,7,8].map((item) => (
+                        <Skeleton
+                            key={item}
+                            variant="rectangular" 
+                            height={250}
+                        />
+                    ))
+                ) : images.map((image, index) => (
                     <div
                     key={image.id}
                     className="bg-white p-4 rounded-lg shadow relative"
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
                     >
-                        <img
+                        <LazyLoadImage
                             className="mt-2 rounded-lg h-auto w-full"
                             src={image.url}
                             alt={image.name}
+                            threshold={'30'}
                         />
                         {hoveredIndex === index && (
                             <div className="absolute top-2 right-2 z-0">
@@ -164,9 +173,9 @@ const ContentImagesUpload = () => {
                 onDrop={handleDrop}
                 >
                 {loading ? (
-                    <div>
-                        Subiendo...
-                    </div>
+                    <>
+                        <LinearWithValueLabel upload={uploadSuccess}/>
+                    </>
                 ) : uploadSuccess ? (
                     <div>
                         <button onClick={handleCopyUrl} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Copiar URL de imagen</button>

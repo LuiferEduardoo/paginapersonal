@@ -21,6 +21,7 @@ const InputComponent = ({ title, TypeInput='input', id, type='text', element=nul
             ) : (
                 <textarea
                     id={id}
+                    value={element}
                     onChange={event => setElement(event.target.value)}
                     defaultValue={htmlToText(defaulValue)}
                     placeholder={placeholder}

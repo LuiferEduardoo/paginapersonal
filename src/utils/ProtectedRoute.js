@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { dataDescrypt } from './data-descrypt';
 import AuthService from '../services/AuthService';
 import Cookies from 'js-cookie';
+import { Skeleton } from "@mui/material";
 
 function ProtectedRoute({ isToken, children }) {
     const [userInfo, setUserInfo] = useState(null);
@@ -32,7 +33,15 @@ function ProtectedRoute({ isToken, children }) {
 
     if (isLoading) {
         // Mostrar un componente de carga mientras se obtiene la información del usuario
-        return <div>Loading...</div>;
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <Skeleton 
+                    variant="rectangular"
+                    width={900}
+                    height={718}
+                />
+            </div>
+        )
     }
 
     if (!isToken) {

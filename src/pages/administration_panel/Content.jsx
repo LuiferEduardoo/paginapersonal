@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon  } from "@heroicons/react/24/outline";
 import { Toaster, toast } from 'sonner';
 import moment from 'moment';
 import Cookies from 'js-cookie';
@@ -12,6 +12,8 @@ import Elements from '../../services/Elements';
 import { InputComponent } from './InputComponent';
 import { Classification } from './Classification';
 import { ImagesComponent } from './ImagesComponent';
+import LoadingSpinner from '../../components/LoadingSpinner';
+import { Skeleton } from "@mui/material";
 
 
 
@@ -75,10 +77,6 @@ const ViewElements = ({ elementObtain }) => {
             setValueElement(element);
         };
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
     if (error) {
         return <div>Error al obtener el/la {elementObtain}</div>;
     }
@@ -87,41 +85,53 @@ const ViewElements = ({ elementObtain }) => {
         <>
             {isOpenEdit && <Modal setIsOpen={setIsOpenEdit} title='Editar' component={ElementsEdit} element={valueElement} technology={technology} updateOrDelete={setShouldResetEffect}/>}
             {isOpenDelete && <Modal setIsOpen={setIsOpenDelete} title='Borrar' component={ElementsDelete} element={valueElement} updateOrDelete={setShouldResetEffect} />}
-            <section className={`${styles.viewElements} ${elementObtain === 'blogposts' ? 'grid grid-cols-3 gap-20' : 'grid grid-cols-5 gap-20'}`}>
-                {elements.map((element, index) => (
-                    <div
-                    key={element.id}
-                    className="bg-white p-4 rounded-lg shadow relative text-center"
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                    >
-                        <h1 className="text-xl font-bold">{element.name ? element.name : element.title ? element.title : null}</h1>
-                        <img
-                            className="mt-2 rounded-lg h-40 w-40 object-cover mx-auto"
-                            src={element.image[0].url ? element.image[0].url : null}
-                            alt={element.name ? element.name : null}
-                        />
-                        {element.brief_description && (
-                            <p className="mt-2">{element.brief_description}</p>
-                        )}
-                        {element.content && (
-                            <TruncatedHTML content={element.content} maxLength={150} />
-                        )}
-                        {hoveredIndex === index && (
-                            <div className="absolute top-2 right-2 z-0">
-                                <PencilSquareIcon
-                                    className="h-6 w-6 text-gray-500 cursor-pointer"
-                                    onClick={() => handleEditClick(element)}
-                                />
-                                <TrashIcon
-                                    className="h-6 w-6 text-gray-500 cursor-pointer"
-                                    onClick={() => handleDeleteClick(element)}
+            <section className={`${styles.viewElements} ${elementObtain === 'blogposts' || elementObtain === 'projects' ? 'grid grid-cols-3 gap-20'  : 'grid grid-cols-5 gap-20' }`}>
+                    {isLoading ? (
+                        [1,2,3,4,5,6].map((item) => (
+                            <Skeleton
+                                key={item}
+                                variant="rectangular" 
+                                height={250}
+                            />
+                        ))
+
+                    ) : elements.map((element, index) => (
+                        <div
+                        key={element.id}
+                        className="bg-white p-4 rounded-lg shadow relative text-center"
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
+                        >
+                            <h1 className="text-xl font-bold">{element.name ? element.name : element.title ? element.title : null}</h1>
+                            <div>
+                                <img
+                                    className="mt-2 rounded-lg h-auto w-full object-cover mx-auto"
+                                    src={elementObtain === 'projects' ? element.miniature[0].url : element.image[0].url ? element.image[0].url : null}
+                                    alt={element.name ? element.name : null}
+                                    loading="lazy"
                                 />
                             </div>
-                        )}
-                    </div>
-                ))}
-        </section>
+                            {element.brief_description && (
+                                <p className="mt-2">{element.brief_description}</p>
+                            )}
+                            {element.content && (
+                                <TruncatedHTML content={element.content} maxLength={150} />
+                            )}
+                            {hoveredIndex === index && (
+                                <div className="absolute top-2 right-2 z-0">
+                                    <PencilSquareIcon
+                                        className="h-6 w-6 text-gray-500 cursor-pointer"
+                                        onClick={() => handleEditClick(element)}
+                                    />
+                                    <TrashIcon
+                                        className="h-6 w-6 text-gray-500 cursor-pointer"
+                                        onClick={() => handleDeleteClick(element)}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    ))}
+            </section>
     </>
     );
 }
@@ -146,6 +156,7 @@ const CreateElements = ({ element }) => {
 
     const [activeSection, setActiveSection] = useState("category");
     const [isOpenPreview, setIsOpenPreview] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
@@ -168,6 +179,7 @@ const CreateElements = ({ element }) => {
     }
 
     const handleCreate = async () => {
+        setIsLoading(true);
         const encryptedToken = Cookies.get('token');
         const decryptedToken = dataDescrypt(encryptedToken);
         let data = null;
@@ -187,7 +199,7 @@ const CreateElements = ({ element }) => {
                 ...(briefDescription && {brief_description: briefDescription}),
                 ...(urlRepository && {url_repository: urlRepository}),
                 ...(selectedMiniature[0]?.id ? { id_miniature: selectedMiniature[0].id } : selectedMiniature[0] ? { miniature: selectedMiniature[0] } : {}),
-                ...(selectedImages[0]?.id ? { ids_images: selectedImages.map(image => image.id) } : selectedImages ? { 'images[]': selectedImages } : {}), 
+                ...(selectedImages[0]?.id ? { ids_images: selectedImages.map(image => image.id) } : selectedImages[0] ? { 'images': selectedImages } : {}), 
                 ...(categories.length != 0 && {categories: categories}), 
                 ...(subcategories.length != 0 && {subcategories: subcategories}), 
                 ...(technologies.length != 0 && {technologies: technologies.map(tecnhology => tecnhology.id)}),
@@ -229,6 +241,7 @@ const CreateElements = ({ element }) => {
                 toast.error(error.message);
             }
         }
+        setIsLoading(false)
     }
 
     const handlePreview = () => {
@@ -354,21 +367,35 @@ const CreateElements = ({ element }) => {
                     tags={tags}
                     setTags={setTags}
                     />
-                    <div className="space-x-4">
+                    <div className="flex items-center space-x-4">
                         <button
                             onClick={() => {
-                            handleCreate();
+                                handleCreate();
                             }}
-                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none border-none"
-                        >
-                            Crear
+                            disabled={isLoading}
+                            className={`${
+                                isLoading ? 'py-2' : 'py-2.5'
+                              } bg-blue-500 hover:bg-blue-600 text-white px-4 rounded-md focus:outline-none border-none`}
+                            >
+                            {isLoading ? (
+                                <>
+                                    <span className="flex items-center">
+                                        <LoadingSpinner size={20} color="#fff" className="mr-2" />
+                                        <span className="ml-2">Processing...</span>
+                                    </span>
+                                </>
+                            ) : (
+                                <>
+                                    Crear
+                                </>
+                            )}
                         </button>
 
                         <button
                             onClick={() => {
                             handlePreview();
                             }}
-                            className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md focus:outline-none border-none"
+                            className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2.5 rounded-md focus:outline-none border-none"
                         >
                             Previsualizar
                         </button>

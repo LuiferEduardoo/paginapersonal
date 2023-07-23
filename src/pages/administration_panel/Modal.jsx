@@ -270,7 +270,7 @@ const ElementsDelete = ({setIsOpen, element, updateOrDelete }) => {
             if(location.pathname === '/administration-panel/images'){
                 let deleteElement = await Images.deleteImage(decryptedToken, element.id);
             } else{
-                let deleteElement = await Elements.deleteElement(decryptedToken, element.id, elementToDelete, eliminateImage);
+                let deleteElement = await Elements.deleteElement(decryptedToken, element.id, elementToDelete, JSON.stringify(eliminateImage));
             }
             toast.success('successfully removed');
             setIsOpen(false);

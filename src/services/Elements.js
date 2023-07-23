@@ -25,10 +25,14 @@ const obtain = async (element) => {
 const createElement = async (token, element, data) => {
     try {
         const formData = new FormData();
-
+        if(data.images){
+            data.images.forEach((image, index) => {
+            formData.append(`images[${index}]`, image);
+          });
+        }
         for (let key in data) {
-            if (data.hasOwnProperty(key)) {
-                formData.append(key, data[key]);
+            if (data.hasOwnProperty(key) && key != "images") {
+                    formData.append(key, data[key]);
             }
         }
 
@@ -51,6 +55,10 @@ const createElement = async (token, element, data) => {
             throw new Error(`Error a la hora de crear ${element}`);
         }
     } catch (error) {
+        if (error.response && error.response.data) {
+            console.log(error.response.data)
+            throw new Error(error.response.data.message);
+        }
         throw new Error(error);
     }
 }
@@ -88,12 +96,14 @@ const update = async (token, element, id, dataToUpdate) => {
 const deleteElement = async (token, id, element, eliminateImages) => {
     const params = { id: id}
     try {
-        const response = await axios.delete(`https://api.luifereduardoo.com/v1/${element}`, { params, eliminateImages,
+        const response = await axios.delete(`https://api.luifereduardoo.com/v1/${element}`, {
         headers: {
             'Content-Type': 'application/json',
             'x-api-key': '530e4e8b-45be-4a7b-86f5-d98018838693',
             Authorization: `Bearer ${token}`,
-        },
+        }, 
+        data: eliminateImages,
+        params: params,
         });
 
         if (response.status === 200) {
