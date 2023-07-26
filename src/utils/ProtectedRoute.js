@@ -53,5 +53,5 @@ function ProtectedRoute({ isToken, children }) {
     });
 }
 
-export { ProtectedRoute };
+export default ProtectedRoute;
 

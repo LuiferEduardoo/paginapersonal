@@ -1,16 +1,33 @@
-import React from 'react'
-import {Proyect} from './Proyect'
-import {proyectApi} from '../../services/proyectApi'
+import React, { useRef }from 'react'
+import { Helmet } from "react-helmet";
+import {Project} from './Project'
+import {BannerPortfolio} from './BannerPortfolio';
+import {Navbar} from '../../components/Navbar';
+import {Footer} from '../../components/Footer';
+import '../../assets/styles/portafolio.css';
 
-function PortfolioContent() {
+const PortfolioContent = ({projects}) => {
+    const componenteProject = useRef(null);
+    const handleButtonBanner = () => {
+        componenteProject.current.scrollIntoView({
+            behavior: 'smooth', // Hace que el desplazamiento sea suave
+            block: 'start', // Desplazarse hasta la parte superior del componente
+          });
+    }
     return(
-        <section className="main-container">
-            <section className="main-container-proyects">
-            {proyectApi.map(elements =>
-                <Proyect key ={elements.id} link={elements.link} miniature ={elements.miniature} title={elements.title} brief_description={elements.brief_description} category={elements.category}/>
-            )}
+        <>
+            <Helmet>
+                <title>Portafolio</title>
+            </Helmet>
+            <BannerPortfolio handleButtonBanner={handleButtonBanner}/>
+            <section className="main-container">
+                <section ref={componenteProject} className="main-container-proyects">
+                {projects.map(elements =>
+                    <Project key ={elements.id} link={elements.link} miniature ={elements.miniature} name={elements.name} brief_description={elements.brief_description} category={elements.categories}/>
+                )}
+                </section>
             </section>
-        </section>
+        </>
     );   
 }
 export {PortfolioContent}

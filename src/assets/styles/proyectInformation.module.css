@@ -80,8 +80,14 @@
 .statusOffline{
     color:var(--text-color-secon);
 }
-.link i{
-    color: var(--text-color-secon);
+.link {
+    display: flex;
+}
+.link svg{
+    height: 30px;
+}
+.iconGithub{
+    fill:var(--text-color-secon);
 }
 .version span{
     color: var(--text-color-secon);
@@ -92,7 +98,7 @@
     width:90%;
     padding-top: 70px;
     background-color: var(--leading-color);
-    min-height:600px;
+    height:auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -109,13 +115,16 @@
 .description{
     width: 70%;
     text-align:justify;
+    display: inline-block;
 }
 .description span{
     color: var(--text-color-leading);
 }
-.information{
+.information {
     display: flex;
     flex-direction: column;
+    align-self: flex-start; /* Alinea el contenido al comienzo del contenedor (izquierda) */
+    margin-top: 30px;
 }
 .information span{
     display:flex;
@@ -130,10 +139,11 @@
 }
 .mainContainerProyectsInformationTwo{
     width: 90%;
-    min-height: 240px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-bottom: 20px;
 }
 .subcategories span, .tecnology span, .contributors span{
     border: solid 1px var(--color-botton-banner);
@@ -145,6 +155,8 @@
 .mainContainerProyectsInformationThree{
     border-top: solid 1px gray;
     width: 100%;
+    height: auto;
+    padding-top: 10px;
     display: flex;
     align-items: center;
     justify-content: space-around;

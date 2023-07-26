@@ -4,9 +4,14 @@ import { Toaster, toast } from 'sonner';
 import AuthService from '../../services/AuthService';
 import Cookies from 'js-cookie';
 import {dataEncrypt} from '../../utils/data-encrypt';
+import { Helmet } from "react-helmet";
 
 
-function Login() {
+const Login = () => {
+    <Helmet>
+        <title>Login</title>
+    </Helmet>
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -67,4 +72,4 @@ function Login() {
     );
 }
 
-export {Login};
+export default Login;

@@ -1,8 +1,7 @@
 import React, {useEffect} from 'react';
 import { Helmet } from "react-helmet";
-import {Navbar} from '../../components/Navbar';
-import {Footer} from '../../components/Footer';
 import {ContactContent} from './ContactContent';
+import SkeletonComponent from '../../components/SkeletonComponent';
 
 function Contact() {
     useEffect(() => {
@@ -14,11 +13,9 @@ function Contact() {
             <title>Contacto</title>
             <meta name="description" content="Contactate conmigo por medio del correo electronico contacto@luifereduardoo.com" />
         </Helmet>
-        <Navbar />
         <ContactContent />
-        <Footer />
     </>
     );
 }
 
-export {Contact};
+export default Contact;

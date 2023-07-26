@@ -34,16 +34,14 @@
     text-decoration: none;
     color: var(--text-color-secon);
 }
-
-.informationPersonEmail i{
-    font-size: 25px;
-    color: var(--text-color-secon);
+.informationSocialMedia{
+    display: flex;
 }
 
-.informationSocialMedia a i{
+.informationSocialMedia a{
     color: var(--leading-color);
-    font-size: 25px;
-    display: inline-block;
+    width: 25px;
+    display: flex;
     border-radius: 50%;
     background-color: var(--color-botton-banner);
     padding: 10px;
@@ -76,13 +74,21 @@
 }
 
 .button {
-    background-color:var(--color-botton-banner);
+    background-color: var(--color-botton-banner);
     color: white;
     padding: 12px 20px;
     border: none;
     border-radius: 7px;
     cursor: pointer;
     font-size: 16px;
+    display: flex; /* Agregamos flex para centrar el contenido horizontalmente */
+    justify-content: center; /* Centramos horizontalmente el contenido */
+    align-items: center; /* Centramos verticalmente el contenido */
+}
+
+.button span {
+    display: flex;
+    align-items: center;
 }
 
 .button:hover {
