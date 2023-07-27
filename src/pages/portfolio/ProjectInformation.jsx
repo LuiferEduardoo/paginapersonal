@@ -17,12 +17,6 @@ const ProjectInformation = ({projects}) => {
                 <title>{item.name}</title>
                 <meta name="description" content={item.brief_description} />
             </Helmet>
-            <nav className={styles.nav}>
-                <Link to="/portfolio">
-                    <ArrowLeftIcon className="h-6 w-6 text-gray-500" />
-                </Link>
-                <img src ="https://cdn.luifereduardoo.com/img/logo/logo-black.svg"/>
-            </nav>
             <Banner img ={item.image[0].url}>
                 <div className ={styles.headerCapa}></div>
                 <section className={styles.headerContainerDescription}>

@@ -10,6 +10,26 @@
   border-bottom: solid 1px rgba(34, 34, 34, 0.2);
   position: relative;
 }
+.menuProyect{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  height:60px;
+  border-bottom: solid 1px rgba(34, 34, 34, 0.2);
+  position: fixed;
+  background-color:white;
+  z-index: 1;
+}
+.menuProyect img{
+  width: 200px;
+}
+.menuProyect a{ 
+  position:absolute;
+  left:10px;
+  text-decoration: none;
+  color:black;
+}
 .menuMobileIcon{
   font-size: 25px;
   margin: 40px;

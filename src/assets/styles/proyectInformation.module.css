@@ -1,26 +1,3 @@
-.nav{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:100%;
-    height:60px;
-    border-bottom: solid 1px rgba(34, 34, 34, 0.2);
-    position: fixed;
-    background-color:white;
-    z-index: 1;
-}
-.nav img{
-    width: 200px;
-}
-.nav i{
-    font-size: 30px;
-}
-.nav a{ 
-    position:absolute;
-    left:10px;
-    text-decoration: none;
-    color:black;
-}
 .headerCapa{
 	width: 100%;
 	height: 100%;
