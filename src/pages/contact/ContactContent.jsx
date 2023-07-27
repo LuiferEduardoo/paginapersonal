@@ -12,6 +12,7 @@ function ContactContent() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [subject, setSubject] = useState('');
+    const [isConsentGiven, setIsConsentGiven] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,6 +24,9 @@ function ContactContent() {
             subject:subject
         }
         try{
+            if(!isConsentGiven){
+                new error("Tienes que confirmar la casilla")
+            }
             const send = await Email.PostEmail(data);
             toast.success(send.message);
             setName('');
@@ -125,6 +129,15 @@ function ContactContent() {
                             required
                             className={styles.textarea}
                         />
+                        <label htmlFor="consent" className={styles.labelConsent}>
+                            <input
+                                type="checkbox"
+                                checked={isConsentGiven}
+                                onChange={(e)=> setIsConsentGiven(e.target.checked)}
+                                required
+                            />
+                            Acepto que mi información se guarde. 
+                        </label>
                         <button 
                             type="submit" 
                             className={styles.button}
@@ -137,7 +150,6 @@ function ContactContent() {
                                 </span>
                                 ) : (
                                 <>
-                                    <PaperAirplaneIcon className="h-5 w-5 text-white mr-1" />
                                     Enviar
                                 </>
                                 )}

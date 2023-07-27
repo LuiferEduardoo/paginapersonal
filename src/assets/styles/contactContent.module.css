@@ -67,12 +67,15 @@
 .input {
     height: 15px;
 }
-
 .textarea {
     height: 200px;
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont;
 }
-
+.labelConsent{
+    font-size: 14px;
+    color: var(--text-color-secon);
+    margin-bottom: 5px;
+}
 .button {
     background-color: var(--color-botton-banner);
     color: white;
