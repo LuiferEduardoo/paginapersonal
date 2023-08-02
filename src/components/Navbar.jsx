@@ -20,7 +20,7 @@ const Navbar = () => {
           <Link to="/portfolio">
             <ArrowLeftIcon className="h-6 w-6 text-gray-500" />
           </Link>
-          <img src="https://cdn.luifereduardoo.com/img/logo/logo-black.svg" />
+          <img src="https://cdn.luifereduardoo.com/img/logo/logo-black.svg" alt='logo'/>
         </>
       ) : (
         <>

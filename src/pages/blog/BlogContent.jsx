@@ -20,7 +20,7 @@ const BlogContent = ({ blogPosts }) => {
             >
               <Link to={element.link}>
                 <div>
-                  <img src={element.image[0].url} />
+                  <img src={element.image[0].url} alt={element.image[0].name}/>
                 </div>
                 <h1>{element.title}</h1>
                 <span className={styles.date}>{element.date}</span>
@@ -37,7 +37,7 @@ const BlogContent = ({ blogPosts }) => {
             <div key={index} className={styles.post}>
               <Link to={element.link}>
                 <div>
-                  <img src={element.image[0].url} />
+                  <img src={element.image[0].url} alt={element.image[0].name}/>
                 </div>
                 <h1>{element.title}</h1>
                 <span className={styles.date}>{element.date}</span>

@@ -12,13 +12,18 @@ const ProjectInformation = ({projects}) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     });
+    console.log(item)
     return (
         <>
             <Helmet>
                 <title>{item.name}</title>
                 <meta name="description" content={item.brief_description} />
+                <meta 
+                    property="og:image" 
+                    content={item.image[0].url}
+                />
             </Helmet>
-            <Banner img ={item.image[0].url}>
+            <Banner img ={item.image[0].url} altImage={item.image[0].name}>
                 <div className ={styles.headerCapa}></div>
                 <section className={styles.headerContainerDescription}>
                     <span className={styles.title}>{item.name}</span>
@@ -76,7 +81,7 @@ const ProjectInformation = ({projects}) => {
                     {itemHistory.contributors != "[]" ? 
                     <div className={styles.contributors}>
                         <p>Contribuidores:</p>
-                        {JSON.parsei(temHistory.contributors).map(elements => <span key={elements}>{elements}</span>)}
+                        {JSON.parse(itemHistory.contributors).map(elements => <span key={elements}>{elements}</span>)}
                     </div> :null}
                     {itemHistory.documentation?
                         <div className={styles.documentation}>

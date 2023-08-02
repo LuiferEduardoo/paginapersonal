@@ -5,7 +5,7 @@ function Project(props){
     return(
         <div className = "main-container-proyects-container">
             <Link to={props.link} key={props.link}>
-                <img src ={props.miniature[0].url}/>
+                <img src ={props.miniature[0].url} alt={props.miniature[0].name}/>
                 <div className="main-container-proyects-container-description">
                     <div className='main-container-proyects-container-description-top'>
                         <h1>{props.name}</h1>

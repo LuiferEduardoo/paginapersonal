@@ -5,7 +5,7 @@ import {Banner} from '../../components/Banner';
 import styles from '../../assets/styles/bannerHome.module.css';
 function BannerHome({handleButtonBanner}) {
     return(
-        <Banner img ="https://cdn.luifereduardoo.com/img/banner/home/png_20230213_185406_0000.webp" location="home">
+        <Banner img ="https://cdn.luifereduardoo.com/img/banner/home/png_20230213_185406_0000.webp" altImage="banner-home" location="home">
         <section className={styles.headerContainerInformation}>
             <span className={styles.presentation}>I'am</span>
             <span className={styles.name}>Luifer Ortega</span>

@@ -12,12 +12,14 @@ const PortfolioContent = ({projects}) => {
         componenteProject.current.scrollIntoView({
             behavior: 'smooth', // Hace que el desplazamiento sea suave
             block: 'start', // Desplazarse hasta la parte superior del componente
-          });
+        });
     }
     return(
         <>
             <Helmet>
                 <title>Portafolio</title>
+                <meta name="description" content="Explora mi portafolio como desarrollador de software y descubre una colección de proyectos innovadores y soluciones tecnológicas. Encontrarás ejemplos de mi habilidad para crear software de calidad. ¡Conoce mis proyectos y experiencia en el desarrollo de soluciones digitales a medida!"/>
+                <meta property="og:image" content="https://cdn.luifereduardoo.com/img/banner/portfolio/coding-924920_1280.webp"/>
             </Helmet>
             <BannerPortfolio handleButtonBanner={handleButtonBanner}/>
             <section className="main-container">

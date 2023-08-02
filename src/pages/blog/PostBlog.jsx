@@ -19,6 +19,22 @@ const PostBlog = ({ blogPosts }) => {
     );
   });
 
+  const htmlToPlainText = (htmlContent) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+    const plainText = doc.body.textContent || '';
+    const cleanedText = plainText.replace(/\s+/g, ' ').trim();
+    return cleanedText;
+  };
+
+  const truncateText = (text, maxLength) => {
+    return text.length > maxLength ? text.slice(0, maxLength - 3) + '...' : text;
+  };
+
+  const descriptionText = htmlToPlainText(item.content);
+  const maxDescriptionLength = 150; // Limitar la descripción a 150 caracteres
+  const truncatedDescription = truncateText(descriptionText, maxDescriptionLength);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -28,7 +44,11 @@ const PostBlog = ({ blogPosts }) => {
         <title>{item.title}</title>
         <meta
           name="description"
-          content="Descubre escritos facinantes en mi blog"
+          content={truncatedDescription}
+        />
+        <meta 
+          property="og:image" 
+          content={item.image[0].url}
         />
       </Helmet>
       <main className={styles.main}>
@@ -40,7 +60,7 @@ const PostBlog = ({ blogPosts }) => {
                 <div className={styles.postHeaderContentMeta}>
                   <div className={styles.postHeaderContentAuthor}>
                     <div className={styles.postHeaderContentAuthorImage}>
-                      <img src={item.user.profile[0].url} />
+                      <img src={item.user.profile[0].url} alt={item.user.profile[0].url} />
                     </div>
                     <div className={styles.postHeaderContentAuthorInformation}>
                       <span className={styles.author}>{item.user.name}</span>
@@ -115,7 +135,7 @@ const PostBlog = ({ blogPosts }) => {
                     key={element.id}
                   >
                     <a href={`../blog/${element.link}`}>
-                      <img src={element.image[0].url} />
+                      <img src={element.image[0].url} alt={element.image[0].name} />
                       <span>{element.title}</span>
                     </a>
                   </div>

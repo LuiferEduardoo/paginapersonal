@@ -9,7 +9,7 @@ function Banner(props) {
         styles['headerPortfolio'] : 
         styles['headerProyect']}>
             <div className={styles.headerImage}>
-                <img src ={props.img}/>
+                <img src ={props.img} alt={props.altImage}/>
             </div>
             <div className={styles.headerContainer}>
             {props.children}
