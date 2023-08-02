@@ -214,7 +214,7 @@ const ElementsEdit = ({setIsOpen, element, technology, updateOrDelete }) =>{
                         <>
                             <InputComponent title={'Nombre'} id={'name'} setElement={setName} defaulValue={element.name}/>
                             <InputComponent title={'Breve descripción'} TypeInput={'textarea'} id={'brief_description'} setElement={setBriefDescription} defaulValue={element.brief_description}/>
-                            <InputComponent title={'Url repositorio GitHub'} id={'url_repository'} setElement={setUrlRepository} defaulValue={element.url_repository}/>
+                            <InputComponent title={'Url repositorio GitHub'} id={'url_repository'} setElement={setUrlRepository} defaulValue={element.history[0].url_repository}/>
                         </>
                     ) : (
                         <>
@@ -261,6 +261,7 @@ const ElementsDelete = ({setIsOpen, element, updateOrDelete }) => {
         } else if(location.pathname === '/administration-panel/content/projects'){
             elementToDelete = 'project';
             eliminateImage['eliminate_images'] = deleteFile;
+            eliminateImage['eliminate_miniature'] = deleteFile;
         } else if(location.pathname === '/administration-panel/content/blog'){
             elementToDelete = 'blogpost';
             eliminateImage['eliminate_image'] = deleteFile;

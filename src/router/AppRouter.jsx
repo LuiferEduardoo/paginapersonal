@@ -35,17 +35,19 @@ export const AppRouter = () =>{
                         <AdministrationPanel/>
                     </ProtectedRoute>
                 }/>
+                <Route path='/*' element={ 
+                    <Layout>
+                        <Suspense fallback={<SkeletonComponent />}>
+                            <Routes>
+                                <Route index element ={<Home/>}/>
+                                <Route path="/portfolio/*" element ={<Portfolio/>}/>
+                                <Route path='/blog/*' element ={<Blog/>}/>
+                                <Route path='/contact' element ={<Contact/>}/>
+                            </Routes>
+                        </Suspense>
+                    </Layout>
+                }/>
             </Routes>
-            <Layout>
-                <Suspense fallback={<SkeletonComponent />}>
-                    <Routes>
-                        <Route index element ={<Home/>}/>
-                        <Route path="/portfolio/*" element ={<Portfolio/>}/>
-                        <Route path='/blog/*' element ={<Blog/>}/>
-                        <Route path='/contact' element ={<Contact/>}/>
-                    </Routes>
-                </Suspense>
-            </Layout>
         </>
     );
 }

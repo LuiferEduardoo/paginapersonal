@@ -7,7 +7,6 @@ const BlogContent = ({ blogPosts }) => {
   const firstTwoPosts = blogPosts.slice(0, 2);
   const postsAfterFirstTwo = blogPosts.slice(2);
 
-  console.log(blogPosts);
   return (
     <>
       <section className={styles.mainContainer}>

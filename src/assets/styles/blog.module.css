@@ -61,6 +61,11 @@
     gap: 20px; /* opcional, agrega un espacio entre los elementos */
 }
 
+@media (max-width: 858px){
+    .mainContainer{
+        padding-top: 50px;
+    }
+}
 @media (max-width: 900px){
     .mainContainerAfterFirstTwo{
         grid-template-columns: 1fr 1fr;

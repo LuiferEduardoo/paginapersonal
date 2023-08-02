@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 60px;
+  height: 70px;
   background-color: var(--leading-color);
   border-bottom: solid 1px rgba(34, 34, 34, 0.2);
   position: relative;
@@ -58,8 +58,13 @@
   font-size: 16px;
   padding: 15px;
 }
-.menuDesktop a:hover{
-  color: var(--text-color-menu-hover);
+.icon {
+  display: none;
+}
+.active{
+  background-color: var(--third-color);
+  padding: 5px 8px;
+  border-radius: 5px;
 }
 
 @media (max-width: 858px){
@@ -84,13 +89,20 @@
     padding: 10px 0 0 20px;
   }
   .menuDesktop a {
+    display: flex;
+    align-items: center;
     font-weight: 400;
   }
   .menuDesktop a:hover{
     color: var(--text-color-leading);
   }
-  .isActive{
+  .menuMobile{
     left: 0;
+  }
+  .icon {
+    display: block;
+    width: 25px;
+    margin-right: 5px;
   }
   .menuMobileIcon{
     display: block;

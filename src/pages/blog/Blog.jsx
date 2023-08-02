@@ -29,7 +29,6 @@ function Blog() {
     fetchData();
   }, []);
 
-  console.log(blogPost);
   return (
     <>
       <Helmet>

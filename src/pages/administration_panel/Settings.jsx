@@ -18,7 +18,6 @@ const Settings = ({ userInfo }) =>{
     const [repeatNewPassword, setRepeatNewPassword] = useState("");
     const [profilePicture, setProfilePicture] = useState("");
     const [replaceProfile, setReplaceProfile] = useState(false);
-    console.log(userInfo);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

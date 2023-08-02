@@ -106,7 +106,7 @@ const ViewElements = ({ elementObtain }) => {
                             <div>
                                 <img
                                     className="mt-2 rounded-lg h-auto w-full object-cover mx-auto"
-                                    src={elementObtain === 'projects' ? element.miniature[0].url : element.image[0].url ? element.image[0].url : null}
+                                    src={elementObtain === 'projects' ? element.miniature[0].url : element.image[0] ? element.image[0].url : null}
                                     alt={element.name ? element.name : null}
                                     loading="lazy"
                                 />
@@ -217,7 +217,6 @@ const CreateElements = ({ element }) => {
                 ...(technologies.length != 0 && {technologies: technologies}),
             };
         }
-        console.log(data);
         if(Object.keys(data).length != 0){
             try{
                 const create = await Elements.createElement(decryptedToken, element, data);

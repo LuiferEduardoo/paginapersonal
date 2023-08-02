@@ -22,7 +22,6 @@ function ProtectedRoute({ isToken, children }) {
             }
         } catch (error) {
             Cookies.remove('token');
-            console.error('Error al obtener la información del usuario:', error);
         } finally {
             setIsLoading(false); // Marcar la carga como completa, independientemente del resultado
         }

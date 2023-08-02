@@ -101,6 +101,7 @@
     .mainContainerContactForm{
         width: 80%;
         flex-direction: column;
+        margin-top: 75px;
     }
     .contactForm{
         min-width: 100%;

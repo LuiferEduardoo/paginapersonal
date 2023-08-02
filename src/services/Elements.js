@@ -35,10 +35,6 @@ const createElement = async (token, element, data) => {
                     formData.append(key, data[key]);
             }
         }
-
-        for (let entry of formData.entries()) {
-            console.log(entry[0] + ": " + entry[1]);
-        }
         
         const response = await axios.post(`https://api.luifereduardoo.com/v1/${element}/create`, formData, {
         headers: {
@@ -56,7 +52,6 @@ const createElement = async (token, element, data) => {
         }
     } catch (error) {
         if (error.response && error.response.data) {
-            console.log(error.response.data)
             throw new Error(error.response.data.message);
         }
         throw new Error(error);

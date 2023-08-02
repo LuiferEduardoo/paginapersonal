@@ -32,6 +32,19 @@ class ProjectController extends Controller
         $this->technologyService = $technologyService;
     }
 
+    public function link($title){
+        // Eliminar caracteres especiales y conservar tildes
+        $link = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $title));
+        $link = preg_replace('/[^a-z0-9\-]/', '', str_replace(' ', '-', $link));
+
+        $baseLink = $link;
+        $suffix = 1;
+        while (Projects::where('link', $link)->exists()) {
+            $link = "$baseLink-$suffix";
+            $suffix++;
+        }
+        return $link;
+    }
     public function getProject(Request $request){
         $query = Projects::with('miniature', 'image', 'categories', 'subcategories', 'technology' ,'tags');
         if ($request->input('id')) {
@@ -39,6 +52,10 @@ class ProjectController extends Controller
             $query->where('id', $id);
         }
         $query->where('visible', true);
+        $query->with(['history' => function ($historyQuery) {
+            $historyQuery->latest('created_at')->limit(1);
+        }]);
+        $query->orderBy('created_at', 'desc');
         $project = $query->get();
         return response()->json($project);
     }
@@ -53,25 +70,16 @@ class ProjectController extends Controller
             $technologies = $request->input('technologies');
             $tags = $request->input('tags');
             $repositoryUrl = $request->input('url_repository');
-            // Obtiene la ruta de la URL
-            $path = parse_url($repositoryUrl, PHP_URL_PATH);
-
-            // Elimina la barra diagonal inicial y el nombre de usuario
-            $path = ltrim($path, '/');
-            $path_parts = explode('/', $path);
-
-            // El primer elemento del array es el nombre de usuario y el segundo es el nombre del repositorio
-            $userName = $path_parts[0];
-            $repositoryName = $path_parts[1];
             DB::beginTransaction();
             // Crea el proyecto
             $project = new Projects([
                 'name' => $request->input('name'),
                 'brief_description' => $request->input('brief_description'),
+                'link' => $this->link($request->input('name')),
                 ]);
-            // Se guarda la información del repositorio en la base de datos
-            $this->githubService->getInformationRepository($project, $userName, $repositoryName, $request->input('name'));
             $project->save();
+            // Se guarda la información del repositorio en la base de datos
+            $this->githubService->getInformationRepository($project, $repositoryUrl);
             if($request->input('id_miniature')){
                 $miniaturaId = $request->input('id_miniature');
                 $this->imageAssociationService->saveImageForId($project, $miniaturaId, 'miniature');
@@ -106,6 +114,7 @@ class ProjectController extends Controller
             $this->classificationService->createItems($project, explode(",", $subcategories), 'subcategories', Subcategories::class, 'name');
             $this->classificationService->createItems($project, explode(",", $tags), 'tags', Tags::class, 'name');
 
+            $project->save();
             DB::commit(); // Confirmar la transacción
             return response()->json([
                 'message' => 'Project successfully created'
@@ -138,6 +147,8 @@ class ProjectController extends Controller
                 foreach ($items as $item){
                     $this->classificationService->deleteItems($project, $item);
                 }
+                $this->githubService->deleteAllRelations($project);
+                
                 $this->technologyService->deleteTechnology($project);
                 $this->imageAssociationService->deleteImage($project, 'image', $eliminateImages, $token);
                 $this->imageAssociationService->deleteImage($project, 'miniature', $eliminateMiniature, $token);
@@ -165,17 +176,7 @@ class ProjectController extends Controller
             $token = $request->header('Authorization');
             $token = str_replace('Bearer ', '', $token);
     
-            $repositoryUrl = $request->input('url_repository');
-            // Obtiene la ruta de la URL
-            $path = parse_url($repositoryUrl, PHP_URL_PATH);
-    
-            // Elimina la barra diagonal inicial y el nombre de usuario
-            $path = ltrim($path, '/');
-            $path_parts = explode('/', $path);
-    
-            // El primer elemento del array es el nombre de usuario y el segundo es el nombre del repositorio
-            $userName = $path_parts[0];
-            $repositoryName = $path_parts[1];
+            $urlRepository = $request->input('url_repository');
     
             $project = Projects::findOrFail($id);
     
@@ -187,11 +188,12 @@ class ProjectController extends Controller
     
             // Se actualiza los campos de projects
             $project->name = $request->input('name');
+            $project->link = $this->link($request->input('name'));
             $project->brief_description = $request->input('brief_description');
-            $project->url_repository = $repositoryUrl;
+            $project->url_repository = $urlRepository;
             
             $project->save();
-            $this->githubService->getInformationRepository($project, $userName, $repositoryName, $request->input('name'));
+            $this->githubService->getInformationRepository($project, $urlRepository);
     
             // Se actualizan las categorias, las subcategorias, las tecnologias y los tags
             $this->technologyService->updateTechnology($project, explode(",", $technologies));
@@ -264,22 +266,11 @@ class ProjectController extends Controller
             if ($request->input('name')) {
                 $name = $request->input('name');
                 $project->name = $name;
+                $proyect->link = $this->link($name);
             }
             if ($request->input('url_repository')) {
                 $urlRepository = $request->input('url_repository');
-                $project->url_repository = $urlRepository;
-                $repositoryUrl = $request->input('url_repository');
-                // Obtiene la ruta de la URL
-                $path = parse_url($repositoryUrl, PHP_URL_PATH);
-        
-                // Elimina la barra diagonal inicial y el nombre de usuario
-                $path = ltrim($path, '/');
-                $path_parts = explode('/', $path);
-        
-                // El primer elemento del array es el nombre de usuario y el segundo es el nombre del repositorio
-                $userName = $path_parts[0];
-                $repositoryName = $path_parts[1];
-                $this->githubService->getInformationRepository($project, $userName, $repositoryName, $request->input('name'));
+                $this->githubService->getInformationRepository($project, $urlRepository);
             }
             if ($request->input('brief_description')) {
                 $briefDescription = $request->input('brief_description');

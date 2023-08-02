@@ -89,9 +89,13 @@
     .mainContainerContact{
         width: 80%;
         flex-direction: column;
+        padding-top: 130px;
     }
     .contactForm{
         min-width: 100%;
+    }
+    .mainContainerBlog{
+        padding-top: 50px;
     }
 }
 @media (max-width: 820px){

@@ -63,6 +63,7 @@ class BlogController extends Controller
             $query->where('id', $id);
         }
         $query->where('visible', true);
+        $query->orderBy('created_at', 'desc');
         $blogPost = $query->get();
         return response()->json($blogPost);
     }

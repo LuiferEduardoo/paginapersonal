@@ -40,7 +40,6 @@ const userInfo = async (token) => {
         throw new Error('Token inválido');
         }
     } catch (error) {
-        console.error('Error al obtener la información del usuario:', error);
         throw new Error('Error al obtener la información del usuario');
     }
 };
@@ -90,7 +89,6 @@ const logout = async (token) => {
             throw new Error('Error en la solicitud de logout');
         }
     } catch (error) {
-        console.error('Error al realizar el logout:', error);
         throw new Error('Error al realizar el logout');
     }
 };

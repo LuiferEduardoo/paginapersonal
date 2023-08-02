@@ -59,7 +59,7 @@ const HomeContent = () => {
                             {skills.map((skill) => (
                                 <div key={skill.id} className={styles.mainContainerSkillsInformation}>
                                     <LazyLoadImage 
-                                        src={skill.image[0].url} 
+                                        src={skill.image[0] ? skill.image[0].url : ''} 
                                         alt={skill.name} 
                                     />
                                     <h2>{skill.name}</h2>
