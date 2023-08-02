@@ -53,7 +53,7 @@ class ProjectController extends Controller
         }
         $query->where('visible', true);
         $query->with(['history' => function ($historyQuery) {
-            $historyQuery->latest('created_at')->limit(1);
+            $historyQuery->latest('created_at');
         }]);
         $query->orderBy('created_at', 'desc');
         $project = $query->get();
