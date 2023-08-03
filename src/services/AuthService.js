@@ -1,4 +1,5 @@
 import axios from 'axios';
+const apiKey = process.env.REACT_APP_API_KEY;
 
 const login = async (email, password) => {
     try {
@@ -8,7 +9,7 @@ const login = async (email, password) => {
         }, {
         headers: {
             'Content-Type': 'application/json',
-            'x-api-key': '530e4e8b-45be-4a7b-86f5-d98018838693'
+            'x-api-key': apiKey
         },
         });
 
@@ -28,7 +29,7 @@ const userInfo = async (token) => {
         const response = await axios.get('https://api.luifereduardoo.com/v1/user', {
         headers: {
             'Content-Type': 'application/json',
-            'x-api-key': '530e4e8b-45be-4a7b-86f5-d98018838693',
+            'x-api-key': apiKey,
             Authorization: `Bearer ${token}`,
         },
         });
@@ -57,7 +58,7 @@ const update = async (token, dataToUpdate) => {
         const response = await axios.post(`https://api.luifereduardoo.com/v1/user`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
-            'x-api-key': '530e4e8b-45be-4a7b-86f5-d98018838693',
+            'x-api-key': apiKey,
             Authorization: `Bearer ${token}`,
         },
         });
@@ -78,7 +79,7 @@ const logout = async (token) => {
         const response = await axios.delete('https://api.luifereduardoo.com/v1/logout', {
             headers: {
             'Content-Type': 'application/json',
-            'x-api-key': '530e4e8b-45be-4a7b-86f5-d98018838693',
+            'x-api-key': apiKey,
             Authorization: `Bearer ${token}`,
             },
         });

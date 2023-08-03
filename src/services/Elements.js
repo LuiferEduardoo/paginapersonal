@@ -1,13 +1,15 @@
 import axios from 'axios';
 import React from 'react';
 
+const apiKey = process.env.REACT_APP_API_KEY;
+
 
 const obtain = async (element) => {
     try {
         const response = await axios.get(`https://api.luifereduardoo.com/v1/${element}`,{
         headers: {
             'Content-Type': 'application/json',
-            'x-api-key': '530e4e8b-45be-4a7b-86f5-d98018838693'
+            'x-api-key': apiKey
         },
         });
 
@@ -28,7 +30,7 @@ const createElement = async (token, element, data) => {
         if(data.images){
             data.images.forEach((image, index) => {
             formData.append(`images[${index}]`, image);
-          });
+        });
         }
         for (let key in data) {
             if (data.hasOwnProperty(key) && key != "images") {
@@ -39,7 +41,7 @@ const createElement = async (token, element, data) => {
         const response = await axios.post(`https://api.luifereduardoo.com/v1/${element}/create`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
-            'x-api-key': '530e4e8b-45be-4a7b-86f5-d98018838693',
+            'x-api-key': apiKey,
             Authorization: `Bearer ${token}`,
         },
         });
@@ -72,7 +74,7 @@ const update = async (token, element, id, dataToUpdate) => {
         const response = await axios.post(`https://api.luifereduardoo.com/v1/${element}/${id}`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
-            'x-api-key': '530e4e8b-45be-4a7b-86f5-d98018838693',
+            'x-api-key': apiKey,
             Authorization: `Bearer ${token}`,
         },
         });
@@ -94,7 +96,7 @@ const deleteElement = async (token, id, element, eliminateImages) => {
         const response = await axios.delete(`https://api.luifereduardoo.com/v1/${element}`, {
         headers: {
             'Content-Type': 'application/json',
-            'x-api-key': '530e4e8b-45be-4a7b-86f5-d98018838693',
+            'x-api-key': apiKey,
             Authorization: `Bearer ${token}`,
         }, 
         data: eliminateImages,
