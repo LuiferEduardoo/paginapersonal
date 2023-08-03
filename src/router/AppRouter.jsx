@@ -14,6 +14,7 @@ const Home = React.lazy(() => import('../pages/home/Home'));
 const Portfolio = React.lazy(() => import ('../pages/portfolio/Portfolio'));
 const Blog = React.lazy(() => import ('../pages/blog/Blog'));
 const Contact = React.lazy(() => import ('../pages/contact/Contact'));
+const NotFound = React.lazy(() => import ('../pages/not_found/NotFound'));
 
 export const AppRouter = () =>{
 
@@ -43,6 +44,7 @@ export const AppRouter = () =>{
                                 <Route path="/portfolio/*" element ={<Portfolio/>}/>
                                 <Route path='/blog/*' element ={<Blog/>}/>
                                 <Route path='/contact' element ={<Contact/>}/>
+                                <Route path ="*"element={<NotFound />}/>
                             </Routes>
                         </Suspense>
                     </Layout>

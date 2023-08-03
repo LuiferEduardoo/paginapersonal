@@ -45,7 +45,7 @@ const Navbar = () => {
                 <WalletIcon className={style.icon}/> Portafolio
               </Link >
             </li>
-            <li className={location.pathname === '/blog' ? style.active: ''}>
+            <li className={location.pathname === '/blog' || /^\/blog\/.+$/.test(location.pathname) ? style.active: ''}>
               <Link  to="/blog" onClick={() => toggleMenu()}>
                 <ChatBubbleBottomCenterTextIcon className={style.icon}/> Blog
               </Link >

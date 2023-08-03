@@ -29,8 +29,27 @@ const HomeContent = () => {
             myComponent.current.scrollIntoView({
                 behavior: 'smooth', // Hace que el desplazamiento sea suave
                 block: 'start', // Desplazarse hasta la parte superior del componente
-              });
-          };
+            });
+        };
+
+        const ageUpdate = () => {
+            const yearOfBirth = 2005;
+            const monthOfBirth = 9;
+            const dayOfBirth = 1;
+
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonth = currentDate.getMonth() + 1; 
+            const currentDay = currentDate.getDate();
+
+            let age = currentYear - yearOfBirth;
+
+            if (currentMonth < monthOfBirth || (currentMonth === monthOfBirth && currentDay < dayOfBirth)) {
+                age--;
+            }
+
+            return age;
+        }
     return (
         <>
             <BannerHome handleButtonBanner={handleButtonBanner}/>
@@ -38,7 +57,7 @@ const HomeContent = () => {
                 <div className={styles.mainContainerAbout} ref={myComponent}>
                     <section className={styles.mainContainerAboutText}>
                         <h1>Sobre mí</h1>
-                        <p>¡Hola! Mi nombre es Luifer Eduardo Ortega Pérez, y a mis 17 años, me apasiona profundamente la tecnología. Desde que era pequeño, he sentido una curiosidad innata por entender cómo funcionan las cosas y una habilidad autodidacta que me ha permitido aprender de forma independiente.</p>
+                        <p>¡Hola! Mi nombre es Luifer Eduardo Ortega Pérez, y a mis {ageUpdate()} años, me apasiona profundamente la tecnología. Desde que era pequeño, he sentido una curiosidad innata por entender cómo funcionan las cosas y una habilidad autodidacta que me ha permitido aprender de forma independiente.</p>
                         <p>A la temprana edad de 13 años, di mis primeros pasos en la programación con una sencilla impresión de "Hola mundo". Fue ese pequeño logro el que despertó en mí una pasión desbordante por la informática y la programación.</p>
                         <p>En el ámbito del desarrollo web, me siento cómodo trabajando con distintos lenguajes como JavaScript, Python y PHP. Mis conocimientos me permiten crear páginas interactivas y dinámicas, lo que me fascina, ya que puedo dar vida a mis ideas y proyectos.</p>
                         <p>Además de mi amor por la tecnología, tengo una profunda pasión por la escritura. Es por eso que cuento con una sección de Blog, donde puedo compartir mis pensamientos, conocimientos y experiencias con el mundo. Creo firmemente que la combinación de la tecnología y la escritura me da una ventaja única para expresar mis ideas y aportar valor a la comunidad.</p>
