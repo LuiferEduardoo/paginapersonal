@@ -1,15 +1,25 @@
-# Mi sitio web personal
-<img src="https://i.ibb.co/mJQxt3j/Logotipo-white.png" width="60%" height="60%">
+# Sitio Web Personal - ReactJS y Laravel API
 
-Este sitio web, como su nombre lo indica, es un sitio web personal, en el cual se podrá encontrar información sobre mí:
-- Portafolio
-- Cursos hechos
-- Información de contacto
-- Mis redes sociales
-- Mi blog
+Este es el repositorio de mi sitio web personal, construido con ReactJS para el frontend y Laravel para el backend con una API. El sitio web tiene varias secciones públicas, incluyendo Home, Portafolio, Blog y Contacto, así como una sección privada para el Panel de Administración.
 
+## Secciones Públicas
 
-> Para visitarlo puedes ir a: [luifereduardoo.com/](http://luifereduardoo.com/ "luifereduardoo.com/")
+- **Home**: Información destacada sobre mí y mi perfil profesional.
+- **Portafolio**: Proyectos y trabajos anteriores que he realizado.
+- **Blog**: Publicaciones sobre temas relacionados con mi campo profesional o intereses personales.
+- **Contacto**: Formulario de contacto para que los visitantes puedan comunicarse conmigo.
 
----
-**Si te quieres comunicar conmigo, lo puedes hacer por medio del siguiente email:** contacto@luifereduardoo.com
+## Panel de Administración
+
+El Panel de Administración es una sección privada del sitio web, protegida y accesible solo para usuarios autorizados. Aquí puedo gestionar el contenido del sitio, como agregar, editar o eliminar proyectos del portafolio, crear nuevas publicaciones para el blog y revisar los mensajes enviados a través del formulario de contacto.
+
+## Tecnologías Utilizadas
+
+- Frontend: ReactJS
+- Backend: Laravel con API
+
+## Contacto
+
+Si tienes alguna pregunta o deseas comunicarte directamente conmigo, puedes enviarme un correo electrónico a [contacto@luifereduardoo.com](mailto:contacto@luifereduardoo.com).
+
+¡Gracias por visitar mi sitio web personal y revisar este repositorio! Espero que encuentres la información interesante y útil.
