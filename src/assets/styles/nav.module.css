@@ -1,0 +1,113 @@
+/* Menu desktop */
+.menu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 70px;
+  background-color: var(--leading-color);
+  border-bottom: solid 1px rgba(34, 34, 34, 0.2);
+  position: relative;
+}
+.menuProyect{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  height:60px;
+  border-bottom: solid 1px rgba(34, 34, 34, 0.2);
+  position: fixed;
+  background-color:white;
+  z-index: 1;
+}
+.menuProyect img{
+  width: 200px;
+}
+.menuProyect a{ 
+  position:absolute;
+  left:10px;
+  text-decoration: none;
+  color:black;
+}
+.menuMobileIcon{
+  font-size: 25px;
+  margin: 40px;
+  display: none;
+  cursor: pointer;
+}
+.menuLogo img{
+  width: 150px;
+  margin-left: 20px;
+}
+.menuDesktop ul{
+  float: right;
+  list-style: none;
+  margin: 0;
+}
+.menuDesktop li {
+  display: inline-block;
+  line-height: 20px;
+  margin-right: 20px;
+}
+.menuDesktop a{
+  color: var(--text-color-leading);
+  display: block;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 15px;
+}
+.icon {
+  display: none;
+}
+.active{
+  background-color: var(--third-color);
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+
+@media (max-width: 858px){
+  /* Menu desktop */
+  .menu{
+    position: fixed;
+    z-index: 1;
+  }
+  .menuDesktop{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content:right;
+    align-items:flex-start;
+    z-index: 1;
+    background-color: var(--leading-color);
+    position:fixed;
+    top: 30px;
+    transition: all .5s;
+    left: -110%;
+    padding: 10px 0 0 20px;
+  }
+  .menuDesktop a {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+  }
+  .menuDesktop a:hover{
+    color: var(--text-color-leading);
+  }
+  .menuMobile{
+    left: 0;
+  }
+  .icon {
+    display: block;
+    width: 25px;
+    margin-right: 5px;
+  }
+  .menuMobileIcon{
+    display: block;
+  }
+  .menulogo img{
+    margin: auto;
+  }
+}

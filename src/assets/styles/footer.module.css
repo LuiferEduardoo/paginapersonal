@@ -1,0 +1,136 @@
+/* Footer */
+.footer {
+  margin: 0;
+  width: 100%;
+  height: auto;
+  bottom: 0px;
+  box-shadow: 2px 2px 8px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-leading-footer);
+}
+
+/* Información, footer mobile */
+.footerConteinerInforMobile {
+  display: none;
+}
+
+/* Container principal del footer */
+.footerConteiner {
+  display: flex;
+  justify-content: space-around;
+  padding: 80px 0 100px 0;
+}
+
+.footerConteiner p {
+  color: var(--text-leading-footer);
+  font-size: var(--text-medium);
+  font-weight: bold;
+}
+
+/* Estilos contacto */
+.footerContainerContactEmail {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.icon{
+  width: 25px;
+  color: white;
+  padding-right: 5px;
+}
+
+.footerContainerContactEmail a {
+  text-decoration: none;
+  color: var(--text-color-secon-footer);
+}
+
+.footerContainerContactEmail a:hover {
+  color: white;
+}
+
+/* Estilos información */
+.footerConteinerInfor {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerConteinerInforLogo img {
+  width: 100%;
+}
+
+.footerConteinerInforSocialMedia {
+  text-align: center;
+}
+
+
+.footerConteinerInforSocialMedia a svg {
+  padding: 5px;
+  width: 25px;
+  color: white;
+}
+
+/* Estilos enlaces */
+.footerConteinerLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footerConteinerLink ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.footerConteinerLink ul li a {
+  color: var(--text-color-secon-footer);
+  text-decoration: none;
+}
+
+.footerConteinerLink ul li a:hover {
+  color: white;
+}
+
+/* Estilos información copyright */
+.footerCopyright {
+  display: flex;
+  width: 100%;
+  height: auto;
+  background-color: var(--color-secon-footer);
+  padding: 15px 0 15px 0;
+}
+
+.footerCopyright p {
+  margin: 0 auto;
+  color: var(--text-color-credit-footer)
+}
+
+@media (max-width: 858px) {
+  /* Container principal del footer */
+  .footerConteiner {
+    flex-direction: column;
+    padding: 50px;
+  }
+
+  /* Link footer */
+  .footerConteinerLink {
+    align-items: flex-start;
+  }
+
+  /* Footer información */
+  .footerConteinerInfor {
+    display: none;
+  }
+
+  /* Footer información mobile */
+  .footerConteinerInforMobile {
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footerConteinerInforLogo img {
+    width: 100%;
+  }
+}

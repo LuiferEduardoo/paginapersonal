@@ -1,0 +1,237 @@
+/* Estilos de main */
+.main{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.postHeader{
+    width: 100%;
+}
+
+.postHeaderWrap{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+    margin-bottom: 7vh;
+    padding: 0 5vw;;
+}
+.postHeaderContentShare a{
+    color: var(--color-botton-banner);
+    font-size: 25px;
+}
+.postHeaderContent{
+    width: 65%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.postHeaderImage{
+    width: 70%;
+}
+.postHeaderContentMeta{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+.postHeaderContent h1{
+    font-size: 4rem;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--text-color-leading);
+    padding-bottom: 1rem;
+}
+.postHeaderContentAuthorInformation{
+    display:flex; 
+    flex-direction: column;
+}
+.postHeaderContentAuthorInformation span{
+    padding-left: 10px;
+}
+.postHeaderContentAuthorInformationTimes{
+    display: flex;
+}
+.author{
+    color:var(--text-color-leading);
+    font-weight: bold;
+}
+.postHeaderContentAuthorInformationTimes span{
+    color:var(--text-color-secon);
+    font-size: 13px;
+}
+.postHeaderContentAuthor{
+    display: flex;
+}
+.postHeaderContentAuthorImage img{
+    object-fit: cover;
+    width: 50px;
+    border-radius: 100%;
+}
+
+.postHeaderImage div img{
+    object-fit: cover;
+    border-radius: 15px;
+    width: 100%;
+}
+
+/* Estilos del contenido */
+.mainContainer{
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.mainContainerContent{
+    max-width: 60%;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-size: 1.2rem;
+    text-align: justify;
+}
+
+.mainContainerAside span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.mainContainerAsidePost {
+    margin-top: 2rem;
+}
+
+.mainContainerAsidePost li {
+    margin-bottom: 1rem;
+    list-style: none;
+}
+
+.mainContainerAsidePost a {
+    color: var(--primary-color);
+}
+
+/* Estilos de los post relacionados*/
+.mainContainerAside{
+    width: 100%;
+    background-color: var(--third-color);
+    padding: 20px 0px 20px 0px;
+}
+
+.mainContaineAideMain{
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.mainContainerAsidePost{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    gap: 20px;
+}
+.mainContainerAsidePost a{
+    text-decoration: none;
+}
+.mainContainerAsidePostContent{
+    width: 100%;
+}
+.mainContainerAsidePostContent img{
+    width: 100%;
+    border-radius: 5px;
+}
+@media (max-width: 858px){
+    .main{
+        padding-top: 50px;
+    }
+    .postHeaderContentShare{
+        display: none;
+    }
+    .postHeaderContent, .postHeaderImage{
+        max-width: 90%;
+    }
+    .postHeaderContent h1{
+        font-size: 3.8rem;
+    }
+
+    /* Estilos contenido */
+    .mainContainerContent{
+        max-width: 70%;
+    }
+
+    /* Aside */
+    .mainContainerAsidePost{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 960px){
+    .postHeaderContent h1{
+        font-size: 3.5rem;
+    }
+}
+
+
+@media (max-width: 856px){
+    .postHeaderContent{
+        width: 90%;
+    }
+    .postHeaderImage{
+        width: 100%;
+    }
+    .mainContainerContent{
+        max-width: 80%;
+    }
+    .mainContainerAsidePost{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: auto;
+        gap: 20px;
+    }
+    .mainContainerAsidePost{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 760px){
+    .postHeaderContent h1{
+        font-size: 3rem;
+    }
+    .postHeaderContent{
+        width: 90%;
+    }
+    .postHeaderImage{
+        width: 100%;
+    }
+    .mainContainerAsidePost{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: auto;
+        gap: 20px;
+    }
+    .mainContainerAsidePost{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 620px){
+    .postHeaderContent{
+        width:90%;
+    }
+    .postHeaderImage{
+        width: 100%;
+        height: 20%;
+    }
+    .postHeaderContent h1{
+        font-size: 2.5rem;
+    }
+    .mainContainerAsidePost{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    /* Estilos contenido */
+    .mainContainerContent{
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 400px){
+    .postHeaderImage{
+        width: 100%;
+        height: 50%;
+    }
+}

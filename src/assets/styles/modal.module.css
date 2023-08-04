@@ -1,0 +1,87 @@
+.modalBackground {
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    z-index: 15;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .modalContainer {
+    width: 750px;
+    height: 600px;
+    border-radius: 12px;
+    background-color: var(--leading-color);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    box-sizing: border-box;
+  }
+  
+  .modalContainer .title {
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+.titleCloseBtn button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+.modalContainer .body {
+    flex: 50%;
+    background-color: var(--secon-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    overflow: auto;
+    padding-top: 50px;
+}
+
+  .modalContainer .footer {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer .footer .actionButton {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+  }
+  .modalContainer .footer .updateButton{
+    background-color: var(--color-botton-banner);
+  }
+
+  .modalContainer .footer .deleteButton{
+    background-color:rgba(0, 0, 0, 0);
+    color: var(--text-color-leading);
+    border: solid 1px;
+  }
+  .modalContainer .footer .addButton{
+    background-color:var(--icon-color-online);
+  }
+  #cancelBtn {
+    background-color: crimson;
+  }

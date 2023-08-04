@@ -1,0 +1,57 @@
+{
+  "name": "sitio-web-personal",
+  "version": "1.0.0",
+  "description": "Web site personal",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuiferEduardoo/Sitio-web-personal.git"
+  },
+  "author": "Luifer Eduardo Ortega",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LuiferEduardoo/Sitio-web-personal/issues"
+  },
+  "homepage": "https://www.luifereduardoo.com/",
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@heroicons/react": "^2.0.18",
+    "@mui/material": "^5.14.1",
+    "axios": "^1.4.0",
+    "axios-form-data": "^1.1.1",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.3.1",
+    "html-to-text": "^9.0.5",
+    "js-cookie": "^3.0.5",
+    "moment": "^2.29.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-lazy-load-image-component": "^1.6.0",
+    "react-markdown": "^8.0.7",
+    "react-router-dom": "^6.9.0",
+    "react-scripts": "^5.0.1",
+    "sonner": "^0.6.2",
+    "web-vitals": "^3.3.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}

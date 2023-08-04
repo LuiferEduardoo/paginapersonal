@@ -1,0 +1,194 @@
+.headerCapa{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: rgba(0, 0, 0, 0.8);
+}
+.headerContainerDescription {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.title{
+    color:white;
+}
+.iconContainer{
+    width: 16px;
+    height: 16px;
+    position: relative;
+}
+.icon{
+    width: 100%;
+    height: 100%; 
+    position: absolute;
+    border-radius: 50%;
+    margin-left: -12px;
+}
+.iconBackgroundOnline{
+    background-color: var(--icon-color-online);
+}
+.iconBackgroundOffline{
+    background-color: var(--icon-color-offline);
+}
+.iconBackground i{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.status{
+    display: flex;
+    align-items: center;
+    font-size: var(--text-medium);
+}
+.statusOnline{
+    color:var(--text-color-online);
+}
+.statusOffline{
+    color:var(--text-color-secon);
+}
+.link {
+    display: flex;
+}
+.link svg{
+    height: 30px;
+}
+.iconGithub{
+    fill:var(--text-color-secon);
+}
+.version span{
+    color: var(--text-color-secon);
+    font-size: var(--text-small);
+    font-weight: 800px;
+}
+.mainContainerProyectsInformation{
+    width:90%;
+    padding-top: 70px;
+    background-color: var(--leading-color);
+    height:auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    align-items: center;
+}
+.mainContainerProyectsInformationOne{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    height: auto;
+}
+.description{
+    width: 70%;
+    text-align:justify;
+    display: inline-block;
+}
+.description span{
+    color: var(--text-color-leading);
+}
+.information {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start; /* Alinea el contenido al comienzo del contenedor (izquierda) */
+    margin-top: 30px;
+}
+.information span{
+    display:flex;
+    align-items: center;
+    color: var(--text-color-leading);
+    font-weight: bold;
+}
+.information span p{
+    color: var(--text-color-secon);
+    font-weight: normal;
+    margin: 0px 0px 0px 2px;
+}
+.mainContainerProyectsInformationTwo{
+    width: 90%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+.subcategories span, .tecnology span, .contributors span{
+    border: solid 1px var(--color-botton-banner);
+    border-radius: 8px;
+    margin-left: 10px;
+    padding: 5px;
+    color: var(--text-color-secon);
+}
+.mainContainerProyectsInformationThree{
+    border-top: solid 1px gray;
+    width: 100%;
+    height: auto;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.contributors, .documentation{
+    display: flex;
+    align-items: center;
+}
+.contributors p, .documentation p{
+    color: var(--text-color-leading);
+    font-weight: bold;
+}
+.documentation i{
+    font-size: 20px;
+}
+@media (max-width: 1050px){
+    .mainContainerProyectsInformationOne{
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 90%;
+    }
+    .description{
+        width: 100%;
+    }
+    .mainContainerProyectsInformationThree{
+        align-items:center;
+        flex-direction: column;
+    }
+    .tecnology{
+        padding-bottom: 20px;
+        display: grid;
+    }
+    .tecnologyItem{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-auto-rows: auto;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 600px){
+    .tecnologyItem{
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 500px){
+    .tecnologyItem{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 380px){
+    .tecnologyItem{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

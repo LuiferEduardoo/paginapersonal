@@ -1,0 +1,34 @@
+.headerHome{
+  display: flex;
+  max-width: 100%;
+  position:relative;
+  height:600px;
+}
+.headerPortfolio{
+  display: flex;
+  max-width: 100%;
+  position:relative;
+  height:500px;
+}
+.headerProyect{
+  display: flex;
+  max-width: 100%;
+  position:relative;
+  top:60px;
+  height: 500px;
+}
+
+.headerContainer{
+  max-width: 1000px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.headerImage{
+  width: 100%;
+}
+.headerImage img{
+  object-fit:cover;
+  width: 100%;
+  height: 100%;
+}
