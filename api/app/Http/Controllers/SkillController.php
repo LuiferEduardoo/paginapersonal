@@ -8,7 +8,6 @@ use App\Models\Tags;
 use App\Models\Categories;
 use App\Models\Subcategories;
 use App\Services\ImageAssociationService;
-use App\Services\ClassificationService;
 use App\Http\Requests\ValidateDate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -16,14 +15,6 @@ use Illuminate\Support\Facades\DB;
 
 class SkillController extends Controller
 {
-    protected $classificationService;
-    protected $imageAssociationService;
-
-    public function __construct(ClassificationService $classificationService, ImageAssociationService $imageAssociationService)
-    {
-        $this->classificationService = $classificationService;
-        $this->imageAssociationService = $imageAssociationService;
-    }
 
     public function GetSkills(Request $request){
         $query = Skills::with('image', 'categories', 'subcategories', 'tags');
@@ -53,22 +44,8 @@ class SkillController extends Controller
                 'date' => $request->input('date'),
             ]);
 
-            if($request->hasFile('image')){
-                $file = $request->file('image');
-                // Se guarda la imagen en la API y se hace la asociación
-                $this->imageAssociationService->saveImage($skill, $file, 'skill', 'image', $token);  
-            }else if($request->input('id_image')){
-                $idImage =$request->input('id_image');
-                $this->imageAssociationService->saveImageForId($skill, $idImage, 'image');
-            }else if($request->input('url')){
-                $url = $request->input('url');
-                $this->imageAssociationService->saveImageForUrl($skill, $url);
-            } else{
-                DB::rollBack();
-                    return response()->json([
-                        'message' => "Image not entered"
-                    ], 400);
-            }
+            $this->imageAssociationService->saveImages($skill, $request->hasFile('image'), $request->file('image'), $request->input('id_image'), 'skill', 'image', $token); // Se guarda la imagen 
+
             // Se crean las categorias y las subcategorias y los tags y se asocian con la habilidad
             $this->classificationService->createItems($skill, explode(",", $categories), 'categories', Categories::class, 'name');
             $this->classificationService->createItems($skill, explode(",", $subcategories), 'subcategories', Subcategories::class, 'name');
@@ -97,7 +74,7 @@ class SkillController extends Controller
 
             $token = $request->header('Authorization');
             $token = str_replace('Bearer ', '', $token);
-            $eliminateImage = $request->input('eliminate_image');
+            $eliminateImage =  filter_var($request->input('eliminate_image'), FILTER_VALIDATE_BOOLEAN);
 
             if(Skills::findOrFail($id)){
                 $skill = Skills::findOrFail($id);
@@ -105,7 +82,7 @@ class SkillController extends Controller
                 foreach ($items as $item){
                     $this->classificationService->deleteItems($skill, $item);
                 }
-                $this->imageAssociationService->deleteImage($skill, 'image', $eliminateImage, $token);
+                $this->imageAssociationService->deleteImages($skill, 'image', $eliminateImage, $token);
                 $skill->delete();
                 return response()->json(['message' => 'Skills successfully deleted'],200);
             }
@@ -147,22 +124,7 @@ class SkillController extends Controller
             $this->classificationService->updateItems($skill, explode(",", $tags), 'tags', Tags::class, 'name');
 
             $replaceImage = filter_var($request->input('replace_image'), FILTER_VALIDATE_BOOLEAN);
-
-            if($request->hasFile('image')){
-                $file = $request->file('image');
-                $this->imageAssociationService->updateImage($skill, $file, $replaceImage, 'image', 'skill', $token);
-            } else if($request->input('id_image')){
-                $idImage =$request->input('id_image');
-                $this->imageAssociationService->updateImageForId($skill, $idImage, $replaceImage, 'image', $token);
-            } else if($request->input('url')){
-                $url = $request->input('url');
-                $this->imageAssociationService->updateImageForUrl($skill, $url, $replaceImage, 'image', $token);
-            }else{
-                DB::rollBack();
-                    return response()->json([
-                        'message' => "Image not entered"
-                    ], 400);
-            }
+            $this->imageAssociationService->updateImages($skill, $request->hasFile('image'), $request->file('image'), $replaceImage, 'image', $request->input('id_image'), 'skill', $token); // Se actualiza la imagen
 
             DB::commit(); // Confirmar la transacción
         
@@ -193,7 +155,7 @@ class SkillController extends Controller
             $token = str_replace('Bearer ', '', $token);
 
             $skill = Skills::find($id);
-            $replaceImage = $request->input('replace_image');
+            $replaceImage = filter_var($request->input('replace_image'), FILTER_VALIDATE_BOOLEAN);
         
             if ($request->input('name')) {
                 $name = $request->input('name');
@@ -219,34 +181,8 @@ class SkillController extends Controller
                 $tags = $request->input('tags');
                 $this->classificationService->updateItems($skill, explode(",", $tags), 'tags', Tags::class, 'name');
             }
-            if($request->file('image')){
-                $image = $request->file('image'); 
-                if(!$request->input('url') && !$request->input('id_image')){
-                    $this->imageAssociationService->updateImage($skill, $image, $replaceImage, 'image', 'skill', $token);
-                } else{
-                    DB::rollBack();
-                    return $errorImage;
-                }
-            }
-            if($request->input('url')){
-                if(!$request->file('image') && !$request->input('id_image')){
-                    $url = $request->input('url');
-                    $this->imageAssociationService->updateImageForUrl($skill, $url, $replaceImage, 'image', $token);
-                }
-                else{
-                    DB::rollBack();
-                    return $errorImage;
-                }
-            }
-            if($request->input('id_image')){
-                $idImage = $request->input('id_image');
-                if(!$request->file('image') && !$request->input('url')){
-                    $this->imageAssociationService->updateImageForId($skill, $idImage, $replaceImage, 'image', $token);
-                }
-                else{
-                    DB::rollBack();
-                    return $errorImage;
-                }
+            if($request->file('image') || $request->input('id_image')){
+                $this->imageAssociationService->updateImages($skill, $request->hasFile('image'), $request->file('image'), $replaceImage, 'image', $request->input('id_image'), 'skill', $token); // Se actualiza la imagen
             }
         
             $skill->save();

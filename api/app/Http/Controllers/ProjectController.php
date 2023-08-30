@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidateDate;
+use App\Models\Projects;
 use App\Models\Tags;
 use App\Models\Categories;
 use App\Models\Subcategories;
-use App\Services\ImageAssociationService;
-use App\Services\GithubService;
-use App\Services\ClassificationService;
-use App\Services\TechnologyService;
-use App\Http\Requests\ValidateDate;
-use App\Models\Projects;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
@@ -19,32 +15,6 @@ use Illuminate\Database\QueryException;
 
 class ProjectController extends Controller
 {
-    protected $classificationService;
-    protected $imageAssociationService;
-    protected $githubService;
-    protected $technologyService;
-
-    public function __construct(ClassificationService $classificationService, ImageAssociationService $imageAssociationService, GithubService $githubService, TechnologyService $technologyService)
-    {
-        $this->classificationService = $classificationService;
-        $this->imageAssociationService = $imageAssociationService;
-        $this->githubService = $githubService;
-        $this->technologyService = $technologyService;
-    }
-
-    public function link($title){
-        // Eliminar caracteres especiales y conservar tildes
-        $link = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $title));
-        $link = preg_replace('/[^a-z0-9\-]/', '', str_replace(' ', '-', $link));
-
-        $baseLink = $link;
-        $suffix = 1;
-        while (Projects::where('link', $link)->exists()) {
-            $link = "$baseLink-$suffix";
-            $suffix++;
-        }
-        return $link;
-    }
     public function getProject(Request $request){
         $query = Projects::with('miniature', 'image', 'categories', 'subcategories', 'technology' ,'tags');
         if ($request->input('id')) {
@@ -75,40 +45,18 @@ class ProjectController extends Controller
             $project = new Projects([
                 'name' => $request->input('name'),
                 'brief_description' => $request->input('brief_description'),
-                'link' => $this->link($request->input('name')),
+                'link' => $this->link($request->input('name'), Projects::class),
                 ]);
-            $project->save();
-            // Se guarda la información del repositorio en la base de datos
-            $this->githubService->getInformationRepository($project, $repositoryUrl);
-            if($request->input('id_miniature')){
-                $miniaturaId = $request->input('id_miniature');
-                $this->imageAssociationService->saveImageForId($project, $miniaturaId, 'miniature');
-            } else if($request->hasFile('miniature')){
-                $miniatura = $request->file('miniature');
-                $this->imageAssociationService->saveImage($project, $miniatura, 'project/miniature', 'miniature', $token);
-            } else{
-                DB::rollBack();
-                    return response()->json([
-                        'message' => "Miniature not entered"
-                    ], 400);
-            }
+            
+            $project->save(); // Se guarda la información del repositorio en la base de datos
 
-            if($request->input('ids_images')){
-                $ids =  $arrayTags = explode(",", $request->input('ids_images'));
-                foreach ($ids as $id) {
-                    $this->imageAssociationService->saveImageForId($project, $id, 'image');
-                }
-            } else if($request->hasFile('images')){
-                $images = $request->file('images');
-                foreach ($images as $image){
-                    $this->imageAssociationService->saveImage($project, $image, 'project/image', 'image', $token);
-                }
-            } else{
-                DB::rollBack();
-                    return response()->json([
-                        'message' => "Image not entered"
-                    ], 400);
-            }
+            $this->githubService->getInformationRepository($project, $repositoryUrl); // Se obtiene la información de repositorio en github
+
+            //Se guardan las imagenes tanto por su id como por medio de un archivo tipo imagen
+            $this->imageAssociationService->saveImages($project, $request->hasFile('miniature'), $request->file('miniature'), $request->input('id_miniature'), 'project/miniature', 'miniature', $token);
+            $this->imageAssociationService->saveImages($project, $request->hasFile('images'), $request->file('images'), $request->input('ids_images'), 'project/image', 'image', $token);
+
+            //Se hacen y se guardan las clasificaciones 
             $this->technologyService->addTechnology($project, explode(",", $technologies));
             $this->classificationService->createItems($project, explode(",", $categories), 'categories', Categories::class, 'name');
             $this->classificationService->createItems($project, explode(",", $subcategories), 'subcategories', Subcategories::class, 'name');
@@ -138,8 +86,8 @@ class ProjectController extends Controller
 
             $token = $request->header('Authorization');
             $token = str_replace('Bearer ', '', $token);
-            $eliminateImages = $request->input('eliminate_images');
-            $eliminateMiniature = $request->input('eliminate_miniature');
+            $eliminateImages =  filter_var($request->input('eliminate_images'), FILTER_VALIDATE_BOOLEAN);
+            $eliminateMiniature = filter_var($request->input('eliminate_miniature'), FILTER_VALIDATE_BOOLEAN);
 
             if(Projects::findOrFail($id)){
                 $project = Projects::findOrFail($id);
@@ -147,11 +95,11 @@ class ProjectController extends Controller
                 foreach ($items as $item){
                     $this->classificationService->deleteItems($project, $item);
                 }
-                $this->githubService->deleteAllRelations($project);
+                $this->githubService->deleteAllRelations($project); // Se borran todas las relacciones de la información traida de github
                 
-                $this->technologyService->deleteTechnology($project);
-                $this->imageAssociationService->deleteImage($project, 'image', $eliminateImages, $token);
-                $this->imageAssociationService->deleteImage($project, 'miniature', $eliminateMiniature, $token);
+                $this->technologyService->deleteTechnology($project); // Se borran las tecnologias asociadas a el proyecto
+                $this->imageAssociationService->deleteImages($project, 'image', $eliminateImages, $token); // Se borra la imagen
+                $this->imageAssociationService->deleteImages($project, 'miniature', $eliminateMiniature, $token); // Se borra la miniatura
                 $project->delete();
                 return response()->json(['message' => 'Project successfully deleted'],200);
             }
@@ -202,37 +150,11 @@ class ProjectController extends Controller
             $this->classificationService->updateItems($project, explode(",", $tags), 'tags', Tags::class, 'name');
             
             $replaceMiniature = filter_var($request->input('replace_miniature'), FILTER_VALIDATE_BOOLEAN);
-    
-            if($request->input('id_miniature')){
-                $miniaturaId = $request->input('id_miniature');
-                $this->imageAssociationService->updateImageForId($project, $miniaturaId, $replaceMiniature, 'miniature', $token);
-            } else if($request->hasFile('miniature')){
-                $miniatura = $request->file('miniature');
-                $this->imageAssociationService->updateImage($project, $miniatura, $replaceMiniature, 'miniature', 'project/miniature', $token);
-            } else{
-                DB::rollBack();
-                    return response()->json([
-                        'message' => "Miniature not entered"
-                    ], 400);
-            }
+            $this->imageAssociationService->updateImages($proyect, $request->hasFile('miniature'), $request->file('miniature'), $replaceMiniature, 'miniature', $request->input('id_miniature'),'project/miniature', $token);
     
             $replaceImages = filter_var($request->input('replace_images'), FILTER_VALIDATE_BOOLEAN);
-            if($request->input('ids_images')){
-                $ids = explode(",", $request->input('ids_images'));
-                foreach ($ids as $id) {
-                    $this->imageAssociationService->updateImageForId($project, $id, $replaceImages, 'image', $token);
-                }
-            } else if($request->hasFile('images')){
-                $images = $request->file('images');
-                foreach ($images as $image){
-                    $this->imageAssociationService->updateImage($project, $image, $replaceImages, 'image', 'project/image', $token);
-                }
-            } else{
-                DB::rollBack();
-                    return response()->json([
-                        'message' => "Image not entered"
-                    ], 400);
-            }
+            $this->imageAssociationService->updateImages($proyect, $request->hasFile('images'), $request->file('images'), $replaceImages, 'image', $request->input('ids_images'), 'project/image', $token);
+
             DB::commit(); // Confirmar la transacción
             return response()->json([
                 'message' => 'Project successfully updated'
@@ -298,50 +220,14 @@ class ProjectController extends Controller
 
             $replaceMiniature = filter_var($request->input('replace_miniature'), FILTER_VALIDATE_BOOLEAN);
 
-            if($request->file('miniature')){
-                $image = $request->file('miniature'); 
-                if(!$request->input('id_miniature')){
-                    $this->imageAssociationService->updateImage($project, $image, $replaceMiniature, 'miniature', 'project/miniature', $token);
-                } else{
-                    DB::rollBack();
-                    return $errorImage;
-                }
+            if($request->hasFile('miniature') || $request->input('id_miniature') ){
+                $this->imageAssociationService->updateImages($project, $request->hasFile('miniature'), $request->file('miniature'), $replaceMiniature, 'miniature', $request->input('id_miniature'),'project/miniature', $token);
             }
-            if($request->input('id_miniature')){
-                $idImage = $request->input('id_miniature');
-                if(!$request->file('miniature')){
-                    $this->imageAssociationService->updateImageForId($project, $idImage, $replaceMiniature, 'miniature', $token);
-                }
-                else{
-                    DB::rollBack();
-                    return $errorImage;
-                }
-            }
+
             $replaceImages = filter_var($request->input('replace_images'), FILTER_VALIDATE_BOOLEAN);
 
-            if($request->file('images')){
-                $images = $request->file('images'); 
-                if(!$request->input('ids_images')){
-                    foreach ($images as $image){
-                        $this->imageAssociationService->updateImage($project, $image, $replaceImages, 'image', 'project/image', $token);
-                    }
-                } else{
-                    DB::rollBack();
-                    return $errorImage;
-                }
-            }
-            if($request->input('ids_images')){
-                $idImage = $request->input('ids_images');
-                if(!$request->file('images')){
-                    $ids = explode(",", $request->input('ids_images'));
-                    foreach ($ids as $id) {
-                        $this->imageAssociationService->updateImageForId($project, $id, $replaceImages, 'image', $token);
-                    }
-                }
-                else{
-                    DB::rollBack();
-                    return $errorImage;
-                }
+            if($request->hasFile('images') || $request->input('ids_images')){
+                $this->imageAssociationService->updateImages($project, $request->hasFile('images'), $request->file('images'), $replaceImages, 'image', $request->input('ids_images'), 'project/image', $token);
             }
         
             $project->save();

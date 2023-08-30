@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class ImageService
 {
+    protected $url;
+
+    public function __construct($url = null)
+    {
+        $this->url = $url ?: $_ENV['IMAGE_SERVICE'];
+    }    
     private function getClient($token)
     {
         $client = new Client([
@@ -28,7 +34,7 @@ class ImageService
         $filename = $file->getClientOriginalName();
 
         try {
-            $response = $client->post("https://cdn.luifereduardoo.com/api/images/create?folder=$folder", [
+            $response = $client->post("$this->url/images/create?folder=$folder", [
                 'multipart' => [
                     [
                         'name' => 'image',
@@ -59,7 +65,7 @@ class ImageService
         $client = $this->getClient($token);
 
         try {
-            $response = $client->delete("https://cdn.luifereduardoo.com/api/images", [
+            $response = $client->delete("$this->url/images", [
                 'query' => [
                     'id' => $id,
                 ],
@@ -85,7 +91,7 @@ class ImageService
         $filename = $file->getClientOriginalName();
 
         try {
-            $response = $client->post("https://cdn.luifereduardoo.com/api/images/$id", [
+            $response = $client->post("$this->url/images/$id", [
                 'multipart' => [
                     [
                         'name' => 'image',
