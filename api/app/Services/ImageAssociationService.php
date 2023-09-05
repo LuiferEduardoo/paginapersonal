@@ -65,7 +65,7 @@ class ImageAssociationService
                 $this->imageService->updateImage($idImageExit, $imagesArray[$index], $token);
             }
         }else{
-            foreach($images as $image){
+            foreach($imagesArray as $image){
                 // Se sube la imagen
                 $updateImage = $this->imageService->saveImage($image, $folder, $token);
                 // Actualiza la relación de imagen en la habilidad

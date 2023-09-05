@@ -22,12 +22,12 @@ Route::middleware(['api_key'])->group(function () {
         Route::delete('/logout', [AuthController::class, 'logout']);
         Route::patch('/user', [AuthController::class, 'updateInformationUser']);
 
-        Route::post('/skills/create', [SkillController::class, 'PostSkills']);
-        Route::delete('/skills', [SkillController::class, 'DeleteSkills']);
-        Route::put('/skills/{id}', [SkillController::class, 'PutSkills']);
-        Route::patch('/skills/{id}', [SkillController::class, 'PatchSkills']);
+        Route::post('/skills/create', [SkillController::class, 'createSkills']);
+        Route::delete('/skills', [SkillController::class, 'deleteSkills']);
+        Route::put('/skills/{id}', [SkillController::class, 'putSkills']);
+        Route::patch('/skills/{id}', [SkillController::class, 'patchSkills']);
 
-        Route::post('/project/create', [ProjectController::class, 'postProject']);
+        Route::post('/project/create', [ProjectController::class, 'createProject']);
         Route::delete('/project', [ProjectController::class, 'deleteProject']);
         Route::put('/project/{id}', [ProjectController::class, 'putProject']);
         Route::patch('/project/{id}', [ProjectController::class, 'patchProject']);
