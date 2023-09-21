@@ -1,9 +1,10 @@
 import axios from 'axios';
 const apiKey = process.env.REACT_APP_API_KEY;
+const apiWebSite = process.env.REACT_APP_API_WEB_SITE;
 
 const login = async (email, password) => {
     try {
-        const response = await axios.post('https://api.luifereduardoo.com/v1/login', {
+        const response = await axios.post(`${apiWebSite}/login`, {
         email: email,
         password: password,
         }, {
@@ -26,7 +27,7 @@ const login = async (email, password) => {
 
 const userInfo = async (token) => {
     try {
-        const response = await axios.get('https://api.luifereduardoo.com/v1/user', {
+        const response = await axios.get(`${apiWebSite}/user`, {
         headers: {
             'Content-Type': 'application/json',
             'x-api-key': apiKey,
@@ -55,7 +56,7 @@ const update = async (token, dataToUpdate) => {
                 formData.append(key, dataToUpdate[key]);
             }
         }
-        const response = await axios.post(`https://api.luifereduardoo.com/v1/user`, formData, {
+        const response = await axios.post(`${apiWebSite}/user`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             'x-api-key': apiKey,
@@ -76,7 +77,7 @@ const update = async (token, dataToUpdate) => {
 
 const logout = async (token) => {
     try {
-        const response = await axios.delete('https://api.luifereduardoo.com/v1/logout', {
+        const response = await axios.delete(`${apiWebSite}/user/logout`, {
             headers: {
             'Content-Type': 'application/json',
             'x-api-key': apiKey,

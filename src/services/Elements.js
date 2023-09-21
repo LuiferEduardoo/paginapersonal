@@ -2,11 +2,12 @@ import axios from 'axios';
 import React from 'react';
 
 const apiKey = process.env.REACT_APP_API_KEY;
+const apiWebSite = process.env.REACT_APP_API_WEB_SITE;
 
 
 const obtain = async (element) => {
     try {
-        const response = await axios.get(`https://api.luifereduardoo.com/v1/${element}`,{
+        const response = await axios.get(`${apiWebSite}/${element}`,{
         headers: {
             'Content-Type': 'application/json',
             'x-api-key': apiKey
@@ -38,7 +39,7 @@ const createElement = async (token, element, data) => {
             }
         }
         
-        const response = await axios.post(`https://api.luifereduardoo.com/v1/${element}/create`, formData, {
+        const response = await axios.post(`${apiWebSite}/${element}/create`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             'x-api-key': apiKey,
@@ -70,8 +71,10 @@ const update = async (token, element, id, dataToUpdate) => {
                 formData.append(key, dataToUpdate[key]);
             }
         }
+
+        console.log([...formData]);
         
-        const response = await axios.post(`https://api.luifereduardoo.com/v1/${element}/${id}`, formData, {
+        const response = await axios.post(`${apiWebSite}/${element}/${id}`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             'x-api-key': apiKey,
@@ -93,7 +96,7 @@ const update = async (token, element, id, dataToUpdate) => {
 const deleteElement = async (token, id, element, eliminateImages) => {
     const params = { id: id}
     try {
-        const response = await axios.delete(`https://api.luifereduardoo.com/v1/${element}`, {
+        const response = await axios.delete(`${apiWebSite}/${element}`, {
         headers: {
             'Content-Type': 'application/json',
             'x-api-key': apiKey,
