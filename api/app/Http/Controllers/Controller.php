@@ -30,12 +30,15 @@ class Controller extends BaseController
     protected $technologyService;
     protected $parsedown;
     protected $token;
+    protected $repositoryUrl; 
+    protected $haveImages;     
+    protected $images;  
+    protected $ids_images;
     protected $categories;
     protected $subcategories;
     protected $tags;
     protected $tecnhologies;
     protected $visible;
-    protected $repositoryUrl;
     protected $replaceImages;
     protected $eliminateImages;
 
