@@ -96,7 +96,7 @@ class ProjectController extends Controller
             if ($request->input('visible')) {
                 $project->visible = $this->visible;
             }
-            $this->updateImagesAndClassification($project, 'image', 'project/image', true, $request->hasFile('miniature'), $request->file('miniature'), $request->input('id_miniature'), $this->replaceMiniature); // Actualizamos las imagenes y clasificaciones
+            $this->updateImagesAndClassification($project, 'image', 'project/image', $request->hasFile('miniature'), $request->file('miniature'), $request->input('id_miniature'), $this->replaceMiniature); // Actualizamos las imagenes y clasificaciones
             $project->save();
             return response()->json([
                 'message' => 'Project updated successfully',

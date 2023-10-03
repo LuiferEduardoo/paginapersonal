@@ -84,7 +84,7 @@ class ValidateDate extends FormRequest
                         'url_repository' => ['required', 'url'],
                         'miniature' => ['nullable', 'image'],
                         'id_miniature' => ['nullable', 'string'],
-                        'images' => ['nullable','string'],
+                        'images' => ['nullable','array'],
                         'ids_images' => ['nullable','string'],
                         'categories' => ['required', 'string'],
                         'subcategories' => ['required', 'string'],

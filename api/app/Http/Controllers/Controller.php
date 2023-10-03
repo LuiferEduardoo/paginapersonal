@@ -100,7 +100,7 @@ class Controller extends BaseController
             }
         }
     }
-    protected function updateImagesAndClassification($object, $relation, $folder, $isProject=false, $haveMiniature=false, $miniature=null, $idMiniature=null, $replaceMiniature=false){
+    protected function updateImagesAndClassification($object, $relation, $folder, $haveMiniature=false, $miniature=null, $idMiniature=null, $replaceMiniature=false){
         $this->imageAssociationService->updateImages($object,  $this->haveImages, $this->images, $this->replaceImages, $relation,  $this->ids_images, $folder, $this->token);
         if($this->tags[0]){
             $this->classificationService->updateItems($object, $this->tags, 'tags', Tags::class, 'name');
@@ -111,14 +111,14 @@ class Controller extends BaseController
         if($this->subcategories[0]){
             $this->classificationService->updateItems($object, $this->subcategories, 'subcategories', Subcategories::class, 'name');
         }
-        if($isProject){
+        if($this->tecnhologies[0]){
+            $this->technologyService->updateTechnology($object, $this->tecnhologies);
+        }
+        if($this->repositoryUrl !== null){
+            $this->githubService->getInformationRepository($object, $this->repositoryUrl);
+        }
+        if($haveMiniature){
             $this->imageAssociationService->updateImages($object, $haveMiniature, $miniature, $replaceMiniature, 'miniature', $idMiniature, 'project/miniature', $this->token);
-            if($this->tecnhologies[0]){
-                $this->technologyService->updateTechnology($object, $this->tecnhologies);
-            }
-            if($this->repositoryUrl !== null){
-                $this->githubService->getInformationRepository($object, $this->repositoryUrl);
-            }
         }
     }
     protected function readingTime($content){
