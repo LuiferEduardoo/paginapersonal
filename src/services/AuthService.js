@@ -77,7 +77,7 @@ const update = async (token, dataToUpdate) => {
 
 const logout = async (token) => {
     try {
-        const response = await axios.delete(`${apiWebSite}/user/logout`, {
+        const response = await axios.delete(`${apiWebSite}/logout`, {
             headers: {
             'Content-Type': 'application/json',
             'x-api-key': apiKey,
@@ -91,6 +91,7 @@ const logout = async (token) => {
             throw new Error('Error en la solicitud de logout');
         }
     } catch (error) {
+        console.log(error);
         throw new Error('Error al realizar el logout');
     }
 };
