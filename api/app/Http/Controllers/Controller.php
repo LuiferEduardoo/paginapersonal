@@ -71,7 +71,7 @@ class Controller extends BaseController
             return $result;
         } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -101,7 +101,9 @@ class Controller extends BaseController
         }
     }
     protected function updateImagesAndClassification($object, $relation, $folder, $haveMiniature=false, $miniature=null, $idMiniature=null, $replaceMiniature=false){
-        $this->imageAssociationService->updateImages($object,  $this->haveImages, $this->images, $this->replaceImages, $relation,  $this->ids_images, $folder, $this->token);
+        if($this->haveImages || $this->ids_images){
+            $this->imageAssociationService->updateImages($object,  $this->haveImages, $this->images, $this->replaceImages, $relation,  $this->ids_images, $folder, $this->token);
+        }
         if($this->tags[0]){
             $this->classificationService->updateItems($object, $this->tags, 'tags', Tags::class, 'name');
         }

@@ -63,6 +63,8 @@ class ValidateDate extends FormRequest
                     'id_miniature' => ['nullable', 'string'],
                     'ids_images' => ['nullable','string'],
                     'image' => ['nullable','image'],
+                    'images' => ['nullable','array'],
+                    'ids_images' => ['nullable','string'],
                     'id_image' => ['nullable','string'],
                     'technologies' => ['nullable', 'string'],
                     'date' => ['nullable','string'],

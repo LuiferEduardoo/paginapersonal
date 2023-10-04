@@ -47,9 +47,7 @@ class ImageAssociationService
                 $this->saveImagesForId($ids, $object, $association);
             } else{
                 DB::rollBack();
-                    return response()->json([
-                        'message' => "Image not entered"
-                    ], 400);
+                throw new \Exception("Image not entered");
             }
         } catch(\Exception $e){
             // Manejo de la excepción
@@ -79,6 +77,7 @@ class ImageAssociationService
     private function updateImageForId($object, $idImages, $replaceImage, $relation, $token){
         try{
             $imagesForId = RegistrationOfImages::whereIn('id', $idImages)->get();
+            $arrayImages = [];
             foreach($imagesForId as $index => $imageForId){
                 $isRemoved = $imageForId['removed_at'];
                 if ($imageForId && !$isRemoved){
@@ -86,10 +85,14 @@ class ImageAssociationService
                     if($replaceImage && $idImageExit){
                         $this->imageService->deleteImage($idImageExit[$index], $token);
                     }
-                    $object->$relation()->sync([$idImages[$index]]);
+                    $arrayImages[] = $idImages[$index];
                 } else{
                     throw new \Exception("Image not found");
                 }
+            }
+            $object->$relation()->detach();
+            foreach($arrayImages as $arrayImage){
+                $object->$relation()->attach([$arrayImage]);
             }
         } catch(\Exception $e) {
             // Manejo de la excepción
@@ -105,9 +108,7 @@ class ImageAssociationService
                 $this->updateImageForId($object, $ids, $replaceImage, $relation, $token);
             } else{
                 DB::rollBack();
-                    return response()->json([
-                        'message' => "Image not entered"
-                    ], 400);
+                throw new \Exception("Image not entered");
             }
         } catch(\Exception $e) {
             // Manejo de la excepción
