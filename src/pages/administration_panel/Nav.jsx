@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styles from '../../assets/styles/navAdmistrationPanel.module.css';
 import AuthService from '../../services/AuthService';
 import Cookies from 'js-cookie';
+import { Toaster, toast } from 'sonner';
 
 const Nav = ({userInfo, token}) => {
     const [isMenuOpen, setMenuOpen] = useState(false);

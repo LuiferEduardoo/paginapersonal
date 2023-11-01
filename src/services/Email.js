@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 const apiKey = process.env.REACT_APP_API_KEY;
+const apiWebSite = process.env.REACT_APP_API_WEB_SITE;
 
 const PostEmail = async (data) => {
     try {
@@ -10,7 +11,7 @@ const PostEmail = async (data) => {
                     formData.append(key, data[key]);
             }
         }
-        const response = await axios.post(`https://api.luifereduardoo.com/v1/email`, formData, {
+        const response = await axios.post(`${apiWebSite}/email`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             'x-api-key': apiKey,

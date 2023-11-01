@@ -1,8 +1,9 @@
 import axios from 'axios';
+const apiServiceImage = process.env.REACT_APP_API_SERVICE_IMAGE;
 
 const obtain = async (token) => {
     try {
-        const response = await axios.get(`https://cdn.luifereduardoo.com/api/images`,{
+        const response = await axios.get(`${apiServiceImage}/images`,{
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -25,7 +26,7 @@ const upload = async (token, image, folder) => {
     formData.append('image', image); // Agregar la imagen al FormData
     formData.append('folder', folder); // Agregar la imagen al FormData
     try {
-        const response = await axios.post(`https://cdn.luifereduardoo.com/api/images/create`, formData, {
+        const response = await axios.post(`${apiServiceImage}/images/create`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
@@ -45,7 +46,7 @@ const upload = async (token, image, folder) => {
 
 const deleteImage = async (token, id) => {
     try {
-        const response = await axios.delete(`https://cdn.luifereduardoo.com/api/images?id=${id}`, {
+        const response = await axios.delete(`${apiServiceImage}/images?id=${id}`, {
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,

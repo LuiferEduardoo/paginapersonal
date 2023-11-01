@@ -155,7 +155,7 @@ const ElementsEdit = ({setIsOpen, element, technology, updateOrDelete }) =>{
                 }
             }
             if(replaceImage){
-                dataToUpdate['replace_image'] = replaceImage; 
+                dataToUpdate['replace_images'] = replaceImage; 
             }
             if(replaceMiniature){
                 dataToUpdate['replace_miniature'] = replaceMiniature; 
