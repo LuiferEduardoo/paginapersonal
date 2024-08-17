@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('users')) {
-            Schema::create('users', function (Blueprint $table) {
+        if (!Schema::hasTable('technologies_projects')) {
+            Schema::create('technologies_projects', function (Blueprint $table) {
                 $table->id();
-                $table->string('name');
-                $table->string('email')->unique();
-                $table->timestamp('email_verified_at')->nullable();
-                $table->string('password');
-                $table->rememberToken();
+                $table->foreignId('projects_id')->constrained('projects')->onDelete('cascade');
+                $table->foreignId('technology_id')->constrained('skills')->onDelete('cascade');
                 $table->timestamps();
             });
         }
-
     }
 
     /**
@@ -30,8 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasTable('users')) {
-            Schema::dropIfExists('users');
+        if (Schema::hasTable('technologies_projects')) {
+            Schema::dropIfExists('technologies_projects');
         }
     }
 };

@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('users')) {
-            Schema::create('users', function (Blueprint $table) {
+        if (!Schema::hasTable('subcategories_project')) {
+            Schema::create('subcategories_project', function (Blueprint $table) {
                 $table->id();
-                $table->string('name');
-                $table->string('email')->unique();
-                $table->timestamp('email_verified_at')->nullable();
-                $table->string('password');
-                $table->rememberToken();
+                $table->foreignId('subcategory_id')->constrained('subcategories')->onDelete('cascade');
+                $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
                 $table->timestamps();
             });
         }
-
     }
 
     /**
@@ -30,8 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasTable('users')) {
-            Schema::dropIfExists('users');
+        if (Schema::hasTable('subcategories_project')) {
+            Schema::dropIfExists('subcategories_project');
         }
     }
 };

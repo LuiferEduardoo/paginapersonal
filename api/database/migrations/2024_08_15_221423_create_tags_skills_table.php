@@ -11,18 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('users')) {
-            Schema::create('users', function (Blueprint $table) {
+        if (!Schema::hasTable('tags_skills')) {
+            Schema::create('tags_skills', function (Blueprint $table) {
                 $table->id();
-                $table->string('name');
-                $table->string('email')->unique();
-                $table->timestamp('email_verified_at')->nullable();
-                $table->string('password');
-                $table->rememberToken();
+                $table->foreignId('id_skills')->constrained('skills')->onDelete('cascade');
+                $table->foreignId('id_tag')->constrained('tags')->onDelete('cascade');
                 $table->timestamps();
             });
         }
-
     }
 
     /**
@@ -30,8 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasTable('users')) {
-            Schema::dropIfExists('users');
+        if (Schema::hasTable('tags_skills')) {
+            Schema::dropIfExists('tags_skills');
         }
     }
 };
