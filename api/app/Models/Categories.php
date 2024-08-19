@@ -18,4 +18,8 @@ class Categories extends Model
     public function blog(){
         return $this->belongsToMany(BlogPost::class, 'categories_blog', 'blog_post_id	', 'category_id');
     }
+
+    public function repositories(){
+        return $this->belongsToMany(repositories::class, 'categories_repositories', 'repository_id	', 'category_id');
+    }
 }

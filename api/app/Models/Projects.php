@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Projects extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'link', 'brief_description'];
+    protected $fillable = ['name', 'link', 'brief_description', 'description', 'visible', 'important', 'project_link'];
 
     protected $casts = [
         'contributors' => 'json'
@@ -22,9 +22,9 @@ class Projects extends Model
         return $this->belongsToMany(RegistrationOfImages::class, 'miniature_projects', 'project_id', 'image_id' );
     }
 
-    public function history()
+    public function repositories()
     {
-        return $this->hasMany(ProjectHistory::class, 'id_project');
+        return $this->hasMany(Repositories::class, 'project_id');
     }
 
     public function technology(){
