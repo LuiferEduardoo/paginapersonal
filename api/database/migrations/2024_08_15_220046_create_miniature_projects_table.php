@@ -14,7 +14,7 @@ return new class extends Migration
         if (!Schema::hasTable('miniature_projects')) {
             Schema::create('miniature_projects', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('image_id')->constrained('images')->onDelete('cascade');
+                $table->foreignId('image_id')->constrained('registration_of_images')->onDelete('cascade');
                 $table->foreignId('project_id')->constrained('projects')->onDelete('cascade');
                 $table->timestamps();
             });

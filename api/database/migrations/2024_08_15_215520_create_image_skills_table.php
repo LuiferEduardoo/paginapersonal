@@ -14,7 +14,7 @@ return new class extends Migration
         if (!Schema::hasTable('image_skills')) {
             Schema::create('image_skills', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('image_id')->constrained('images')->onDelete('cascade');
+                $table->foreignId('image_id')->constrained('registration_of_images')->onDelete('cascade');
                 $table->foreignId('skill_id')->constrained('skills')->onDelete('cascade');
                 $table->unique(['image_id', 'skill_id']);
                 $table->timestamps();
