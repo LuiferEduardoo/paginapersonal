@@ -8,7 +8,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\BlogController;
-use App\Services\ApiKeyGenerator;
 
 
 Route::post('/email', [EmailController::class, 'SendEmail']);
