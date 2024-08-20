@@ -49,22 +49,15 @@ class ValidateDate extends FormRequest
                     ];
 
             case 'patchSkills':
-            case 'patchProject':
             case 'patchBlogPost':
                 return [
                     'name' => ['nullable','string','max:255'],
                     'brief_description' => ['nullable', 'string', 'max:5000'],
-                    'url_repository' => ['nullable', 'url'],
                     'title' => ['nullable','string','max:255'],
                     'content' => ['nullable', 'string'],
                     'authors' => ['nullable', 'string'],
                     'image_credits' => ['nullable', 'string'],
-                    'miniature' => ['nullable', 'image'],
-                    'id_miniature' => ['nullable', 'string'],
-                    'ids_images' => ['nullable','string'],
                     'image' => ['nullable','image'],
-                    'images' => ['nullable','array'],
-                    'ids_images' => ['nullable','string'],
                     'id_image' => ['nullable','string'],
                     'technologies' => ['nullable', 'string'],
                     'date' => ['nullable','string'],
@@ -73,8 +66,6 @@ class ValidateDate extends FormRequest
                     'subcategories' => ['nullable', 'string'],
                     'validate' => ['nullable','string'],
                     'replace_image' => ['nullable','string'],
-                    'replace_images' => ['nullable','string'],
-                    'replace_miniature' => ['nullable','string'],  
                     ];
                 // Definir reglas de validación para los otros métodos
 
@@ -83,7 +74,10 @@ class ValidateDate extends FormRequest
                     return [
                         'name' => ['required','string','max:255'],
                         'brief_description' => ['required', 'string', 'max:5000'],
-                        'url_repository' => ['required', 'url'],
+                        'description' => ['required', 'string'],
+                        'project_link' => ['nullable', 'url'],
+                        'url_repositories' => ['required', 'string'],
+                        'categories_repositories' => ['required', 'string'],
                         'miniature' => ['nullable', 'image'],
                         'id_miniature' => ['nullable', 'string'],
                         'images' => ['nullable','array'],
@@ -96,6 +90,29 @@ class ValidateDate extends FormRequest
                         'replace_images' => ['nullable','string'],                        
                         ];
             
+                case 'patchProject':
+                    return [
+                        'name' => ['nullable','string','max:255'],
+                        'brief_description' => ['nullable', 'string', 'max:5000'],
+                        'description' => ['nullable', 'string'],
+                        'project_link' => ['nullable', 'url'],
+                        'url_repositories' => ['nullable', 'string'],
+                        'ids_update_repositories' => ['nullable', 'string'],
+                        'ids_eliminate_repositories' => ['nullable', 'string'],
+                        'categories_repositories' => ['nullable', 'string'],
+                        'categories_repositories_update' => ['nullable', 'string'],
+                        'miniature' => ['nullable', 'image'],
+                        'id_miniature' => ['nullable', 'string'],
+                        'images' => ['nullable','array'],
+                        'ids_images' => ['nullable','string'],
+                        'categories' => ['nullable', 'string'],
+                        'subcategories' => ['nullable', 'string'],
+                        'technologies' => ['nullable', 'string'],
+                        'tags' => ['nullable','string'],
+                        'replace_miniature' => ['nullable','string'],  
+                        'replace_images' => ['nullable','string'],     
+                    ];
+                
                 case 'createBlogPost':
                 case 'putBlogPost':
                     return [

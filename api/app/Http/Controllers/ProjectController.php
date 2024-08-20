@@ -15,15 +15,12 @@ class ProjectController extends Controller
         $this->replaceMiniature = filter_var($request->input('replace_miniature'), FILTER_VALIDATE_BOOLEAN);
     }
     public function getProject(Request $request){
-        $query = Projects::with('miniature', 'image', 'categories', 'subcategories', 'technology' ,'tags');
+        $query = Projects::with('repositories.categories', 'miniature', 'image', 'categories', 'subcategories', 'technology' ,'tags');
         if ($request->input('id')) {
             $id = $request->input('id');
             $query->where('id', $id);
         }
         $query->where('visible', true);
-        $query->with(['history' => function ($historyQuery) {
-            $historyQuery->latest('created_at');
-        }]);
         $query->orderBy('created_at', 'desc');
         $project = $query->get();
         return response()->json($project);
@@ -33,6 +30,7 @@ class ProjectController extends Controller
         return $this->executeInTransaction(function () use ($request) {
             $project = new Projects([
                 'name' => $request->input('name'),
+                'description' => $request->input('description'),
                 'brief_description' => $request->input('brief_description'),
                 'link' => $this->link($request->input('name'), Projects::class),
                 ]);
@@ -44,15 +42,14 @@ class ProjectController extends Controller
         });
     }
 
-    public function deleteProject(Request $request){
-        return $this->executeInTransaction(function () use ($request) {
-            $id = $request->input('id');
+    public function deleteProject(Request $request, $id){
+        return $this->executeInTransaction(function () use ($request, $id) {
             $eliminateMiniature = filter_var($request->input('eliminate_miniature'), FILTER_VALIDATE_BOOLEAN);
-            if(Projects::findOrFail($id)){
-                $project = Projects::findOrFail($id);
+            $project = Projects::find($id);
+            if($project){
                 $this->deleteImagesAndClassification($project, 'image', 'tecnologies', $eliminateMiniature);
                 $project->delete();
-                return response()->json(['message' => 'Project successfully deleted'],200);
+                return response()->json(['message' => 'Project successfully deleted'], 200);
             }
             return response()->json([
                 'message' => "Project not fount"
@@ -81,22 +78,32 @@ class ProjectController extends Controller
     public function patchProject(ValidateDate $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
             $project = Projects::find($id);
+            if (!$project) {
+                return response()->json(['message' => 'Project not found'], 404);
+            }
+
             if ($request->input('name')) {
                 $name = $request->input('name');
                 $project->name = $name;
                 $project->link = $this->link($name, $project);
             }
-            if ($request->input('url_repository')) {
-                $urlRepository = $request->input('url_repository');
-            }
             if ($request->input('brief_description')) {
                 $briefDescription = $request->input('brief_description');
                 $project->brief_description = $briefDescription;
             }
-            if ($request->input('visible')) {
+            if ($request->input('description')) {
+                $project->description = $request->input('description');
+            }
+            if ($request->input('project_link')) {
+                $project->project_link = $request->input('project_link');
+            }
+            if ($request->input('visible') !== null) {
                 $project->visible = $this->visible;
             }
-            $this->updateImagesAndClassification($project, 'image', 'project/image', $request->hasFile('miniature'), $request->file('miniature'), $request->input('id_miniature'), $this->replaceMiniature); // Actualizamos las imagenes y clasificaciones
+            if($request->input('important') !== null) {
+                $project->important = $this->important;
+            }
+            $this->updateImagesAndClassification($project, 'image', 'project/image', true, $request->hasFile('miniature'), $request->file('miniature'), $request->input('id_miniature'), $this->replaceMiniature); // Actualizamos las imagenes y clasificaciones
             $project->save();
             return response()->json([
                 'message' => 'Project updated successfully',

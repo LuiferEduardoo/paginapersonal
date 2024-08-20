@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::patch('/skills/{id}', [SkillController::class, 'patchSkills']);
 
     Route::post('/project/create', [ProjectController::class, 'createProject']);
-    Route::delete('/project', [ProjectController::class, 'deleteProject']);
+    Route::delete('/project/{id}', [ProjectController::class, 'deleteProject']);
     Route::put('/project/{id}', [ProjectController::class, 'putProject']);
     Route::patch('/project/{id}', [ProjectController::class, 'patchProject']);
 

@@ -30,7 +30,11 @@ class Controller extends BaseController
     protected $technologyService;
     protected $parsedown;
     protected $token;
-    protected $repositoryUrl; 
+    protected $repositoriesUrl;
+    protected $idsUpdateRepositories;
+    protected $idsEliminateRepositories;
+    protected $categoriesRepositories;
+    protected $categoriesRepositoriesUpdate;
     protected $haveImages;     
     protected $images;  
     protected $ids_images;
@@ -39,11 +43,13 @@ class Controller extends BaseController
     protected $tags;
     protected $tecnhologies;
     protected $visible;
+    protected $important;
     protected $replaceImages;
     protected $eliminateImages;
 
     public function __construct(ClassificationService $classificationService, ImageAssociationService $imageAssociationService, GithubService $githubService, TechnologyService $technologyService, Request $request)
     {
+
         $this->classificationService = $classificationService;
         $this->imageAssociationService = $imageAssociationService;
         $this->githubService = $githubService;
@@ -58,7 +64,12 @@ class Controller extends BaseController
         $this->tags = explode(",",$request->input('tags'));
         $this->tecnhologies = explode(",",$request->input('technologies'));
         $this->visible = filter_var($request->input('visible'), FILTER_VALIDATE_BOOLEAN);
-        $this->repositoryUrl = $request->input('url_repository');
+        $this->important = filter_var($request->input('important'), FILTER_VALIDATE_BOOLEAN);
+        $this->repositoriesUrl = $request->input('url_repositories') ? explode(",", $request->input('url_repositories')) : [];
+        $this->idsUpdateRepositories = $request->input('ids_update_repositories') ? explode(",", $request->input('ids_update_repositories')) : [];
+        $this->idsEliminateRepositories = $request->input('ids_eliminate_repositories') ? explode(",", $request->input('ids_eliminate_repositories')) : [];
+        $this->categoriesRepositories = $request->input('categories_repositories') ? explode(",", $request->input('categories_repositories')) : [];
+        $this->categoriesRepositoriesUpdate = $request->input('categories_repositories_update') ? explode(",", $request->input('categories_repositories_update')) : [];
         $this->replaceImages = $request->input('replace_image')? filter_var($request->input('replace_image'), FILTER_VALIDATE_BOOLEAN) : filter_var($request->input('replace_images'), FILTER_VALIDATE_BOOLEAN) ;
         $this->eliminateImages = $request->input('eliminate_image') ? filter_var($request->input('eliminate_image'), FILTER_VALIDATE_BOOLEAN) :  $request->input('eliminate_images');
     }
@@ -82,7 +93,7 @@ class Controller extends BaseController
         $this->classificationService->createItems($object, $this->subcategories, 'subcategories', Subcategories::class, 'name');
         if($isProject){
             $this->technologyService->addTechnology($object, $this->tecnhologies);
-            $this->githubService->getInformationRepository($object, $this->repositoryUrl); // Se obtiene la información de repositorio en github
+            $this->githubService->create($object, $this->repositoriesUrl, $this->categoriesRepositories); // Se obtiene la información de repositorio en github
             $this->imageAssociationService->saveImages($object, $haveMiniature, $miniature, $idMiniature, 'project/miniature', 'miniature', $this->token); // Se guarda la miniatura
         }
     }
@@ -96,11 +107,11 @@ class Controller extends BaseController
             if($technologyService != null){
                 $this->technologyService->deleteTechnology($object); // Se Borran las tecnologias
                 $this->imageAssociationService->deleteImages($object, 'miniature', $eliminateMiniature, $this->token); // Se borra la miniatura
-                $this->githubService->deleteAllRelations($object); // Se borran todas las relaciones de la información de github
+                $this->githubService->delete($object); // Se borran todas las relaciones de la información de github
             }
         }
     }
-    protected function updateImagesAndClassification($object, $relation, $folder, $haveMiniature=false, $miniature=null, $idMiniature=null, $replaceMiniature=false){
+    protected function updateImagesAndClassification($object, $relation, $folder, $isProject=false, $haveMiniature=false, $miniature=null, $idMiniature=null, $replaceMiniature=false){
         if($this->haveImages || $this->ids_images){
             $this->imageAssociationService->updateImages($object,  $this->haveImages, $this->images, $this->replaceImages, $relation,  $this->ids_images, $folder, $this->token);
         }
@@ -116,8 +127,8 @@ class Controller extends BaseController
         if($this->tecnhologies[0]){
             $this->technologyService->updateTechnology($object, $this->tecnhologies);
         }
-        if($this->repositoryUrl !== null){
-            $this->githubService->getInformationRepository($object, $this->repositoryUrl);
+        if($isProject){
+            $this->githubService->update($object, $this->repositoriesUrl, $this->categoriesRepositories, $this->idsUpdateRepositories, $this->categoriesRepositoriesUpdate, $this->idsEliminateRepositories);
         }
         if($haveMiniature){
             $this->imageAssociationService->updateImages($object, $haveMiniature, $miniature, $replaceMiniature, 'miniature', $idMiniature, 'project/miniature', $this->token);
