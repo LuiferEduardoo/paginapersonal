@@ -35,9 +35,9 @@ class BlogController extends Controller
             $blogPost = new BlogPost([
                 'title' => $request->input('title'),
                 'content' => $this->parsedown->text($request->input('content')),
-                'link' => $this->link($request->input('title'), BlogPost::class),
+                'link' => $this->link->generate($request->input('title'), BlogPost::class),
                 'authors' => $this->authors($request),
-                'reading_time' => $this->readingTime($request->input('content')),
+                'reading_time' => $this->time->readingTime($request->input('content')),
                 'image_credits' => $request->input('image_credits'),
             ]);
             $blogPost->user_id = $request->user()->id;
@@ -71,9 +71,9 @@ class BlogController extends Controller
             $content = $this->parsedown->text($request->input('content'));
             $blogPost->title = $title;
             $blogPost->content = $content;
-            $blogPost->link = $this->link($title, $blogPost);
+            $blogPost->link = $this->link->generate($title, $blogPost);
             $blogPost->authors = $this->authors($request);
-            $blogPost->reading_time = $this->readingTime($request->input('content'));
+            $blogPost->reading_time = $this->time->readingTime($request->input('content'));
             $blogPost->image_credits = $request->input('image_credits');
             $blogPost->save();
             $this->updateImagesAndClassification($blogPost, 'image', 'blog'); // Guardamos las imagenes y clasificaciones
@@ -89,12 +89,12 @@ class BlogController extends Controller
             if ($request->input('title')) {
                 $title = $request->input('title');
                 $blogPost->title = $title;
-                $blogPost->link = $this->link($title, $blogPost);
+                $blogPost->link = $this->link->generate($title, $blogPost);
             }
             if($request->input('content')){
                 $content = $request->input('content');
                 $blogPost->content = $this->parsedown->text($content);
-                $blogPost->reading_time = $this->readingTime($content);
+                $blogPost->reading_time = $this->time->readingTime($content);
             }
             if($request->input('authors')){
                 $blogPost->authors = $this->authors($request);

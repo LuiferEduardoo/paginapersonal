@@ -32,7 +32,7 @@ class ProjectController extends Controller
                 'name' => $request->input('name'),
                 'description' => $request->input('description'),
                 'brief_description' => $request->input('brief_description'),
-                'link' => $this->link($request->input('name'), Projects::class),
+                'link' => $this->link->generate($request->input('name'), Projects::class),
                 ]);
             $project->save(); // Se guarda la información del repositorio en la base de datos
             $this->saveImagesAndClassification($project, 'project/image', 'image', true, $request->hasFile('miniature'), $request->file('miniature'), $request->input('id_miniature'));
@@ -64,7 +64,7 @@ class ProjectController extends Controller
 
             // Se actualiza los campos de projects
             $project->name = $request->input('name');
-            $project->link = $this->link($request->input('name'), $project);
+            $project->link = $this->link->generate($request->input('name'), $project);
             $project->brief_description = $request->input('brief_description');
             $project->url_repository = $urlRepository;
             $project->save();
@@ -85,7 +85,7 @@ class ProjectController extends Controller
             if ($request->input('name')) {
                 $name = $request->input('name');
                 $project->name = $name;
-                $project->link = $this->link($name, $project);
+                $project->link = $this->link->generate($name, $project);
             }
             if ($request->input('brief_description')) {
                 $briefDescription = $request->input('brief_description');

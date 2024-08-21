@@ -15,6 +15,8 @@ use App\Services\ClassificationService;
 use App\Services\GithubService;
 use App\Services\TechnologyService;
 use App\Http\Requests\ValidateDate;
+use App\utils\Link;
+use App\utils\Time;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
@@ -24,6 +26,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected $link;
+    protected $time;
     protected $classificationService;
     protected $imageAssociationService;
     protected $githubService;
@@ -47,9 +51,10 @@ class Controller extends BaseController
     protected $replaceImages;
     protected $eliminateImages;
 
-    public function __construct(ClassificationService $classificationService, ImageAssociationService $imageAssociationService, GithubService $githubService, TechnologyService $technologyService, Request $request)
+    public function __construct(Link $link, Time $time, ClassificationService $classificationService, ImageAssociationService $imageAssociationService, GithubService $githubService, TechnologyService $technologyService, Request $request)
     {
-
+        $this->link = $link;
+        $this->time = $time;
         $this->classificationService = $classificationService;
         $this->imageAssociationService = $imageAssociationService;
         $this->githubService = $githubService;
@@ -133,27 +138,5 @@ class Controller extends BaseController
         if($haveMiniature){
             $this->imageAssociationService->updateImages($object, $haveMiniature, $miniature, $replaceMiniature, 'miniature', $idMiniature, 'project/miniature', $this->token);
         }
-    }
-    protected function readingTime($content){
-        $numberWords = str_word_count(strip_tags($content));
-        $readingTimeNoForm = ceil($numberWords / 200);
-        $readingTimeHours = floor($readingTimeNoForm/60); 
-        $readingTimeMinutes = $readingTimeNoForm % 60;
-        return gmdate('H:i:s', mktime($readingTimeHours, $readingTimeMinutes, 0, 0, 0, 0));
-    }
-
-
-    protected function link($title, $object){
-        // Eliminar caracteres especiales y conservar tildes
-        $link = strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $title));
-        $link = preg_replace('/[^a-z0-9\-]/', '', str_replace(' ', '-', $link));
-
-        $baseLink = $link;
-        $suffix = 1;
-        while ($object::where('link', $link)->exists()) {
-            $link = "$baseLink-$suffix";
-            $suffix++;
-        }
-        return $link;
     }
 }
