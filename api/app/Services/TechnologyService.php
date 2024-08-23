@@ -1,47 +1,47 @@
-<?php 
+<?php
 
 namespace App\Services;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
 
 class TechnologyService
 {
-    public function addTechnology(Model $object, array $ids){
-        try{
-            // Asociar las tecnologias con el objeto
+    public function addTechnology(Model $object, array $ids)
+    {
+        try {
             $object->technology()->attach($ids);
         } catch (\Exception $e) {
-            // Manejo de la excepción
             DB::rollBack();
-            return response()->json([
+            return new JsonResponse([
                 'message' => $e->getMessage()
             ], 404);
         }
     }
 
-    public function deleteTechnology(Model $object){
-        try{
+    public function deleteTechnology(Model $object)
+    {
+        try {
             $object->technology()->detach();
-        }  catch (\Exception $e) {
-            // Manejo de la excepción
+        } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json([
+            return new JsonResponse([
                 'message' => $e->getMessage()
             ], 404);
         }
     }
 
-    public function updateTechnology(Model $object, array $ids){
-        try{
-            $this->deleteTechnology($object);
-            $this->addTechnology($object, $ids);
-        } catch (\Exception $e) {
-            // Manejo de la excepción
-            DB::rollBack();
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 404);
+    public function updateTechnology(Model $object, array $ids)
+    {
+        $response = $this->deleteTechnology($object);
+        if ($response instanceof JsonResponse) {
+            return $response;
+        }
+
+        $response = $this->addTechnology($object, $ids);
+        if ($response instanceof JsonResponse) {
+            return $response;
         }
     }
 }
