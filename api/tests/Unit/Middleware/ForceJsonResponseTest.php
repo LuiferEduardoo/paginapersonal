@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit\Middleware;
 
 use App\Http\Middleware\ForceJsonResponse;
 use Illuminate\Http\Request;
