@@ -29,7 +29,7 @@ class ImageAssociationService
     private function saveImagesForId($idImages, $object, $association){
         $imagesForId = RegistrationOfImages::whereIn('id', $idImages)->get();
         foreach($imagesForId as $index => $imageForId){
-            $isRemoved = $imageForId['removed_at'];
+            $isRemoved = $imageForId->removed_at;
             if ($imageForId && !$isRemoved) {
                 $object->$association()->attach($idImages[$index]);
             } else {
