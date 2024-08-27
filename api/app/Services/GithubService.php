@@ -29,7 +29,7 @@ class GithubService{
         $this->classificationService = $classificationService;
     }
 
-    private function getClient()
+    protected function getClient()
     {
         $dotenv = Dotenv::createImmutable(base_path()); // Ajusta la ubicación del archivo .env según corresponda
         $dotenv->load();
@@ -43,7 +43,7 @@ class GithubService{
         return $client;
     }
 
-    private function getInformationRepository($repositoryUrl)
+    protected function getInformationRepository($repositoryUrl)
     {
         $client = $this->getClient();
 
