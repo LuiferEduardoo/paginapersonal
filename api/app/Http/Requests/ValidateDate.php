@@ -28,7 +28,6 @@ class ValidateDate extends FormRequest
                     'id_image' => ['nullable','string'],
                 ];
             case 'createSkills': 
-            case 'putSkills':
                 return [
                     'name' => ['required','string','max:255'],
                     'image' => ['nullable', 'image'],
@@ -39,6 +38,18 @@ class ValidateDate extends FormRequest
                     'tags' => ['required', 'string'],
                     'replace_image' => ['nullable','string'],
                 ];
+            case 'updateSkills': 
+                return [
+                    'name' => ['nullable','string','max:255'],
+                    'image' => ['nullable','image'],
+                    'id_image' => ['nullable','string'],
+                    'date' => ['nullable','string'],
+                    'tags' => ['nullable','string'],
+                    'categories' => ['nullable', 'string'],
+                    'subcategories' => ['nullable', 'string'],
+                    'replace_image' => ['nullable','string'],
+                ];
+
             case 'deleteSkills':
             case 'deleteProject':
             case 'deleteBlogPost':
@@ -47,11 +58,9 @@ class ValidateDate extends FormRequest
                     'eliminate_images' => ['nullable','boolean'],
                     'eliminate_miniature' => ['nullable','boolean']
                     ];
-
-            case 'patchSkills':
-            case 'patchBlogPost':
+            
+            case 'updateBlogPost':
                 return [
-                    'name' => ['nullable','string','max:255'],
                     'brief_description' => ['nullable', 'string', 'max:5000'],
                     'title' => ['nullable','string','max:255'],
                     'content' => ['nullable', 'string'],
@@ -60,17 +69,14 @@ class ValidateDate extends FormRequest
                     'image' => ['nullable','image'],
                     'id_image' => ['nullable','string'],
                     'technologies' => ['nullable', 'string'],
-                    'date' => ['nullable','string'],
                     'tags' => ['nullable','string'],
                     'categories' => ['nullable', 'string'],
                     'subcategories' => ['nullable', 'string'],
                     'validate' => ['nullable','string'],
                     'replace_image' => ['nullable','string'],
-                    ];
-                // Definir reglas de validación para los otros métodos
+                ];
 
                 case 'createProject':
-                case 'putProject':
                     return [
                         'name' => ['required','string','max:255'],
                         'brief_description' => ['required', 'string', 'max:5000'],
@@ -90,7 +96,7 @@ class ValidateDate extends FormRequest
                         'replace_images' => ['nullable','string'],                        
                         ];
             
-                case 'patchProject':
+                case 'updateProject':
                     return [
                         'name' => ['nullable','string','max:255'],
                         'brief_description' => ['nullable', 'string', 'max:5000'],
@@ -114,7 +120,6 @@ class ValidateDate extends FormRequest
                     ];
                 
                 case 'createBlogPost':
-                case 'putBlogPost':
                     return [
                         'title' => ['required','string','max:255'],
                         'content' => ['required', 'string'],

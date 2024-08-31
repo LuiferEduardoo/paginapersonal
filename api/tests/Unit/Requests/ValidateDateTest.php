@@ -82,24 +82,6 @@ class ValidateDateTest extends TestCase
         $this->assertEquals($expectedRules, $rules);
     }
 
-    public function testPutSkillsRules()
-    {
-        $request = $this->createValidateDateRequest('putSkills');
-        $rules = $request->rules();
-
-        $expectedRules = [
-            'name' => ['required', 'string', 'max:255'],
-            'image' => ['nullable', 'image'],
-            'id_image' => ['nullable', 'string'],
-            'date' => ['required', 'string'],
-            'categories' => ['required', 'string'],
-            'subcategories' => ['required', 'string'],
-            'tags' => ['required', 'string'],
-            'replace_image' => ['nullable', 'string'],
-        ];
-
-        $this->assertEquals($expectedRules, $rules);
-    }
 
     public function testDeleteSkillsRules()
     {
@@ -115,26 +97,19 @@ class ValidateDateTest extends TestCase
         $this->assertEquals($expectedRules, $rules);
     }
 
-    public function testPatchSkillsRules()
+    public function testUpdateSkillsRules()
     {
-        $request = $this->createValidateDateRequest('patchSkills');
+        $request = $this->createValidateDateRequest('updateSkills');
         $rules = $request->rules();
 
         $expectedRules = [
             'name' => ['nullable', 'string', 'max:255'],
-            'brief_description' => ['nullable', 'string', 'max:5000'],
-            'title' => ['nullable', 'string', 'max:255'],
-            'content' => ['nullable', 'string'],
-            'authors' => ['nullable', 'string'],
-            'image_credits' => ['nullable', 'string'],
             'image' => ['nullable', 'image'],
             'id_image' => ['nullable', 'string'],
-            'technologies' => ['nullable', 'string'],
             'date' => ['nullable', 'string'],
             'tags' => ['nullable', 'string'],
             'categories' => ['nullable', 'string'],
             'subcategories' => ['nullable', 'string'],
-            'validate' => ['nullable', 'string'],
             'replace_image' => ['nullable', 'string'],
         ];
 
@@ -168,13 +143,13 @@ class ValidateDateTest extends TestCase
         $this->assertEquals($expectedRules, $rules);
     }
 
-    public function testPatchProjectRules()
+    public function testUpdateProjectRules()
     {
-        $request = $this->createValidateDateRequest('patchProject');
+        $request = $this->createValidateDateRequest('updateProject');
         $rules = $request->rules();
 
         $expectedRules = [
-            'name' => ['nullable', 'string', 'max:255'],
+            'name' => ['nullable','string','max:255'],
             'brief_description' => ['nullable', 'string', 'max:5000'],
             'description' => ['nullable', 'string'],
             'project_link' => ['nullable', 'url'],
@@ -185,14 +160,14 @@ class ValidateDateTest extends TestCase
             'categories_repositories_update' => ['nullable', 'string'],
             'miniature' => ['nullable', 'image'],
             'id_miniature' => ['nullable', 'string'],
-            'images' => ['nullable', 'array'],
-            'ids_images' => ['nullable', 'string'],
+            'images' => ['nullable','array'],
+            'ids_images' => ['nullable','string'],
             'categories' => ['nullable', 'string'],
             'subcategories' => ['nullable', 'string'],
             'technologies' => ['nullable', 'string'],
-            'tags' => ['nullable', 'string'],
-            'replace_miniature' => ['nullable', 'string'],
-            'replace_images' => ['nullable', 'string'],
+            'tags' => ['nullable','string'],
+            'replace_miniature' => ['nullable','string'],  
+            'replace_images' => ['nullable','string'],     
         ];
 
         $this->assertEquals($expectedRules, $rules);
@@ -219,27 +194,25 @@ class ValidateDateTest extends TestCase
         $this->assertEquals($expectedRules, $rules);
     }
 
-    public function testPatchBlogPostRules()
+    public function testUpdateBlogPostRules()
     {
-        $request = $this->createValidateDateRequest('patchBlogPost');
+        $request = $this->createValidateDateRequest('updateBlogPost');
         $rules = $request->rules();
 
         $expectedRules = [
-            'name' => ['nullable', 'string', 'max:255'],
             'brief_description' => ['nullable', 'string', 'max:5000'],
-            'title' => ['nullable', 'string', 'max:255'],
+            'title' => ['nullable','string','max:255'],
             'content' => ['nullable', 'string'],
             'authors' => ['nullable', 'string'],
             'image_credits' => ['nullable', 'string'],
-            'image' => ['nullable', 'image'],
-            'id_image' => ['nullable', 'string'],
+            'image' => ['nullable','image'],
+            'id_image' => ['nullable','string'],
             'technologies' => ['nullable', 'string'],
-            'date' => ['nullable', 'string'],
-            'tags' => ['nullable', 'string'],
+            'tags' => ['nullable','string'],
             'categories' => ['nullable', 'string'],
             'subcategories' => ['nullable', 'string'],
-            'validate' => ['nullable', 'string'],
-            'replace_image' => ['nullable', 'string'],
+            'validate' => ['nullable','string'],
+            'replace_image' => ['nullable','string'],
         ];
 
         $this->assertEquals($expectedRules, $rules);
