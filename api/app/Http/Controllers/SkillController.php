@@ -52,22 +52,7 @@ class SkillController extends Controller
         });
     }
 
-    public function putSkills(ValidateDate $request, $id){
-        return $this->executeInTransaction(function () use ($request, $id) {
-            $skill = Skills::findOrFail($id);
-            
-            $skill->name = $request->input('name'); // Actualizar los campos de la habilidad
-            $skill->date = $request->input('date'); // Guardar los cambios en la base de datos
-            $skill->save(); // Guardamos los datos
-            $this->imageAssociationService->updateImages($skill,  $this->haveImages, $this->images, $this->replaceImages, 'image',  $this->ids_images, 'skill', $this->token);
-            $this->updateClassification($skill); // Actualizamos las imagenes y clasificaciones
-            return response()->json([
-                'message' => 'Skill successfully updated'
-            ], 200);
-        });
-    }
-
-    public function patchSkills(ValidateDate $request, $id){
+    public function updateSkills(ValidateDate $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
             $skill = Skills::find($id);
             if ($request->input('name')) {

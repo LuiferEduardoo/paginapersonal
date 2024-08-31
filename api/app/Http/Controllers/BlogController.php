@@ -65,29 +65,8 @@ class BlogController extends Controller
         });
     }
 
-    public function putBlogPost(ValidateDate $request, $id){
-        return $this->executeInTransaction(function () use ($request, $id) {
-            $blogPost = BlogPost::findOrFail($id);
-            $title = $request->input('title');
-            $content = $this->parsedown->text($request->input('content'));
-            $blogPost->title = $title;
-            $blogPost->content = $content;
-            $blogPost->link = $this->link->generate($title, $blogPost);
-            $blogPost->authors = $this->authors($request);
-            $blogPost->reading_time = $this->time->readingTime($request->input('content'));
-            $blogPost->image_credits = $request->input('image_credits');
-            $blogPost->save();
-            if($this->haveImages || $this->ids_images){
-                $this->imageAssociationService->updateImages($blogPost,  $this->haveImages, $this->images, $this->replaceImages, 'image',  $this->ids_images, 'blog', $this->token);
-            }
-            $this->updateClassification($blogPost); // Guardamos las imagenes y clasificaciones
-            return response()->json([
-                'message' => 'Blog post successfully updated'
-            ], 200);
-        });
-    }
 
-    public function patchBlogPost(ValidateDate $request, $id){
+    public function updateBlogPost(ValidateDate $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
             $blogPost = BlogPost::find($id);
             if ($request->input('title')) {

@@ -61,28 +61,7 @@ class ProjectController extends Controller
         });
     }
 
-    public function putProject(ValidateDate $request, $id){
-        return $this->executeInTransaction(function () use ($request, $id) {
-            $project = Projects::findOrFail($id);
-            $urlRepository = $request->input('url_repository');
-
-            // Se actualiza los campos de projects
-            $project->name = $request->input('name');
-            $project->link = $this->link->generate($request->input('name'), $project);
-            $project->brief_description = $request->input('brief_description');
-            $project->url_repository = $urlRepository;
-            $project->save();
-            if($this->haveImages || $this->ids_images){
-                $this->imageAssociationService->updateImages($project,  $this->haveImages, $this->images, $this->replaceImages, 'image',  $this->ids_images, 'project/image', $this->token);
-            }
-            $this->updateClassification($project, true); // Actualizamos las imagenes y clasificaciones
-            return response()->json([
-                'message' => 'Project successfully updated'
-            ], 200);
-        });
-    }
-
-    public function patchProject(ValidateDate $request, $id){
+    public function updateProject(ValidateDate $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
             $project = Projects::find($id);
             if (!$project) {
