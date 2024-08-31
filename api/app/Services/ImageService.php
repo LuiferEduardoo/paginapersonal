@@ -17,7 +17,7 @@ class ImageService
     {
         $this->url = $url ?: $_ENV['IMAGE_SERVICE'];
     }    
-    private function getClient($token)
+    protected function getClient($token)
     {
         $client = new Client([
             'headers' => [
