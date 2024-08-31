@@ -35,7 +35,9 @@ class ProjectController extends Controller
                 'link' => $this->link->generate($request->input('name'), Projects::class),
                 ]);
             $project->save(); // Se guarda la información del repositorio en la base de datos
-            $this->saveImagesAndClassification($project, 'project/image', 'image', true, $request->hasFile('miniature'), $request->file('miniature'), $request->input('id_miniature'));
+            $this->imageAssociationService->saveImages($project, $this->haveImages, $this->images, $this->ids_images, 'project/image', 'image', $this->token);
+            $this->imageAssociationService->saveImages($project, true, $request->file('miniature'), $request->input('id_miniature'), 'project/miniature', 'miniature', $this->token);
+            $this->saveClassification($project, true);
             return response()->json([
                 'message' => 'Project successfully created'
             ], 200);
@@ -47,7 +49,9 @@ class ProjectController extends Controller
             $eliminateMiniature = filter_var($request->input('eliminate_miniature'), FILTER_VALIDATE_BOOLEAN);
             $project = Projects::find($id);
             if($project){
-                $this->deleteImagesAndClassification($project, 'image', 'tecnologies', $eliminateMiniature);
+                $this->imageAssociationService->deleteImages($project, 'image', $this->eliminateImages, $this->token);
+                $this->imageAssociationService->deleteImages($project, 'miniature', $eliminateMiniature, $this->token);
+                $this->deleteClassification($project, 'tecnologies');
                 $project->delete();
                 return response()->json(['message' => 'Project successfully deleted'], 200);
             }
@@ -68,7 +72,10 @@ class ProjectController extends Controller
             $project->brief_description = $request->input('brief_description');
             $project->url_repository = $urlRepository;
             $project->save();
-            $this->updateImagesAndClassification($project, 'image', 'project/image', true, $request->hasFile('miniature'), $request->file('miniature'), $request->input('id_miniature'), $this->replaceMiniature); // Actualizamos las imagenes y clasificaciones
+            if($this->haveImages || $this->ids_images){
+                $this->imageAssociationService->updateImages($project,  $this->haveImages, $this->images, $this->replaceImages, 'image',  $this->ids_images, 'project/image', $this->token);
+            }
+            $this->updateClassification($project, true); // Actualizamos las imagenes y clasificaciones
             return response()->json([
                 'message' => 'Project successfully updated'
             ], 200);
@@ -103,7 +110,10 @@ class ProjectController extends Controller
             if($request->input('important') !== null) {
                 $project->important = $this->important;
             }
-            $this->updateImagesAndClassification($project, 'image', 'project/image', true, $request->hasFile('miniature'), $request->file('miniature'), $request->input('id_miniature'), $this->replaceMiniature); // Actualizamos las imagenes y clasificaciones
+            if($this->haveImages || $this->ids_images){
+                $this->imageAssociationService->updateImages($project,  $this->haveImages, $this->images, $this->replaceImages, 'image',  $this->ids_images, 'project/image', $this->token);
+            }
+            $this->updateClassification($project, true);
             $project->save();
             return response()->json([
                 'message' => 'Project updated successfully',

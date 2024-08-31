@@ -91,19 +91,16 @@ class Controller extends BaseController
         }
     }
 
-    protected function saveImagesAndClassification($object, $folder, $association, $isProject=false, $haveMiniature=null, $miniature=null, $idMiniature=null){
-        $this->imageAssociationService->saveImages($object, $this->haveImages, $this->images, $this->ids_images, $folder, $association, $this->token); // Se guarda la imagen 
+    protected function saveClassification($object, $isProject=false){
         $this->classificationService->createItems($object, $this->tags, 'tags', Tags::class, 'name');
         $this->classificationService->createItems($object, $this->categories, 'categories', Categories::class, 'name');
         $this->classificationService->createItems($object, $this->subcategories, 'subcategories', Subcategories::class, 'name');
         if($isProject){
             $this->technologyService->addTechnology($object, $this->tecnhologies);
             $this->githubService->create($object, $this->repositoriesUrl, $this->categoriesRepositories); // Se obtiene la información de repositorio en github
-            $this->imageAssociationService->saveImages($object, $haveMiniature, $miniature, $idMiniature, 'project/miniature', 'miniature', $this->token); // Se guarda la miniatura
         }
     }
-    protected function deleteImagesAndClassification($object, $relationImages, $technologyService=null, $eliminateMiniature=false){
-        $this->imageAssociationService->deleteImages($object, $relationImages, $this->eliminateImages, $this->token);
+    protected function deleteClassification($object, $technologyService=null){
         $itemsClassificationOfEliminate = array('tags', 'categories', 'subcategories');
         foreach($itemsClassificationOfEliminate as $item){
             if($item != null){
@@ -111,15 +108,11 @@ class Controller extends BaseController
             }
             if($technologyService != null){
                 $this->technologyService->deleteTechnology($object); // Se Borran las tecnologias
-                $this->imageAssociationService->deleteImages($object, 'miniature', $eliminateMiniature, $this->token); // Se borra la miniatura
                 $this->githubService->delete($object); // Se borran todas las relaciones de la información de github
             }
         }
     }
-    protected function updateImagesAndClassification($object, $relation, $folder, $isProject=false, $haveMiniature=false, $miniature=null, $idMiniature=null, $replaceMiniature=false){
-        if($this->haveImages || $this->ids_images){
-            $this->imageAssociationService->updateImages($object,  $this->haveImages, $this->images, $this->replaceImages, $relation,  $this->ids_images, $folder, $this->token);
-        }
+    protected function updateClassification($object, $isProject=false){
         if($this->tags[0]){
             $this->classificationService->updateItems($object, $this->tags, 'tags', Tags::class, 'name');
         }
@@ -134,9 +127,6 @@ class Controller extends BaseController
         }
         if($isProject){
             $this->githubService->update($object, $this->repositoriesUrl, $this->categoriesRepositories, $this->idsUpdateRepositories, $this->categoriesRepositoriesUpdate, $this->idsEliminateRepositories);
-        }
-        if($haveMiniature){
-            $this->imageAssociationService->updateImages($object, $haveMiniature, $miniature, $replaceMiniature, 'miniature', $idMiniature, 'project/miniature', $this->token);
         }
     }
 }

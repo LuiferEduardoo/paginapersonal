@@ -42,7 +42,8 @@ class BlogController extends Controller
             ]);
             $blogPost->user_id = $request->user()->id;
             $blogPost->save();
-            $this->saveImagesAndClassification($blogPost, 'blog', 'image');
+            $this->imageAssociationService->saveImages($blogPost, $this->haveImages, $this->images, $this->ids_images, 'blog', 'image', $this->token);
+            $this->saveClassification($blogPost);
             return response()->json([
                 'message' => 'Blog post successfully created'
             ], 200);
@@ -54,7 +55,8 @@ class BlogController extends Controller
             $id = $request->input('id');
             if(BlogPost::findOrFail($id)){
                 $blogPost = BlogPost::findOrFail($id);
-                $this->deleteImagesAndClassification($blogPost, 'image');
+                $this->imageAssociationService->deleteImages($blogPost, 'image', $this->eliminateImages, $this->token);
+                $this->deleteClassification($blogPost);
                 $blogPost->delete();
                 return response()->json(['message' => 'Blog post successfully deleted'],200);
             }
@@ -76,7 +78,10 @@ class BlogController extends Controller
             $blogPost->reading_time = $this->time->readingTime($request->input('content'));
             $blogPost->image_credits = $request->input('image_credits');
             $blogPost->save();
-            $this->updateImagesAndClassification($blogPost, 'image', 'blog'); // Guardamos las imagenes y clasificaciones
+            if($this->haveImages || $this->ids_images){
+                $this->imageAssociationService->updateImages($blogPost,  $this->haveImages, $this->images, $this->replaceImages, 'image',  $this->ids_images, 'blog', $this->token);
+            }
+            $this->updateClassification($blogPost); // Guardamos las imagenes y clasificaciones
             return response()->json([
                 'message' => 'Blog post successfully updated'
             ], 200);
@@ -102,7 +107,10 @@ class BlogController extends Controller
             if($request->input('image_credits')){
                 $blogPost->image_credits = $request->input('image_credits');
             }
-            $this->updateImagesAndClassification($blogPost, 'image', 'blog'); // Guardamos las imagenes y clasificaciones
+            if($this->haveImages || $this->ids_images){
+                $this->imageAssociationService->updateImages($blogPost,  $this->haveImages, $this->images, $this->replaceImages, 'image',  $this->ids_images, 'blog', $this->token);
+            }
+            $this->updateClassification($blogPost); // Guardamos las imagenes y clasificaciones
             $blogPost->save();
             return response()->json([
                 'message' => 'Blog post updated successfully',
