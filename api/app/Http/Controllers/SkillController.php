@@ -37,11 +37,10 @@ class SkillController extends Controller
         });
     }
 
-    public function deleteSkills(ValidateDate $request){
-        return $this->executeInTransaction(function () use ($request) {
-            $id = $request->input('id');
-            if(Skills::findOrFail($id)){
-                $skill = Skills::findOrFail($id);
+    public function deleteSkills(ValidateDate $request, $id){
+        return $this->executeInTransaction(function () use ($request, $id) {
+            $skill = Skills::find($id);
+            if($skill){
                 $this->imageAssociationService->deleteImages($skill, 'image', $this->eliminateImages, $this->token);
                 $this->deleteClassification($skill);
                 $skill->delete();
