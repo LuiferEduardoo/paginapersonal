@@ -50,7 +50,7 @@ class SkillController extends Controller
 
     public function updateSkills(ValidateDate $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
-            $skill = Skills::find($id);
+            $skill = $this->HandlesFilndElement->findOne(Skills::class, $id);
             if ($request->input('name')) {
                 $skill->name = $request->input('name');
             }

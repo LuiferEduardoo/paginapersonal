@@ -65,7 +65,7 @@ class BlogController extends Controller
 
     public function updateBlogPost(ValidateDate $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
-            $blogPost = BlogPost::find($id);
+            $blogPost = $this->HandlesFilndElement->findOne(BlogPost::class, $id);
             if ($request->input('title')) {
                 $title = $request->input('title');
                 $blogPost->title = $title;

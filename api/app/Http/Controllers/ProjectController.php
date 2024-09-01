@@ -60,11 +60,8 @@ class ProjectController extends Controller
 
     public function updateProject(ValidateDate $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
-            $project = Projects::find($id);
-            if (!$project) {
-                return response()->json(['message' => 'Project not found'], 404);
-            }
-
+            $project = $this->HandlesFilndElement->findOne(Projects::class, $id);
+            
             if ($request->input('name')) {
                 $name = $request->input('name');
                 $project->name = $name;
