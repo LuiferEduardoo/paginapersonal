@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Parsedown;
+use App\Helpers\HandlesFilndElement;
 use App\Models\Tags;
 use App\Models\Categories;
 use App\Models\Subcategories;
@@ -26,6 +27,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected $HandlesFilndElement;
     protected $link;
     protected $time;
     protected $classificationService;
@@ -51,8 +53,9 @@ class Controller extends BaseController
     protected $replaceImages;
     protected $eliminateImages;
 
-    public function __construct(Link $link, Time $time, ClassificationService $classificationService, ImageAssociationService $imageAssociationService, GithubService $githubService, TechnologyService $technologyService, Request $request)
+    public function __construct(HandlesFilndElement $HandlesFilndElement, Link $link, Time $time, ClassificationService $classificationService, ImageAssociationService $imageAssociationService, GithubService $githubService, TechnologyService $technologyService, Request $request)
     {
+        $this->HandlesFilndElement = $HandlesFilndElement;
         $this->link = $link;
         $this->time = $time;
         $this->classificationService = $classificationService;
@@ -87,7 +90,7 @@ class Controller extends BaseController
             return $result;
         } catch (\Exception $e) {
             DB::rollBack();
-            throw new \Exception($e->getMessage());
+            throw $e;
         }
     }
 

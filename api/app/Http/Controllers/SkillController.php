@@ -39,16 +39,12 @@ class SkillController extends Controller
 
     public function deleteSkills(ValidateDate $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
-            $skill = Skills::find($id);
-            if($skill){
-                $this->imageAssociationService->deleteImages($skill, 'image', $this->eliminateImages, $this->token);
-                $this->deleteClassification($skill);
-                $skill->delete();
-                return response()->json(['message' => 'Skills successfully deleted'],200);
-            }
-            return response()->json([
-                'message' => "Skill not fount"
-            ], 404);
+            $skill = $this->HandlesFilndElement->findOne(Skills::class, $id);
+
+            $this->imageAssociationService->deleteImages($skill, 'image', $this->eliminateImages, $this->token);
+            $this->deleteClassification($skill);
+            $skill->delete();
+            return response()->json(['message' => 'Skills successfully deleted'],200);
         });
     }
 

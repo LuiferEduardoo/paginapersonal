@@ -52,16 +52,13 @@ class BlogController extends Controller
 
     public function deleteBlogPost(Request $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
-            $blogPost = BlogPost::find($id);
+            $blogPost = $this->HandlesFilndElement->findOne(BlogPost::class, $id);
             if($blogPost){
                 $this->imageAssociationService->deleteImages($blogPost, 'image', $this->eliminateImages, $this->token);
                 $this->deleteClassification($blogPost);
                 $blogPost->delete();
                 return response()->json(['message' => 'Blog post successfully deleted'],200);
             }
-            return response()->json([
-                'message' => "Blog post not fount"
-            ], 404);
         });
     }
 

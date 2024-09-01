@@ -47,7 +47,7 @@ class ProjectController extends Controller
     public function deleteProject(Request $request, $id){
         return $this->executeInTransaction(function () use ($request, $id) {
             $eliminateMiniature = filter_var($request->input('eliminate_miniature'), FILTER_VALIDATE_BOOLEAN);
-            $project = Projects::find($id);
+            $project = $this->HandlesFilndElement->findOne(Projects::class, $id);
             if($project){
                 $this->imageAssociationService->deleteImages($project, 'image', $this->eliminateImages, $this->token);
                 $this->imageAssociationService->deleteImages($project, 'miniature', $eliminateMiniature, $this->token);
@@ -55,9 +55,6 @@ class ProjectController extends Controller
                 $project->delete();
                 return response()->json(['message' => 'Project successfully deleted'], 200);
             }
-            return response()->json([
-                'message' => "Project not fount"
-            ], 404);
         });
     }
 
