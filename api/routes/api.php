@@ -24,11 +24,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::delete('/skills/{id}', [SkillController::class, 'deleteSkills']);
     Route::put('/skills/{id}', [SkillController::class, 'updateSkills']);
 
-    Route::post('/project/create', [ProjectController::class, 'createProject']);
-    Route::delete('/project/{id}', [ProjectController::class, 'deleteProject']);
-    Route::put('/project/{id}', [ProjectController::class, 'updateProject']);
+    Route::post('/projects/create', [ProjectController::class, 'createProject']);
+    Route::delete('/projects/{id}', [ProjectController::class, 'deleteProject']);
+    Route::put('/projects/{id}', [ProjectController::class, 'updateProject']);
 
-    Route::post('/blogpost/create', [BlogController::class, 'createBlogPost']);
-    Route::delete('/blogpost/{id}', [BlogController::class, 'deleteBlogPost']);
-    Route::put('/blogpost/{id}', [BlogController::class, 'updateBlogPost']);
+    Route::post('/blogposts/create', [BlogController::class, 'createBlogPost']);
+    Route::delete('/blogposts/{id}', [BlogController::class, 'deleteBlogPost']);
+    Route::put('/blogposts/{id}', [BlogController::class, 'updateBlogPost']);
 });
