@@ -11,8 +11,8 @@ class SkillController extends Controller
 {
 
     public function getSkills(Request $request, $id = null){
-        $query = Skills::with('image', 'categories', 'subcategories', 'tags');
         $relations = ['image', 'categories', 'subcategories', 'tags'];
+        $query = Skills::with($relations);
         if ($id) {
             return $this->HandlesFilndElement->findOne(Skills::class, $id, $relations);
         }

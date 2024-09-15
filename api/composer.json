@@ -30,7 +30,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/HandlesFilndElement.php"
+            "app/Helpers/HandlesFilndElement.php",
+            "app/Helpers/HandleParameter.php"
     ]
     },
     "autoload-dev": {
