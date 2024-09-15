@@ -16,8 +16,9 @@ class ProjectController extends Controller
     }
     public function getProject(Request $request, $id = null){
         $relations = ['repositories.categories', 'miniature', 'image', 'categories', 'subcategories', 'technology' ,'tags'];
-        if ($id) {
-            return $this->HandlesFilndElement->findOne(Projects::class, $id, $relations);
+        $link = $request->query('link');
+        if ($id || $link) {
+            return $this->HandlesFilndElement->findOne(Projects::class, $id, $link, $relations);
         }
         $project = $this->HandlesFilndElement->findAll(Projects::class, $relations, $request->query());
         return response()->json($project);
