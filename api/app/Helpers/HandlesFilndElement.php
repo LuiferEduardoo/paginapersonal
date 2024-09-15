@@ -4,18 +4,22 @@ namespace App\Helpers;
 
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use App\Helpers\HandleParameter;
+use App\Helpers\PermissionsHelper;
 
 class HandlesFilndElement
 {
 
     protected $handleParameter;
+    protected $permissionsHelper;
 
-    public function __construct(HandleParameter $handleParameter) {
+    public function __construct(HandleParameter $handleParameter, PermissionsHelper $permissionsHelper) {
         $this->handleParameter = $handleParameter;
+        $this->permissionsHelper = $permissionsHelper;
     }
 
-    public function findOne(string $modelClass, int $id, array $relations): ?Model
+    public function findOne(string $modelClass, int $id, array $relations = []): ?Model
     {
         $model = $modelClass::find($id);
 
@@ -23,6 +27,8 @@ class HandlesFilndElement
             throw new NotFoundHttpException("Not found");
         }
 
+        $checkPermission = $this->permissionsHelper->seeHiddeItem($model);
+        
         if($relations){
             $model->load($relations);
         }
@@ -38,7 +44,8 @@ class HandlesFilndElement
             $model = $model->with($relations);
         }
 
-        $model->where('visible', true);
+        $this->permissionsHelper->seeHiddeItems($model);
+        
         $model->orderBy('created_at', 'desc');
 
         
