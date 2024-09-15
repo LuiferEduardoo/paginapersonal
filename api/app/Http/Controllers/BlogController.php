@@ -18,11 +18,11 @@ class BlogController extends Controller
         }
         return $authors;
     }
-    public function getBlogPost(Request $request){
+    public function getBlogPost(Request $request, $id = null){
+        $relations = ['user.profile', 'image', 'categories', 'subcategories' ,'tags'];
         $query = BlogPost::with('user.profile', 'image', 'categories', 'subcategories' ,'tags');
-        if ($request->input('id')) {
-            $id = $request->input('id');
-            $query->where('id', $id);
+        if ($id) {
+            return $this->HandlesFilndElement->findOne(BlogPost::class, $id, $relations);
         }
         $query->where('visible', true);
         $query->orderBy('created_at', 'desc');

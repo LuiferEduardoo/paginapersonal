@@ -14,11 +14,11 @@ class ProjectController extends Controller
     public function constructor(Request $request){
         $this->replaceMiniature = filter_var($request->input('replace_miniature'), FILTER_VALIDATE_BOOLEAN);
     }
-    public function getProject(Request $request){
+    public function getProject(Request $request, $id = null){
         $query = Projects::with('repositories.categories', 'miniature', 'image', 'categories', 'subcategories', 'technology' ,'tags');
-        if ($request->input('id')) {
-            $id = $request->input('id');
-            $query->where('id', $id);
+        $relations = ['repositories.categories', 'miniature', 'image', 'categories', 'subcategories', 'technology' ,'tags'];
+        if ($id) {
+            return $this->HandlesFilndElement->findOne(Projects::class, $id, $relations);
         }
         $query->where('visible', true);
         $query->orderBy('created_at', 'desc');

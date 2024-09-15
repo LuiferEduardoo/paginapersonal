@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Storage;
 class SkillController extends Controller
 {
 
-    public function getSkills(Request $request){
+    public function getSkills(Request $request, $id = null){
         $query = Skills::with('image', 'categories', 'subcategories', 'tags');
-        if ($request->input('id')) {
-            $id = $request->input('id');
-            $query->where('id', $id);
+        $relations = ['image', 'categories', 'subcategories', 'tags'];
+        if ($id) {
+            return $this->HandlesFilndElement->findOne(Skills::class, $id, $relations);
         }
         $query->where('visible', true);
         $skills = $query->get();

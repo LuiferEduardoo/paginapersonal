@@ -12,9 +12,9 @@ use App\Http\Controllers\BlogController;
 
 Route::post('/email', [EmailController::class, 'SendEmail']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/skills', [SkillController::class, 'GetSkills']);
-Route::get('/projects', [ProjectController::class, 'getProject']);
-Route::get('/blogposts', [BlogController::class, 'getBlogPost']);
+Route::get('/skills/{id?}', [SkillController::class, 'GetSkills']);
+Route::get('/projects/{id?}', [ProjectController::class, 'getProject']);
+Route::get('/blogposts/{id?}', [BlogController::class, 'getBlogPost']);
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user', [AuthController::class, 'getInformationUser']);
     Route::delete('/logout', [AuthController::class, 'logout']);
