@@ -19,20 +19,24 @@ class HandlesFilndElement
         $this->permissionsHelper = $permissionsHelper;
     }
 
-    public function findOne(string $modelClass, int $id, array $relations = []): ?Model
+    public function findOne(string $modelClass, int $id = null, string $link = null, array $relations = []): ?Model
     {
-        $model = $modelClass::find($id);
-
+        if ($link) {
+            $model = $modelClass::where('link', $link)->first();
+        } else {
+            $model = $modelClass::find($id);
+        }
+    
         if (!$model) {
             throw new NotFoundHttpException("Not found");
         }
-
+    
         $checkPermission = $this->permissionsHelper->seeHiddeItem($model);
-        
-        if($relations){
+    
+        if ($relations) {
             $model->load($relations);
         }
-
+    
         return $model;
     }
 
