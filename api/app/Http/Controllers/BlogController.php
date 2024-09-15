@@ -20,8 +20,9 @@ class BlogController extends Controller
     }
     public function getBlogPost(Request $request, $id = null){
         $relations = ['user.profile', 'image', 'categories', 'subcategories' ,'tags'];
-        if ($id) {
-            return $this->HandlesFilndElement->findOne(BlogPost::class, $id, $relations);
+        $link = $request->query('link');
+        if ($id || $link) {
+            return $this->HandlesFilndElement->findOne(BlogPost::class, $id, $link, $relations);
         }
         $blogPost = $this->HandlesFilndElement->findAll(BlogPost::class, $relations, $request->query());
         return response()->json($blogPost);
