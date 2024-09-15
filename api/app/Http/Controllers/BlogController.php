@@ -73,6 +73,12 @@ class BlogController extends Controller
                 $blogPost->content = $this->parsedown->text($content);
                 $blogPost->reading_time = $this->time->readingTime($content);
             }
+            if ($request->input('visible') !== null) {
+                $blogPost->visible = $this->visible;
+            }
+            if($request->input('important') !== null) {
+                $blogPost->important = $this->important;
+            }
             if($request->input('authors')){
                 $blogPost->authors = $this->authors($request);
             }
